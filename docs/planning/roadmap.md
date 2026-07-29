@@ -12,8 +12,9 @@ last_reviewed: 2026-07-30
 
 ```text
 Documentation baseline
-  -> READY_FOR_PHASE_0
-  -> Phase 0 not started
+  -> PRODUCT_DISCOVERY_REQUIRED
+  -> Product Discovery not started
+  -> DG0 not evaluated
   -> No runtime code
   -> No deployment authorization
   -> No Meta write authorization
@@ -25,16 +26,32 @@ Documentation baseline
 
 | 阶段 | 依赖 | 主要结果 | Gate |
 | --- | --- | --- | --- |
-| Phase 0：业务与权限确认 | 无 | 业务、KPI、权限、数据范围和账户决策 | G0 |
+| Product Discovery | 无 | 内部用户、问题、形态、内容、MVP 和试点指标 | DG0 |
+| Phase 0：业务与权限确认 | DG0 | 业务、KPI、权限、数据范围和账户决策 | G0 |
 | Phase 1：数据控制平面 | G0 | Worker、D1、R2、同步、质量和 staging 验证 | G1 |
 | Phase 2：MCP 与只读分析 | G1 | Remote MCP、分析 Skill 和只读 MVP | G2 |
 | Phase 3：网页控制台 | G1 | RBAC、配置、图表、同步状态和审计 | G3 |
 | Phase 4：审批式写操作 | G2、G3、独立授权 | 状态机、网页审批和有限 Meta 写入 | G4 |
 | Phase 5：有限自动化 | G4、经批准 Dry Run | 规则边界、熔断、白名单和审计自动化 | G5 |
 
-Phase 2 与 Phase 3 可在 G1 后部分并行，但权限和租户测试不能跳过。
+Phase 0–5 来自旧候选方案。`DG0` 通过后必须按实际产品定义重新评审这些阶段、组件和
+Gate；当前表不构成实现承诺。
+
+## Product Discovery
+
+- `PD-01` 协调 3–5 名内部真实用户，至少获得 3 名有效参与者。
+- `PD-02` 先完成问题访谈，登记脱敏 `EVD-*`。
+- `PD-03` 综合近期任务、当前流程、重复成本、风险和期望结果。
+- `PD-04` 使用相同任务比较对话式、Web 工作台和混合式低保真方案。
+- `PD-05` 形成内部试点产品定义、内容地图和 `MVP`/`LATER`/`REJECTED` 功能。
+- `PD-06` 评估 `DG0` 并由项目负责人确认。
+
+执行入口见[Product Discovery](../discovery/README.md)。
 
 ## Phase 0：业务与权限确认
+
+启动前置条件：`DG0` 为 `PASS`，项目状态为 `READY_FOR_PHASE_0`，且项目负责人另行启动
+Phase 0。当前不得执行本节任务。
 
 任务：
 
@@ -45,11 +62,13 @@ Phase 2 与 Phase 3 可在 G1 后部分并行，但权限和租户测试不能�
 - `P0-05` 确认历史回填和数据保留期。
 - `P0-06` 确认网页用户、角色、认证和审批权。
 - `P0-07` 确认 `cf-primary` 域名、套餐、账单和资源所有权。
-- `P0-08` 创建 Meta App 和只读授权路径。
+- `P0-08` 在单独授权后创建 Meta App 和只读授权路径。
 
 使用 [Phase 0 问卷](phase-0-questionnaire.md)收集决定和脱敏证据。
 
 ## Phase 1：Cloudflare 数据控制平面
+
+以下任务只适用于 Product Discovery 和后续技术评审选择 Cloudflare 方案的情况：
 
 - `P1-01` 创建 TypeScript Worker 和本地环境。
 - `P1-02` 创建 D1 migration 和租户约束。
@@ -62,6 +81,8 @@ Phase 2 与 Phase 3 可在 G1 后部分并行，但权限和租户测试不能�
 
 ## Phase 2：Remote MCP 与 Codex 只读分析
 
+以下任务只适用于产品形态选择 Codex 和 Remote MCP 的情况：
+
 - `P2-01` 实现 MCP 认证和用户到 Workspace 映射。
 - `P2-02` 实现全部只读工具。
 - `P2-03` 实现分页、限制、错误 envelope 和安全日志。
@@ -72,6 +93,8 @@ Phase 2 与 Phase 3 可在 G1 后部分并行，但权限和租户测试不能�
 G2 完成后形成只读 MVP。
 
 ## Phase 3：精简网页控制台
+
+以下任务只适用于产品形态选择 Web 能力的情况：
 
 - `P3-01` 实现用户认证和 RBAC。
 - `P3-02` 实现连接、账户绑定和指标配置。

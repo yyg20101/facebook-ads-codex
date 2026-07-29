@@ -1,7 +1,7 @@
 ---
 doc_id: STD-SECURITY-SECRETS
 type: standard
-status: ACCEPTED
+status: DRAFT
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
@@ -9,6 +9,8 @@ last_reviewed: 2026-07-30
 # 安全与密钥规范
 
 本规范实现根目录 [SECURITY.md](../../SECURITY.md) 的政策，不取代安全政策。
+具体 Cloudflare、Workspace、审批和 Secret 落点属于候选实现；安全政策继续有效，但
+本页在产品形态和架构确定前不构成已接受实现规范。
 
 ## Secret
 

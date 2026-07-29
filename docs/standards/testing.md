@@ -1,12 +1,15 @@
 ---
 doc_id: STD-TESTING
 type: standard
-status: ACCEPTED
+status: DRAFT
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
 
 # 测试规范
+
+> 候选实现规范：本页的组件和 E2E 场景来自旧方案，`DG0` 后必须按实际 MVP 重建。
+> 文档校验规则当前仍为强制要求。
 
 ## 原则
 

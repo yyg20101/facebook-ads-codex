@@ -14,8 +14,8 @@ last_reviewed: 2026-07-30
 ## 当前状态
 
 当前阶段、运行模式和授权布尔值只在
-[项目状态与授权](project/status-and-authorizations.md)中维护。项目目前仅达到
-`READY_FOR_PHASE_0`，不代表实现、部署或 Meta 写能力已经就绪。
+[项目状态与授权](project/status-and-authorizations.md)中维护。项目当前为
+`PRODUCT_DISCOVERY_REQUIRED` / `PRE_DISCOVERY`，产品形态与功能尚未确认。
 
 ## 权威边界
 
@@ -24,8 +24,9 @@ last_reviewed: 2026-07-30
 | 项目目标、范围和全局边界 | [项目章程](project/charter.md) | 任何领域文档不得扩大章程范围 |
 | 当前阶段和授权 | [项目状态与授权](project/status-and-authorizations.md) | 其他文档不得复制授权值 |
 | 安全政策 | [根目录安全策略](../SECURITY.md) | 技术设计和编码规范不得削弱安全不变量 |
+| 产品问题与证据 | [产品发现](discovery/README.md) | `DQ-*`、`EVD-*`、原型比较和 `DG0` |
 | 产品行为与验收 | [需求文档](requirements/README.md) | 使用稳定需求 ID |
-| 架构与实现契约 | [技术文档](technical/README.md) | 未实施内容不表述为已验证事实 |
+| 候选架构与实现契约 | [技术文档](technical/README.md) | `DG0` 前不得作为实施依据 |
 | 工程实践 | [规范文档](standards/README.md) | 约束代码、数据、测试和发布 |
 | 长期架构决策 | [ADR 索引](decisions/README.md) | 仅 `ACCEPTED` ADR 具有约束力 |
 | 阶段、Gate 和证据 | [规划文档](planning/roadmap.md) | Gate 必须由证据通过 |
@@ -43,8 +44,17 @@ last_reviewed: 2026-07-30
 3. [安全策略](../SECURITY.md)
 4. 当前任务所属领域的需求、技术和规范文档
 
+### Product Discovery
+
+- [产品发现入口](discovery/README.md)
+- [发现问题](discovery/discovery-questions.md)
+- [研究计划](discovery/research-plan.md)
+- [产品形态验证](discovery/product-shape-validation.md)
+- [产品定义与 DG0](discovery/product-definition.md)
+
 ### Phase 0
 
+- 前置条件：[产品定义与 DG0](discovery/product-definition.md)为 `PASS`。
 - [产品需求](requirements/product.md)
 - [Phase 0 问卷](planning/phase-0-questionnaire.md)
 - [Gate 与证据](planning/gates-and-evidence.md)
@@ -73,10 +83,11 @@ last_reviewed: 2026-07-30
 | 分类 | 入口 | 状态 |
 | --- | --- | --- |
 | 项目治理 | [项目章程](project/charter.md) | `ACCEPTED` |
-| 需求 | [需求索引](requirements/README.md) | 混合状态 |
+| 产品发现 | [发现入口](discovery/README.md) | `DRAFT` |
+| 需求 | [需求索引](requirements/README.md) | 全部 `DRAFT` |
 | 技术设计 | [技术索引](technical/README.md) | `DRAFT` |
-| 工程规范 | [规范索引](standards/README.md) | `ACCEPTED` |
-| 架构决策 | [ADR 索引](decisions/README.md) | ADR-001–006 `ACCEPTED` |
+| 工程规范 | [规范索引](standards/README.md) | 治理已接受，实施规范为候选 |
+| 架构决策 | [ADR 索引](decisions/README.md) | ADR-001–006 `DRAFT` |
 | 实施规划 | [路线图](planning/roadmap.md) | `DRAFT` |
 | 运维手册 | [Runbook 索引](runbooks/README.md) | `DRAFT` |
 | 术语 | [术语表](glossary.md) | `ACCEPTED` |

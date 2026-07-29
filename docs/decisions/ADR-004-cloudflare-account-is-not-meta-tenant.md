@@ -1,12 +1,14 @@
 ---
 doc_id: ADR-004
 type: decision
-status: ACCEPTED
+status: DRAFT
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
 
 # ADR-004：Cloudflare 账户不等于 Meta 租户
+
+> 候选方案：本 ADR 尚未由用户问题和产品形态证据支持，`DG0` 前不具有约束力。
 
 ## 背景
 

@@ -1,45 +1,34 @@
 # Facebook Ads Codex
 
-以 Codex 为唯一 AI 交互入口、以 Cloudflare 为数据与执行控制平面的
-Facebook/Meta 广告管理和分析系统。
+面向 Meta/Facebook 广告领域的产品发现与后续实现项目。
 
-> 当前只完成模块化文档基线，项目尚未进入 Phase 0，也没有可运行的业务代码。
+> 当前处于产品发现前，目标用户、核心问题、产品形态、产品内容和 MVP 功能尚未确认。
+> Codex、Web、Cloudflare、MCP 和自动化均为候选方案，不是已接受的产品前提。
 >
 > 当前阶段和授权以[项目状态与授权](docs/project/status-and-authorizations.md)为准。
 
-## 项目目标
+## 当前目标
 
-本项目计划让 Codex 能够：
+本轮只建立可验证的产品发现过程：
 
-- 安全读取多个已授权 Meta 广告账户的数据。
-- 统一 Campaign、Ad Set 和 Ad 层级的指标口径。
-- 生成日报、异常诊断和有证据支持的优化建议。
-- 将建议转换为可审计的变更申请。
-- 仅在人工审批和策略校验后执行有限写操作。
-- 仅在长期 Dry Run 后开放有边界的自动化。
+- 访谈 3–5 名内部真实用户，识别近期、高频或高成本的 Meta 广告任务。
+- 比较对话式、Web 工作台和混合式三种产品形态。
+- 用脱敏证据确定一个内部试点用户、核心任务、产品内容和 MVP 功能。
+- 在产品定义通过 `DG0` 前，不进入原 Phase 0 或任何技术实施。
 
-范围和不可变边界见[项目章程](docs/project/charter.md)。
+固定范围和治理边界见[项目章程](docs/project/charter.md)，研究流程见
+[产品发现入口](docs/discovery/README.md)。
 
-## 架构概览
+## 候选产品形态
 
-```mermaid
-flowchart LR
-  Codex["Codex：分析与编排"] --> Skills["Focused Skills"]
-  Skills --> MCP["Cloudflare Remote MCP"]
-  Console["Web Control Console"] --> Control["Cloudflare Control Plane"]
-  MCP --> Control
-  Control --> D1["D1：关系数据"]
-  Control --> R2["R2：原始快照"]
-  Control --> Async["Queues / Workflows"]
-  Control --> Meta["Meta Marketing API"]
-```
+| 形态 | 验证方式 |
+| --- | --- |
+| Codex 对话式工作流 | 与同一核心任务进行比较测试 |
+| Web 工作台式工作流 | 与同一核心任务进行比较测试 |
+| Codex + Web 混合工作流 | 与同一核心任务进行比较测试 |
 
-- Codex 负责理解、推理、分析、建议和工具编排。
-- Cloudflare 负责认证、授权、同步、存储、执行和审计。
-- 网页控制台负责连接、状态、审批和 Emergency stop，不是聊天入口。
-- Cloudflare 账户、Workspace 和 Meta 业务租户独立建模。
-
-详细设计见[系统架构](docs/technical/architecture.md)。
+既有[技术文档](docs/technical/README.md)只保存候选方案，不能作为实施依据。
+候选状态只在[候选解决方案登记](docs/discovery/solution-hypotheses.md)中维护。
 
 ## 文档导航
 
@@ -47,11 +36,12 @@ flowchart LR
 | --- | --- |
 | [项目文档](docs/README.md) | 权威矩阵、任务阅读路径和完整导航 |
 | [项目状态与授权](docs/project/status-and-authorizations.md) | 当前阶段和授权事实源 |
+| [产品发现](docs/discovery/README.md) | 发现问题、研究、证据、形态验证和 DG0 |
 | [需求文档](docs/requirements/README.md) | 产品、功能、质量、角色、指标和追踪 |
-| [技术文档](docs/technical/README.md) | 架构、数据、Meta、MCP、审批和安全设计 |
+| [技术文档](docs/technical/README.md) | 仅供比较的候选架构和实现方案 |
 | [工程规范](docs/standards/README.md) | 代码、接口、数据、安全、测试和发布规则 |
-| [ADR](docs/decisions/README.md) | 已接受的长期架构决策 |
-| [路线图](docs/planning/roadmap.md) | Phase 0–5 和 Gate |
+| [ADR](docs/decisions/README.md) | 候选长期架构决策 |
+| [路线图](docs/planning/roadmap.md) | Product Discovery、Phase 0–5 和 Gate |
 | [安全策略](SECURITY.md) | 安全政策、威胁和报告范围 |
 | [贡献指南](CONTRIBUTING.md) | 变更和评审流程 |
 
@@ -64,7 +54,7 @@ flowchart LR
 3. 检查并保留工作区已有变更。
 4. 只实施当前明确授权的阶段。
 
-Phase 0 只有在项目负责人使用状态文档中的明确启动语句后才开始。
+当前只能准备 Product Discovery。`DG0` 通过前不得启动原 Phase 0。
 
 ## 文档校验
 
@@ -74,14 +64,13 @@ Phase 0 只有在项目负责人使用状态文档中的明确启动语句后才
 npm run docs:check
 ```
 
-该命令检查 Markdown、内部链接、元数据、稳定 ID、需求追踪和常见敏感信息。
+该命令检查 Markdown、内部链接、元数据、稳定 ID、发现状态、需求追踪和常见敏感信息。
 
 ## 核心安全边界
 
-- Token、Authorization Header 和密钥不得进入仓库、日志、R2、浏览器或 Skill。
-- 所有业务查询必须由服务端执行 Workspace 隔离和权限校验。
-- 网页和 MCP 不得提供任意 Meta Graph API、URL 或 SQL 能力。
-- 外部写操作必须基于已批准且未过期的不可变变更申请。
-- Emergency stop 默认开启；缺少安全策略时必须安全失败。
+- Token、Authorization Header、密钥、个人信息和客户数据不得进入仓库或研究证据。
+- 未经明确授权，不得访问 Meta/Cloudflare 资源或创建、修改广告对象。
+- 任何候选方案都不得把客户端或模型输入当作授权证据。
+- 后续外部写能力必须先形成已接受的产品、安全和审批设计。
 
 完整政策见 [SECURITY.md](SECURITY.md)。

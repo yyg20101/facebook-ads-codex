@@ -8,18 +8,28 @@ last_reviewed: 2026-07-30
 
 # 架构决策记录
 
-`ACCEPTED` ADR 是对应长期架构问题的事实源。技术文档只解释如何落实决策。
+当前没有已接受的产品架构。ADR-001–006 保存旧基线中的候选决策，均为 `DRAFT`；
+`DG0` 前不得作为产品、技术或实施约束。
 
-## 已接受决策
+## 候选决策
 
 | ADR | 决策 | 状态 |
 | --- | --- | --- |
-| [ADR-001](ADR-001-codex-only-ai-agent.md) | Codex 是唯一 AI Agent | `ACCEPTED` |
-| [ADR-002](ADR-002-web-is-not-ai-entry.md) | 网页不是 AI 入口 | `ACCEPTED` |
-| [ADR-003](ADR-003-skills-and-mcp-boundary.md) | Skill 与 MCP 分工固定 | `ACCEPTED` |
-| [ADR-004](ADR-004-cloudflare-account-is-not-meta-tenant.md) | Cloudflare 账户不等于 Meta 租户 | `ACCEPTED` |
-| [ADR-005](ADR-005-single-control-plane.md) | MVP 使用单一主控制平面 | `ACCEPTED` |
-| [ADR-006](ADR-006-read-only-first.md) | 能力只读优先并逐级开放 | `ACCEPTED` |
+| [ADR-001](ADR-001-codex-only-ai-agent.md) | Codex 是唯一 AI Agent | `DRAFT` |
+| [ADR-002](ADR-002-web-is-not-ai-entry.md) | 网页不是 AI 入口 | `DRAFT` |
+| [ADR-003](ADR-003-skills-and-mcp-boundary.md) | Skill 与 MCP 分工固定 | `DRAFT` |
+| [ADR-004](ADR-004-cloudflare-account-is-not-meta-tenant.md) | Cloudflare 账户不等于 Meta 租户 | `DRAFT` |
+| [ADR-005](ADR-005-single-control-plane.md) | MVP 使用单一主控制平面 | `DRAFT` |
+| [ADR-006](ADR-006-read-only-first.md) | 能力只读优先并逐级开放 | `DRAFT` |
+
+## 接受条件
+
+候选 ADR 只有在以下条件同时满足时才能改为 `ACCEPTED`：
+
+- `DG0` 已通过，且产品定义证明该架构问题真实存在。
+- 关联的 MVP 功能和产品证据已记录。
+- 至少比较一个可行替代方案，并说明后果、风险和可逆性。
+- 技术设计、安全政策和当前授权没有冲突。
 
 ## 新增 ADR 的条件
 

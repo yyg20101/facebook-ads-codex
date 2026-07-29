@@ -1,12 +1,14 @@
 ---
 doc_id: STD-API-ERRORS
 type: standard
-status: ACCEPTED
+status: DRAFT
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
 
 # API 与错误规范
+
+> 候选实现规范：HTTP、MCP、响应结构和写操作契约尚未选定，`DG0` 前不构成接口要求。
 
 ## Schema-first
 

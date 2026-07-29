@@ -8,6 +8,9 @@ last_reviewed: 2026-07-30
 
 # Codex Skills 设计
 
+> 候选设计：Codex 和 Skills 尚未被产品形态测试选择，`DG0` 前不构成产品入口或
+> 实施授权。
+
 ## 固定分工
 
 根据 [ADR-003](../decisions/ADR-003-skills-and-mcp-boundary.md)：

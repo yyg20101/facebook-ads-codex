@@ -12,15 +12,16 @@ last_reviewed: 2026-07-30
 
 | 术语 | 定义 |
 | --- | --- |
-| User | 已认证的系统用户。 |
-| Workspace | 系统的主要业务和授权租户边界。 |
-| Meta Connection | Workspace 连接 Meta 的授权关系及服务端凭据引用。 |
+| Internal Participant | Product Discovery 的内部真实用户，以 `P-NN` 别名记录。 |
+| User | 候选产品的用户；首要角色由 `DQ-01` 确定。 |
+| Workspace | 候选多租户方案中的业务和授权边界，尚未接受。 |
+| Meta Connection | 候选方案中连接 Meta 的授权关系及服务端凭据引用。 |
 | Meta Business | Meta 业务资产容器，可包含多个广告账户。 |
 | Meta Ad Account | Meta 广告账户，不等同于 Cloudflare 账户或 Workspace。 |
 | Campaign | 广告系列，定义投放目标等上层属性。 |
 | Ad Set | 广告组，通常承载受众、预算、排期、版位或出价。 |
 | Ad | 广告，是创意与投放对象的末级实体。 |
-| `cf-primary` | MVP 的逻辑主 Cloudflare 控制平面账户；具体归属由 BQ-12 确认。 |
+| `cf-primary` | 候选 Cloudflare 方案的逻辑主账户；是否采用该方案及其归属均未确认。 |
 
 ## 数据与指标
 
@@ -59,6 +60,10 @@ last_reviewed: 2026-07-30
 | --- | --- |
 | Phase | 按依赖顺序实施的一组任务。 |
 | Gate | 必须由证据满足的阶段完成门槛，不是授权。 |
+| Product Discovery | 在技术设计前验证用户、问题、价值、形态、内容和 MVP 的阶段。 |
+| `DG0` | 内部试点产品定义 Gate；通过后才可准备原 Phase 0。 |
+| `DQ-*` | 产品发现问题的稳定编号。 |
+| `EVD-*` | 仓库内脱敏研究证据的稳定编号。 |
 | `READ_ONLY` | 仅允许读取和分析。 |
 | `ADVISORY` | 可以生成建议和内部记录，但不执行 Meta 写入。 |
 | `APPROVAL_REQUIRED` | 只能执行经过网页审批和工具确认的受控写入。 |

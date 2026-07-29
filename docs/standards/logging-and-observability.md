@@ -1,12 +1,15 @@
 ---
 doc_id: STD-LOGGING
 type: standard
-status: ACCEPTED
+status: DRAFT
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
 
 # 日志与可观测性规范
+
+> 候选实现规范：日志字段、服务指标和告警范围依赖产品形态与架构，`DG0` 前不构成
+> 已接受运行要求；禁止记录敏感信息的政策继续有效。
 
 ## 结构化日志
 

@@ -6,24 +6,26 @@
 [项目章程](docs/project/charter.md)、[需求](docs/requirements/README.md)和
 [技术设计](docs/technical/README.md)实现的：
 
-- Codex Skills 和 Remote MCP。
-- Cloudflare Worker、HTTP API、Queues、Workflows、D1 和 R2。
-- Web Control Console。
+- 任何被选择的对话式、Web 或混合产品形态。
+- 任何被选择的服务端、API、MCP、存储、队列或工作流实现。
 - Meta Marketing API 数据同步与受控写操作。
 - 认证、授权、租户隔离、审批、审计和密钥处理代码。
 
-仓库当前处于 Pre-Phase 0，没有可运行代码、生产部署或已授权的 Meta 写能力。
+Codex、Cloudflare、Web、MCP 和具体存储目前只是候选方案。本策略约束任何后续方案，
+但不代表这些组件已经被产品发现选择。
+
+仓库当前处于 Pre-Discovery，没有可运行代码、生产部署或已授权的 Meta 写能力。
 因此，本策略描述的是必须保持的安全边界，不代表控制已经实现或验证。
 
 需要保护的核心资产包括 Meta Token、OAuth Token、加密根密钥、广告账户数据、
-工作空间成员关系、审批记录、不可变变更 payload、审计日志和广告对象控制权。
+用户与权限关系、审批记录、不可变操作 payload、审计日志和广告对象控制权。
 
 ## Threat Model and Trust Boundaries
 
-以下输入默认不可信：
+以下输入默认不可信，无论最终选择哪种产品形态：
 
-- Codex、MCP 和网页客户端传入的参数。
-- `workspace_id`、`ad_account_id`、对象 ID 和角色声明。
+- 模型、API、工具或网页客户端传入的参数。
+- 租户、广告账户、对象 ID 和角色声明。
 - Meta API 响应、分页游标、错误和 Webhook 数据。
 - 导入文件、筛选器、breakdown、日期范围和变更理由。
 - 重放、过期或被篡改的变更请求。
@@ -36,22 +38,22 @@
 - Token、密钥、客户数据或内部堆栈通过日志、错误、浏览器或存储泄露。
 - 重放外部写操作、伪造审批身份或篡改审计证据。
 
-服务端认证与授权层、Workspace 边界、Cloudflare 控制平面和 Meta API 是独立的
-信任边界。Cloudflare 账户不能被当作 Meta 业务租户。
+如果后续方案包含服务端、租户边界或云控制平面，则身份认证、业务授权、资源所有权
+和 Meta API 必须作为独立信任边界，不能相互替代。
 
 ## Security Invariants
 
-- 服务端必须将认证主体映射为内部用户，再计算工作空间权限。
-- 所有业务查询和写入必须应用 `workspace_id` 隔离。
-- 客户端或模型传入的角色和对象 ID不能作为授权证据。
-- 明文 Token 不得进入仓库、D1、R2、日志、错误响应、浏览器或 Skill。
-- 多租户 Token 必须加密；根密钥只能位于 Cloudflare Secrets Store 或 Worker Secret。
-- MCP 和 HTTP API 不得支持任意 SQL、任意 URL 或任意 Meta Graph API 请求。
-- 外部广告写操作只能接受已批准的 `change_request_id`。
-- 执行前必须验证审批状态、权限、TTL、`before_hash`、策略、幂等键和 Emergency stop。
-- 审计元数据和 before/after 快照必须脱敏且不能被普通业务流程修改。
-- 缺少权限、预算、操作白名单或安全配置时必须安全失败。
-- 生产与 staging 必须使用不同的密钥和数据资源。
+- 如果产品包含用户认证，受信任服务端必须将认证主体映射为内部用户，再计算业务权限。
+- 如果产品包含多用户或多租户数据，所有业务查询和写入必须应用不可绕过的租户隔离。
+- 客户端或模型传入的角色和对象 ID 不能作为授权证据。
+- 明文 Token 不得进入仓库、持久化业务存储、日志、错误响应、浏览器或模型流程。
+- 如果保存多租户 Token，必须加密；根密钥只能位于所选平台的受管 Secret 能力。
+- 任何产品接口不得暴露任意 SQL、任意 URL 或任意 Meta Graph API 请求能力。
+- 如果支持外部广告写操作，只能执行已批准、未过期且 payload 不可变的操作引用。
+- 外部写入前必须验证审批状态、权限、对象变化、策略、幂等和全局停止控制。
+- 如果保存审计或 before/after 快照，必须脱敏且不能被普通业务流程修改。
+- 缺少必要权限、审批、预算、操作白名单或安全配置时必须安全失败。
+- 如果建立 production 与 staging，必须使用不同的密钥和数据资源。
 
 ## Reportable Findings and Severity Context
 
@@ -59,10 +61,10 @@
 
 通常视为严重或关键的问题包括：
 
-- 未授权或跨租户 Meta 写操作。
+- 未授权或跨权限边界的 Meta 写操作。
 - 绕过审批状态机、Emergency stop 或操作白名单。
 - 可用于控制广告账户或解密租户凭据的密钥泄露。
-- 跨工作空间读取广告、成员、审批或审计数据。
+- 跨租户或跨授权范围读取广告、成员、审批或审计数据。
 - 任意 Graph API、SSRF、任意 URL 或任意 SQL 能力。
 - 可成功重放写操作、伪造审批者或破坏审计完整性。
 
@@ -81,7 +83,7 @@
 ## Known Limitations and Compensating Controls
 
 - 当前没有实现代码，因此租户隔离、加密、审批、审计和幂等控制尚未经过测试。
-- 外部暴露面、网页认证方式和专用安全报告渠道仍需在 Phase 0 确认。
+- 外部暴露面、认证方式和专用安全报告渠道仍需在产品发现及后续 Phase 0 确认。
 - `production_deployment_authorized=false` 和
   `meta_write_operations_authorized=false` 阻止当前生产部署及 Meta 写操作。
 - Emergency stop、双重审批和写操作策略是后续实现要求，当前不能视为已存在的控制。

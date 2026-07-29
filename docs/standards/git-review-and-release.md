@@ -36,6 +36,8 @@ last_reviewed: 2026-07-30
 - 文档链接、状态、ID 和追踪矩阵有效。
 
 `dev` 合入 `main` 前必须由项目负责人验收。合并不能推导出生产部署或 Meta 写授权。
+Product Discovery 基线可以包含明确标记的 `DRAFT` 候选方案，但不得把未通过 `DG0`
+的产品需求或 ADR 宣称为已接受。
 
 ## CI
 

@@ -8,6 +8,9 @@ last_reviewed: 2026-07-30
 
 # 部署与运维设计
 
+> 候选设计：Cloudflare、环境、调度、存储和运维路径尚未被产品证据选择，`DG0` 前
+> 不得创建资源、部署或作为实施基线。
+
 ## 控制平面
 
 MVP 使用一个逻辑主 Cloudflare 账户 `cf-primary` 承载 Worker、Remote MCP、D1、

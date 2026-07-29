@@ -8,6 +8,9 @@ last_reviewed: 2026-07-30
 
 # API 与 Remote MCP 契约
 
+> 候选设计：HTTP、Remote MCP 和下述工具契约尚未被产品证据选择，`DG0` 前不得实现
+> 或视为公开接口。
+
 ## 认证与调用边界
 
 - Production Remote MCP SHOULD 使用 OAuth；本地单用户开发 MAY 使用环境变量中的开发 Token。

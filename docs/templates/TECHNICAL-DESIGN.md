@@ -12,6 +12,7 @@ last_reviewed: 2026-07-30
 
 - 状态：`DRAFT`
 - 所有者：`TBD`
+- 产品证据：`EVD-NNN`
 - 需求：`TBD`
 - ADR：`TBD`
 - 阶段/Gate：`TBD`

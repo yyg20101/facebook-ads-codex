@@ -9,16 +9,17 @@ last_reviewed: 2026-07-30
 # 文档基线迁移清单
 
 本清单记录初始单体执行规范的内容去向。Git 历史保存旧文件，仓库不保留兼容副本。
+迁移完成只表示内容没有静默丢失，不表示旧规范中的产品、功能或架构已经接受。
 
 ## 旧规范章节映射
 
 | Section | 原主题 | 新事实源 | 处理 | 状态 |
 | --- | --- | --- | --- | --- |
 | 0 | Codex 执行契约与授权 | `project/status-and-authorizations.md`、`AGENTS.md` | 拆分授权与工作规则 | COMPLETE |
-| 1 | 最终目标与成功结果 | `project/charter.md`、`requirements/product.md` | 拆分目标与验收 | COMPLETE |
-| 2 | ADR-001–006 | `decisions/ADR-001-*.md`–`ADR-006-*.md` | 拆成独立 ADR | COMPLETE |
+| 1 | 最终目标与成功结果 | `discovery/solution-hypotheses.md`、`requirements/product.md` | 保留为候选假设 | COMPLETE |
+| 2 | ADR-001–006 | `decisions/ADR-001-*.md`–`ADR-006-*.md` | 拆分并降为 DRAFT | COMPLETE |
 | 3 | Cloudflare 状态 | `technical/deployment-and-operations.md`、BQ-12 | 保留逻辑账户；删除个人标识 | COMPLETE |
-| 4 | 范围 | `project/charter.md`、`requirements/product.md` | 章程成为范围事实源 | COMPLETE |
+| 4 | 范围 | `project/charter.md`、`requirements/product.md` | 章程只固定 Meta 领域 | COMPLETE |
 | 5 | 用户、Workspace、租户 | `requirements/roles-and-permissions.md`、`technical/domain-and-data.md` | 拆分需求与模型 | COMPLETE |
 | 6 | 目标系统结构 | `technical/architecture.md`、`standards/engineering.md` | 拆分设计与规范 | COMPLETE |
 | 7 | Meta 接入 | `technical/meta-integration-and-sync.md`、`standards/security-and-secrets.md` | 拆分接入和 Secret 规范 | COMPLETE |
@@ -56,6 +57,8 @@ last_reviewed: 2026-07-30
 - [x] 根 README、AGENTS、贡献指南和变更日志已更新。
 - [x] 仓库中旧规范路径引用为零。
 - [x] 12 个阻塞问题全部保留且只定义一次。
-- [x] 六份 ADR 独立存在且状态为 `ACCEPTED`。
+- [x] 六份 ADR 独立存在且因产品未定义统一为 `DRAFT`。
+- [x] 新增 Product Discovery、DQ-01–DQ-08、EVD 契约和 DG0。
+- [x] 旧产品、功能、技术和实现规范明确降为候选方案。
 - [x] 本地文档校验通过，GitHub CI 已配置为运行同一命令。
-- [x] 本轮交付目标固定为 `dev`，`main` 不在变更范围。
+- [x] 版本保持 `1.0.0`，没有运行时代码、部署或外部资源访问。

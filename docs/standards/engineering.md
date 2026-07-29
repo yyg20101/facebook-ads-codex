@@ -1,12 +1,15 @@
 ---
 doc_id: STD-ENGINEERING
 type: standard
-status: ACCEPTED
+status: DRAFT
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
 
 # 工程规范
+
+> 候选实现规范：TypeScript、Cloudflare、React、模块边界和依赖策略尚未选定，`DG0`
+> 前不构成实现要求。
 
 ## 技术基线
 

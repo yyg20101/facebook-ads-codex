@@ -18,9 +18,13 @@ gate_status: NOT_EVALUATED
 本文用于收集 Phase 0 决策和脱敏证据，不代表 Phase 0 已启动，也不构成部署、
 Meta 写操作或密钥管理授权。
 
+本问卷当前已暂停。只有[产品定义与 DG0](../discovery/product-definition.md)为 `PASS`、
+项目状态更新为 `READY_FOR_PHASE_0`，并由负责人单独启动 Phase 0 后才能填写。
+`BQ-01`–`BQ-12` 按原编号保留，但不得用于替代目标用户、问题、产品形态或 MVP 发现。
+
 ## 使用方式
 
-1. 项目负责人使用[明确启动语句](../project/status-and-authorizations.md)后，
+1. 先验证 `DG0` 和项目状态，再由项目负责人使用届时有效的 Phase 0 启动语句，
    将 `phase_status` 改为 `IN_PROGRESS`。
 2. 每项答案记录负责人、证据和确认日期。
 3. 未确定值使用 `UNRESOLVED`，不得猜测默认值。
@@ -38,7 +42,7 @@ Meta 写操作或密钥管理授权。
 | P0-05 | 确认历史回填和数据保留期 | NOT_STARTED | TBD | 待提供 |
 | P0-06 | 确认网页用户、角色、登录方式和审批权 | NOT_STARTED | TBD | 待提供 |
 | P0-07 | 确认主 Cloudflare 账户、域名、套餐和所有权 | NOT_STARTED | TBD | 待提供 |
-| P0-08 | 创建 Meta App 和只读授权路径 | NOT_STARTED | TBD | 待提供 |
+| P0-08 | 在单独授权后创建 Meta App 和只读授权路径 | NOT_STARTED | TBD | 待提供 |
 
 ## 阻塞问题
 

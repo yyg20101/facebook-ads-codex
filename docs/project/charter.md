@@ -10,99 +10,70 @@ last_reviewed: 2026-07-30
 
 ## 目的
 
-构建一套以 Codex 为唯一 AI 决策与日常交互入口、以 Cloudflare 为数据和执行控制平面的
-Facebook/Meta 广告管理系统。
+在 Meta/Facebook 广告领域发现并验证一个值得建设的内部试点产品，再据此形成需求、
+技术设计和实施计划。
 
-系统最终应支持：
-
-1. 安全读取多个已授权 Meta 广告账户的数据。
-2. 统一 Campaign、Ad Set 和 Ad 层级的指标口径。
-3. 生成日报、周期对比、异常诊断和有证据支持的优化建议。
-4. 将建议转换为可审计的变更申请。
-5. 仅在人工审批和确定性策略校验后执行有限写操作。
-6. 仅在长期 Dry Run 验证后开放有预算、白名单和熔断边界的自动化。
+本章程只固定问题领域、发现方法、治理与安全边界，不预先固定目标用户、产品形态、
+产品内容、MVP 功能、商业模式或技术栈。
 
 ## 规范词
 
 - `MUST`：必须满足，否则不得进入下一 Gate。
 - `MUST NOT`：禁止执行。
 - `SHOULD`：默认满足，偏离前必须记录理由和影响。
-- `MAY`：可选能力，不得阻塞 MVP。
+- `MAY`：可选能力，不得阻塞当前 Gate。
 
-## 产品边界
+## 固定范围
 
-### MVP
+- 问题空间限定为 Meta/Facebook 广告相关工作。
+- 第一轮证据来自 3–5 名内部真实用户，仅用于定义内部试点。
+- 产品定义必须经过问题访谈、三种形态比较和 `DG0` 评审。
+- 版本保持 `1.0.0`，直到项目负责人建立新的发布策略。
 
-- 一个或多个 Workspace，以及多个 Meta Business 和广告账户。
-- Campaign、Ad Set、Ad 和 Insights 的只读同步。
-- 账户、Campaign、Ad Set 和 Ad 层级的日粒度指标。
-- Codex 自然语言分析、日报、异常诊断和建议。
-- 网页控制台中的连接配置、数据状态、审批、审计和 Emergency stop。
-- 变更申请与人工审批框架；外部写能力必须等待独立授权。
+## 当前未决产品事实
 
-### 后续能力
+以下事项必须通过[产品发现](../discovery/README.md)确定，当前均为 `UNRESOLVED`：
 
-- 审批后的暂停、启用和预算变更。
-- Campaign、Ad Set 和 Ad 草稿创建。
-- 创意与素材表现分析。
-- 有边界的预算和状态自动化。
-- CRM、Pixel、Conversions API 或线下转化数据。
-- 其他广告平台。
+- 首要用户、核心任务、问题严重度和现有替代方案。
+- 产品价值、信息内容、核心流程和 MVP 功能。
+- 对话式、Web 工作台或混合式产品形态。
+- Codex、Cloudflare、MCP、Workspace、多租户、审批和自动化是否必要。
+- 外部客户、代理商、SaaS、定价和商业化边界。
 
-### 非目标
+既有产品、需求、ADR、技术和实现规范只保存为候选假设，不得在 `DG0` 前作为实施约束。
 
-MVP MUST NOT：
+## 当前非目标
 
-- 自动创建 Meta Business 或广告账户。
-- 修改账单、支付方式或账户消费上限。
-- 无审批删除 Campaign、Ad Set、Ad 或素材。
-- 上传客户名单、自定义受众等个人数据。
-- 使用 Codex Scheduled Task 代替服务端数据同步。
-- 为每个 Meta 广告账户创建一个 Cloudflare 账户。
-- 在浏览器中直接调用 Meta Marketing API。
+Product Discovery 期间 MUST NOT：
 
-## 系统责任边界
+- 开发业务运行时代码或把低保真原型连接到真实接口。
+- 创建或修改 Meta App、Cloudflare 资源、Secret、成员或生产配置。
+- 读取真实广告账户、客户数据或生产响应。
+- 创建、修改、删除或发布任何 Meta 广告对象。
+- 把内部用户研究表述为外部市场或商业模式验证。
+- 把产品偏好、功能愿望或候选架构当作用户问题证据。
 
-- Codex 负责理解、推理、分析、建议、报告和工具编排。
-- Focused Skills 保存流程、指标语义、诊断顺序、输出格式和安全规则。
-- Cloudflare Remote MCP 与 HTTP API 负责认证、授权、实时数据和受控操作。
-- Cloudflare Worker、D1、R2、Queues 和 Workflows 负责确定性控制、存储和执行。
-- Web Control Console 负责配置、状态、审批、审计和 Emergency stop，不是 AI 入口。
-- Meta Marketing API 是外部数据源及后续受控写入目标。
+## 证据边界
 
-Cloudflare 账户表示部署资源所有权，Workspace 表示本系统的业务与授权租户，
-Meta Ad Account 表示广告数据作用域；三者 MUST 独立建模。
+- 只记录脱敏事实、近期实例和研究结论。
+- 参与者使用 `P-NN` 别名；姓名、联系方式、录音、原始转录和客户数据不得进入仓库。
+- 研究结论必须链接 `EVD-*`，未知事实保持 `UNRESOLVED`。
+- 低于三名有效参与者、没有近期实例或原型未达门槛时，`DG0` 必须为 `PARTIAL`。
 
-## 不可变边界
+## 安全与授权边界
 
-- Codex 是唯一 AI Agent，不得在 Cloudflare 中实现第二个独立决策 Agent。
-- 浏览器和 Skill 不得保存或读取 Meta Token、Cloudflare Token 或根密钥。
-- 服务端 MUST 重新计算工作空间和广告账户权限。
-- MCP/HTTP MUST NOT 提供任意 SQL、任意 URL、任意 Graph API 或任意云 API 能力。
-- 外部广告写操作只能执行已批准、未过期且 payload 不可变的 `change_request_id`。
-- 租户隔离、幂等、before/after 快照、审计和 Emergency stop 不得绕过。
-- 缺少 KPI、归因、预算、白名单或安全配置时必须安全失败。
+- 当前阶段与权限只以[项目状态与授权](status-and-authorizations.md)为准。
+- 文档、原型、Gate、提交或合并不得推导出部署、外部访问或 Meta 写授权。
+- 任何后续产品形态和技术方案都不得削弱根目录 [SECURITY.md](../../SECURITY.md)。
+- 需要外部协调或扩大权限时必须停止并获得项目负责人明确授权。
 
-详细安全政策以根目录
-[SECURITY.md](../../SECURITY.md)为准，长期架构决策以
-[ADR 索引](../decisions/README.md)中的 `ACCEPTED` 记录为准。
-
-## 能力开放顺序
-
-```text
-READ_ONLY
-  -> ADVISORY
-  -> APPROVAL_REQUIRED
-  -> BOUNDED_AUTONOMY
-```
-
-任何阶段不得跳过。阶段完成、代码存在或 Gate 通过都不能自动扩大
-[项目状态与授权](status-and-authorizations.md)中的授权值。
+候选长期决策见[ADR 索引](../decisions/README.md)；只有产品定义通过后重新评审并标记为
+`ACCEPTED` 的 ADR 才具有约束力。
 
 ## 变更治理
 
+- 产品结论变化必须更新 `DQ-*`、`EVD-*`、产品定义和 `DG0`。
 - 需求变化必须更新稳定需求 ID、验收条件和追踪矩阵。
 - 长期架构边界变化必须通过 ADR。
 - 权限扩大必须由项目负责人明确授权并更新授权事实源。
 - 实现与已接受文档冲突时必须停止并报告，不得通过代码暗中改变策略。
-- 文档版本保持 `1.0.0`，直到项目负责人决定建立后续发布版本。

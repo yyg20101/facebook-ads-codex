@@ -5,6 +5,7 @@ version: 1.0.0
 status: ready_for_execution_planning
 language: zh-CN
 created_at: 2026-07-29
+canonical_path: docs/FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md
 primary_ai_agent: Codex
 primary_cloudflare_account_id: 32b73e607476d0224c7ca40d28be1120
 initial_operation_mode: READ_ONLY
@@ -50,7 +51,7 @@ meta_write_operations_authorized: false
 用户可以使用以下语句启动工作：
 
 ```text
-按照 FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md 开始执行 Phase 0。
+按照 docs/FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md 开始执行 Phase 0。
 ```
 
 Codex 开始某阶段前 MUST：
@@ -163,7 +164,7 @@ READ_ONLY
 截至 2026-07-29，身份 `250770503@qq.com` 可见以下账户：
 
 | Logical name | Cloudflare account name | Account ID | 本项目用途 |
-|---|---|---|---|
+| --- | --- | --- | --- |
 | `cf-primary` | `250770503@qq.com's Account` | `32b73e607476d0224c7ca40d28be1120` | 主控制平面 |
 | `cf-wajie` | `Wajie20101@gmail.com's Account` | `feb35823ef25f093d318cbd1d90af73f` | 默认不部署；仅显式授权后作为隔离目标 |
 | `cf-dwkboss` | `Dwkboss1688@gmail.com's Account` | `4dc81bcf6226b18f1fcfca50baf3e57c` | 默认不部署；仅显式授权后作为隔离目标 |
@@ -247,7 +248,7 @@ User
 ### 5.2 角色
 
 | Role | 读取数据 | 创建建议 | 提交变更 | 审批变更 | 管理连接 |
-|---|---:|---:|---:|---:|---:|
+| --- | ---: | ---: | ---: | ---: | ---: |
 | `OWNER` | 是 | 是 | 是 | 是 | 是 |
 | `ADMIN` | 是 | 是 | 是 | 是 | 是 |
 | `OPERATOR` | 是 | 是 | 是 | 否 | 否 |
@@ -352,9 +353,9 @@ facebook-ads-codex/
   wrangler.jsonc
 ```
 
-执行时应将本文档复制到仓库的
-`docs/FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md`，并让根目录 `AGENTS.md`
-引用它。`AGENTS.md` 只保存简短执行约束，不复制整份规范。
+本文档 MUST 保存在仓库的
+`docs/FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md`。根目录不得保留规范副本。
+根目录 `AGENTS.md` MUST 引用本文档，且只保存简短执行约束，不复制整份规范。
 
 ## 7. Meta 接入要求
 
@@ -524,7 +525,7 @@ workspace_id
 ### 9.1 基础指标
 
 | Metric | Canonical definition |
-|---|---|
+| --- | --- |
 | `spend` | Meta 返回的广告花费，保留原账户币种 |
 | `impressions` | 广告展示次数 |
 | `reach` | 去重触达人数 |
@@ -887,7 +888,7 @@ FAILED
 ### 13.1 操作矩阵
 
 | 操作 | 初始模式 | 网页审批 | Codex 工具审批 | 自动化允许 |
-|---|---|---:|---:|---:|
+| --- | --- | ---: | ---: | ---: |
 | 读取和分析 | `READ_ONLY` | 否 | 否 | 是 |
 | 创建内部建议 | `ADVISORY` | 否 | 否 | 是 |
 | 提交变更申请 | `APPROVAL_REQUIRED` | 后续审批 | 建议提示 | 是 |

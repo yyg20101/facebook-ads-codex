@@ -1,55 +1,98 @@
+---
+doc_id: DOC-INDEX
+type: index
+status: ACCEPTED
+owner: project_owner
+last_reviewed: 2026-07-30
+---
+
 # 项目文档
 
-本目录保存项目的规范性文档、派生说明和实施工作记录。
+本目录是 `facebook-ads-codex` 的唯一文档入口。项目采用按领域划分的事实源，
+不再维护包含全部要求的单体执行规范。
 
-## 权威级别
+## 当前状态
 
-发生冲突时按以下顺序处理：
+当前阶段、运行模式和授权布尔值只在
+[项目状态与授权](project/status-and-authorizations.md)中维护。项目目前仅达到
+`READY_FOR_PHASE_0`，不代表实现、部署或 Meta 写能力已经就绪。
 
-1. 用户当前明确指令和平台安全要求。
-2. [`FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md`](FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md)。
-3. 已接受 ADR；当前 ADR 的规范正文仍位于执行规范中。
-4. 架构、路线图、术语表等派生说明。
-5. 问卷、计划和运行记录等工作文档。
+## 权威边界
 
-派生文档不得扩大权限、降低安全要求或重新定义指标口径。发现冲突时应停止相关实现，
-记录差异，并优先修正规范或派生文档。
+| 领域 | 唯一事实源 | 说明 |
+| --- | --- | --- |
+| 项目目标、范围和全局边界 | [项目章程](project/charter.md) | 任何领域文档不得扩大章程范围 |
+| 当前阶段和授权 | [项目状态与授权](project/status-and-authorizations.md) | 其他文档不得复制授权值 |
+| 安全政策 | [根目录安全策略](../SECURITY.md) | 技术设计和编码规范不得削弱安全不变量 |
+| 产品行为与验收 | [需求文档](requirements/README.md) | 使用稳定需求 ID |
+| 架构与实现契约 | [技术文档](technical/README.md) | 未实施内容不表述为已验证事实 |
+| 工程实践 | [规范文档](standards/README.md) | 约束代码、数据、测试和发布 |
+| 长期架构决策 | [ADR 索引](decisions/README.md) | 仅 `ACCEPTED` ADR 具有约束力 |
+| 阶段、Gate 和证据 | [规划文档](planning/roadmap.md) | Gate 必须由证据通过 |
+| 运维步骤 | [Runbook 索引](runbooks/README.md) | 未实际验证只能标记为草案 |
+
+用户当前明确指令和平台安全要求始终优先。不同领域发生冲突时，必须停止受影响工作，
+记录冲突，并通过需求变更或 ADR 解决；不得自行选择更宽松的解释。
+
+## 按任务阅读
+
+### 任何工作
+
+1. [项目章程](project/charter.md)
+2. [项目状态与授权](project/status-and-authorizations.md)
+3. [安全策略](../SECURITY.md)
+4. 当前任务所属领域的需求、技术和规范文档
+
+### Phase 0
+
+- [产品需求](requirements/product.md)
+- [Phase 0 问卷](planning/phase-0-questionnaire.md)
+- [Gate 与证据](planning/gates-and-evidence.md)
+
+### 数据控制平面
+
+- [系统架构](technical/architecture.md)
+- [领域与数据模型](technical/domain-and-data.md)
+- [Meta 接入与同步](technical/meta-integration-and-sync.md)
+- [数据与迁移规范](standards/data-and-migrations.md)
+
+### Codex 与 MCP
+
+- [Codex Skills](technical/codex-skills.md)
+- [API 与 MCP 契约](technical/api-and-mcp-contracts.md)
+- [API 与错误规范](standards/api-and-errors.md)
+
+### 审批式写操作
+
+- [认证、审批与审计](technical/auth-approval-and-audit.md)
+- [安全架构](technical/security-architecture.md)
+- [安全与密钥规范](standards/security-and-secrets.md)
 
 ## 文档地图
 
-| 文档 | 类型 | 状态 | 说明 |
-| --- | --- | --- | --- |
-| [执行规范](FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md) | 规范性 | Ready for planning | 需求、ADR、接口、安全、阶段和 Gate |
-| [架构概览](architecture/overview.md) | 派生说明 | Current | 组件、边界、数据流和运行模式 |
-| [实施路线图](roadmap.md) | 派生说明 | Current | Phase 0–5 摘要和当前状态 |
-| [术语表](glossary.md) | 派生说明 | Current | 业务、数据和执行术语 |
-| [Phase 0 问卷](planning/phase-0-questionnaire.md) | 工作文档 | Not started | 阻塞问题、证据和 G0 检查 |
-| [ADR 索引](decisions/README.md) | 导航 | Current | ADR-001–006 与新增 ADR 规则 |
-| [ADR 模板](decisions/ADR-TEMPLATE.md) | 模板 | Ready | 新增架构决策的标准结构 |
-| [Runbook 索引](runbooks/README.md) | 规划 | Planned | 运维文档清单和发布门槛 |
-| [贡献指南](../CONTRIBUTING.md) | 流程 | Current | 文档和实现变更规则 |
-| [安全策略](../SECURITY.md) | 策略 | Current | 威胁模型、安全不变量和报告范围 |
-| [变更日志](../CHANGELOG.md) | 记录 | Current | 规范及项目变化 |
+| 分类 | 入口 | 状态 |
+| --- | --- | --- |
+| 项目治理 | [项目章程](project/charter.md) | `ACCEPTED` |
+| 需求 | [需求索引](requirements/README.md) | 混合状态 |
+| 技术设计 | [技术索引](technical/README.md) | `DRAFT` |
+| 工程规范 | [规范索引](standards/README.md) | `ACCEPTED` |
+| 架构决策 | [ADR 索引](decisions/README.md) | ADR-001–006 `ACCEPTED` |
+| 实施规划 | [路线图](planning/roadmap.md) | `DRAFT` |
+| 运维手册 | [Runbook 索引](runbooks/README.md) | `DRAFT` |
+| 术语 | [术语表](glossary.md) | `ACCEPTED` |
 
-## 目录约定
+## 官方参考
 
-```text
-docs/
-  FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md  # 唯一规范性事实源
-  README.md                              # 文档索引
-  roadmap.md                             # 阶段摘要
-  glossary.md                            # 术语
-  architecture/                         # 派生架构说明
-  decisions/                            # ADR 索引和未来 ADR
-  planning/                             # 问卷、计划和 Gate 证据
-  runbooks/                             # 经验证的运维流程
-```
+- [OpenAI Codex Skills](https://developers.openai.com/plugins/build/skills)
+- [OpenAI Model Context Protocol](https://learn.chatgpt.com/docs/extend/mcp)
+- [OpenAI Plugins](https://developers.openai.com/plugins/build/plugins)
+- [OpenAI Scheduled Tasks](https://learn.chatgpt.com/docs/automations)
+- [Meta Marketing API](https://www.postman.com/meta/facebook-marketing-api/documentation/0zr4mes/facebook-marketing-api-mapi)
+- [Meta Insights API](https://www.postman.com/meta/facebook-marketing-api/folder/zzd6d5p/insights-api)
+- [Cloudflare D1](https://developers.cloudflare.com/d1/)
+- [Cloudflare R2](https://developers.cloudflare.com/r2/how-r2-works/)
+- [Cloudflare Secrets Store](https://developers.cloudflare.com/secrets-store/integrations/workers/)
+- [Cloudflare Service Bindings](https://developers.cloudflare.com/workers/runtime-apis/bindings/service-bindings/)
+- [Cloudflare Workflows](https://developers.cloudflare.com/workflows/)
 
-## 维护规则
-
-- 规范性内容变化时递增规范版本并更新根目录变更日志。
-- 派生文档应注明依据的规范版本和复核日期。
-- 工作文档应注明状态、负责人和最后更新时间。
-- Runbook 只有在实际环境验证并记录证据后才能标记为 `Operational`。
-- 不在多个文件中复制完整规范段落；使用摘要和相对链接。
-- 不在文档中保存密钥、Token、客户个人数据或未脱敏生产响应。
+外部链接可用性不作为仓库 CI 的阻塞条件；引用内容进入设计前仍需人工核验。

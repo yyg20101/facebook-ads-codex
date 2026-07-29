@@ -2,7 +2,7 @@
   "config": {
     // Chinese prose, tables, and canonical identifiers are not wrapped at 80 columns.
     "MD013": false,
-    // The execution spec carries a front matter title and one visible H1.
+    // Documentation uses YAML front matter plus one visible H1.
     "MD025": {
       "front_matter_title": ""
     }

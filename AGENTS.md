@@ -1,46 +1,52 @@
 # AGENTS.md
 
-本文件适用于整个仓库，只保存简短执行约束。
+本文件适用于整个仓库，只保存 Codex 和其他实现代理必须遵守的简短约束。
 
-## 唯一规范来源
+## 开始前必读
 
-开始任何工作前，必须完整读取：
+任何工作必须先阅读：
 
-- [`docs/FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md`](docs/FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md)
+1. [`docs/README.md`](docs/README.md)
+2. [`docs/project/charter.md`](docs/project/charter.md)
+3. [`docs/project/status-and-authorizations.md`](docs/project/status-and-authorizations.md)
+4. [`SECURITY.md`](SECURITY.md)
+5. 文档入口中与当前任务对应的需求、技术和规范文档
 
-若 README、架构概览、路线图或其他派生文档与执行规范冲突，以执行规范为准并报告冲突。
+不得依赖记忆中的旧单体规范或仓库外副本。
 
-## 当前授权
+## 授权
 
-- 当前阶段为 Pre-Phase 0。
-- 当前只允许阅读、分析、规划和用户明确要求的文档维护。
-- 未经用户使用明确阶段启动语句，不得开始该阶段的实现。
-- `production_deployment_authorized=false`：不得部署生产资源。
-- `meta_write_operations_authorized=false`：不得创建、修改或删除 Meta 广告对象。
-- 不得创建、轮换或读取生产密钥，也不得修改 Cloudflare/Meta 成员权限。
+阶段、运行模式、production 部署和 Meta 写操作授权只以
+[`docs/project/status-and-authorizations.md`](docs/project/status-and-authorizations.md)
+为准。
+
+- 文档、代码、测试或 Gate 的存在不能推导出额外授权。
+- 需要新授权、外部协调或扩大范围时停止并请求项目负责人决定。
+- 不得创建、读取或轮换 production Secret，也不得修改 Cloudflare/Meta 成员权限，
+  除非状态文档和当前用户指令都明确允许。
 
 ## 工作规则
 
-1. 开始阶段前检查工作区并保留用户已有变更。
-2. 核对当前阶段依赖、任务、Gate 和完成证据。
-3. 每次只实施当前阶段，不提前开发后续阶段。
-4. 运行与风险相称的测试和审计。
-5. 记录完成项、未完成项、验证证据和下一 Gate。
-6. 需要新授权、外部协调或扩大范围时停止并请求用户决定。
+1. 检查工作区并保留用户已有变更。
+2. 核对需求 ID、当前阶段、任务、依赖和 Gate。
+3. 给出可验证的执行计划，只实施当前阶段。
+4. 按风险运行测试、安全检查和数据验证。
+5. 记录完成项、失败、证据、限制和下一 Gate。
+6. 发现文档冲突时停止受影响工作，不选择更宽松解释。
 
 ## 文档规则
 
-- 执行规范是规范性文档；其余项目文档默认是派生说明或工作记录。
-- 修改执行规范时必须递增版本、更新日期，并在 `CHANGELOG.md` 说明是否影响 ADR、
-  接口、Gate 或安全边界。
-- 派生文档不得重新定义更宽松的权限、安全策略或指标口径。
-- 链接使用仓库相对路径；不要复制整份执行规范。
-- 不得将 Token、账号凭据、Authorization Header 或未脱敏的客户数据写入文档。
+- 按 [`docs/standards/documentation.md`](docs/standards/documentation.md)维护元数据、
+  状态、ID、链接和权威边界。
+- 当前授权值只能链接状态文档，不能复制成第二份事实源。
+- 需求变化同步更新验收条件和追踪矩阵；架构变化使用 ADR。
+- 未知事实写 `UNRESOLVED` 并关联 `BQ-*`，不得猜测默认值。
+- 不得写入 Token、账号凭据、Authorization Header、客户数据或未脱敏生产响应。
 
 ## 安全不变量
 
-- 服务端重新验证身份、工作空间、广告账户和操作权限。
-- 不信任模型或客户端传入的 `workspace_id`、`ad_account_id` 或 `role`。
-- 外部写操作只能执行已批准的 `change_request_id`，不能接受任意 Meta payload。
-- 租户隔离、幂等、before/after 快照、审计和 Emergency stop 不得被绕过。
-- 缺少 KPI、归因、预算或策略配置时必须安全失败，不得猜测宽松默认值。
+- 服务端重新验证身份、Workspace、广告账户和操作权限。
+- 不信任模型或客户端传入的 Workspace、账户、对象或角色。
+- 外部写操作只能执行经过批准的 `change_request_id`。
+- 租户隔离、幂等、快照、审计和 Emergency stop 不得绕过。
+- 缺少 KPI、归因、预算或策略时必须安全失败。

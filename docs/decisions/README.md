@@ -1,38 +1,35 @@
+---
+doc_id: ADR-INDEX
+type: index
+status: ACCEPTED
+owner: project_owner
+last_reviewed: 2026-07-30
+---
+
 # 架构决策记录
 
-> **权威级别：导航。**
->
-> 当前已接受 ADR 的规范正文位于执行规范 `v1.0.0` 第 2 节。本文只提供索引和摘要，
-> 不重新定义决策。
+`ACCEPTED` ADR 是对应长期架构问题的事实源。技术文档只解释如何落实决策。
 
 ## 已接受决策
 
-| ADR | 决策 | 摘要 |
+| ADR | 决策 | 状态 |
 | --- | --- | --- |
-| [ADR-001](../FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md#adr-001codex-是唯一-ai-agent) | Codex 是唯一 AI Agent | Cloudflare 不实现第二个聊天或 LLM 决策系统。 |
-| [ADR-002](../FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md#adr-002网页不是-ai-入口) | 网页不是 AI 入口 | 网页只负责配置、状态、审批、审计和紧急停止。 |
-| [ADR-003](../FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md#adr-003skill-与-mcp-分工固定) | Skill 与 MCP 分工固定 | Skill 保存流程；MCP 提供实时数据、授权和受控操作。 |
-| [ADR-004](../FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md#adr-004cloudflare-账户不等于-meta-租户) | Cloudflare 账户不等于 Meta 租户 | 部署所有权与业务租户独立建模。 |
-| [ADR-005](../FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md#adr-005单一主控制平面) | 单一主控制平面 | MVP 的 Cloudflare 资源位于同一个明确主账户。 |
-| [ADR-006](../FACEBOOK_ADS_CODEX_EXECUTION_SPEC.md#adr-006只读优先) | 只读优先 | 能力按 READ_ONLY 到 BOUNDED_AUTONOMY 顺序开放。 |
+| [ADR-001](ADR-001-codex-only-ai-agent.md) | Codex 是唯一 AI Agent | `ACCEPTED` |
+| [ADR-002](ADR-002-web-is-not-ai-entry.md) | 网页不是 AI 入口 | `ACCEPTED` |
+| [ADR-003](ADR-003-skills-and-mcp-boundary.md) | Skill 与 MCP 分工固定 | `ACCEPTED` |
+| [ADR-004](ADR-004-cloudflare-account-is-not-meta-tenant.md) | Cloudflare 账户不等于 Meta 租户 | `ACCEPTED` |
+| [ADR-005](ADR-005-single-control-plane.md) | MVP 使用单一主控制平面 | `ACCEPTED` |
+| [ADR-006](ADR-006-read-only-first.md) | 能力只读优先并逐级开放 | `ACCEPTED` |
 
-## 新增 ADR
+## 新增 ADR 的条件
 
-只有满足以下任一条件时才应新增 ADR：
+以下变化必须新增或取代 ADR：
 
 - 改变系统边界、职责或主要数据流。
 - 引入新的基础设施、存储或部署单元。
 - 改变租户、认证、授权或密钥模型。
-- 改变公开 MCP/HTTP 接口的长期约束。
-- 修改阶段顺序、Gate 或不可逆技术选择。
+- 改变长期 MCP/HTTP 契约。
+- 修改阶段顺序、Gate 或难以逆转的技术选择。
 
-新增时：
-
-1. 复制 [`ADR-TEMPLATE.md`](ADR-TEMPLATE.md)。
-2. 使用下一个连续编号，例如 `ADR-007-short-title.md`。
-3. 将状态设为 `Proposed`，记录上下文、选项和后果。
-4. 明确安全、租户、迁移、回滚、接口和 Gate 影响。
-5. 用户接受后再将状态改为 `Accepted`。
-6. 同步更新执行规范版本、本文索引和变更日志。
-
-不得用 ADR 暗中扩大授权或绕过执行规范的安全边界。
+使用 [ADR 模板](ADR-TEMPLATE.md)，分配下一个连续编号。ADR 不得暗中扩大
+[当前授权](../project/status-and-authorizations.md)或削弱[安全策略](../../SECURITY.md)。

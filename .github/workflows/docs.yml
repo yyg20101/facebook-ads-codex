@@ -1,0 +1,50 @@
+name: Documentation
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+    paths:
+      - "**/*.md"
+      - ".markdownlint-cli2.jsonc"
+      - "package.json"
+      - "package-lock.json"
+      - "scripts/validate-docs.mjs"
+      - ".github/workflows/docs.yml"
+  pull_request:
+    branches:
+      - dev
+      - main
+    paths:
+      - "**/*.md"
+      - ".markdownlint-cli2.jsonc"
+      - "package.json"
+      - "package-lock.json"
+      - "scripts/validate-docs.mjs"
+      - ".github/workflows/docs.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  docs:
+    name: Validate documentation
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Validate documentation
+        run: npm run docs:check

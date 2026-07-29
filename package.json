@@ -1,0 +1,17 @@
+{
+  "name": "facebook-ads-codex",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Documentation baseline for the Facebook Ads Codex control plane",
+  "scripts": {
+    "docs:lint": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
+    "docs:validate": "node scripts/validate-docs.mjs",
+    "docs:check": "npm run docs:lint && npm run docs:validate"
+  },
+  "engines": {
+    "node": ">=20"
+  },
+  "devDependencies": {
+    "markdownlint-cli2": "0.23.2"
+  }
+}

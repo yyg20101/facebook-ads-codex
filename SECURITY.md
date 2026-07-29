@@ -2,7 +2,9 @@
 
 ## System and Scope
 
-本策略适用于整个 `facebook-ads-codex` 仓库，以及后续按照执行规范实现的：
+本策略适用于整个 `facebook-ads-codex` 仓库，以及后续按照
+[项目章程](docs/project/charter.md)、[需求](docs/requirements/README.md)和
+[技术设计](docs/technical/README.md)实现的：
 
 - Codex Skills 和 Remote MCP。
 - Cloudflare Worker、HTTP API、Queues、Workflows、D1 和 R2。

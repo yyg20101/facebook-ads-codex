@@ -18,8 +18,9 @@ last_reviewed: 2026-07-30
 research_status: IN_PROGRESS
 discovery_mode: OWNER_DIRECTED_PRODUCT_DEFINITION
 required_user_interviews: 0
-owner_decisions_recorded: 18
+owner_decisions_recorded: 19
 scenario_reviews_completed: 3
+design_spec_review: APPROVED
 ```
 
 这些字段记录研究工作，不复制或扩大[项目状态与授权](../project/status-and-authorizations.md)。
@@ -49,6 +50,12 @@ scenario_reviews_completed: 3
 7. [内部试点产品设计](../superpowers/specs/2026-07-30-facebook-ads-assistant-design.md)：
    汇总已确认的交互、场景、权限、失败处理和功能边界。
 8. [产品定义与 DG0](product-definition.md)：综合证据并由项目负责人确认。
+
+## 下一步执行
+
+[DG0 原型验证计划](../superpowers/plans/2026-07-30-dg0-prototype-validation.md)只覆盖
+三种低保真形态的同任务故事板、脱敏走查、确定性评分和 Gate 更新。它不包含运行时代码、
+真实 Meta 接入、Cloudflare 资源或部署。
 
 ## 执行规则
 

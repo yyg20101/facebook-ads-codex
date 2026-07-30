@@ -52,6 +52,7 @@ last_reviewed: 2026-07-30
 - [研究计划](discovery/research-plan.md)
 - [产品形态验证](discovery/product-shape-validation.md)
 - [内部试点产品设计](superpowers/specs/2026-07-30-facebook-ads-assistant-design.md)
+- [DG0 原型验证计划](superpowers/plans/2026-07-30-dg0-prototype-validation.md)
 - [产品定义与 DG0](discovery/product-definition.md)
 
 ### Phase 0

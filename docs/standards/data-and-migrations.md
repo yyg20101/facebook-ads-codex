@@ -8,8 +8,8 @@ last_reviewed: 2026-07-30
 
 # 数据与迁移规范
 
-> 候选实现规范：Workspace、D1、R2、同步和 migration 尚未选定，`DG0` 前不构成
-> 数据实现要求。
+> 候选实现规范：Workspace、D1、R2、同步和 migration 尚未选定；`DG0` 通过未接受
+> 这些实现，不构成当前数据要求。
 
 ## 租户与约束
 

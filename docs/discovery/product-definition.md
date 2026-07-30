@@ -1,7 +1,7 @@
 ---
 doc_id: DISC-PRODUCT-DEFINITION
 type: requirements
-status: DRAFT
+status: ACCEPTED
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
@@ -11,8 +11,8 @@ last_reviewed: 2026-07-30
 ## 当前状态
 
 ```yaml
-definition_status: DRAFT
-dg0_status: PARTIAL
+definition_status: ACCEPTED
+dg0_status: PASS
 ```
 
 产品负责人已确认最终产品是覆盖素材、广告创建与发布、投放管理、数据分析和持续优化的
@@ -20,8 +20,9 @@ dg0_status: PARTIAL
 信息文档和 Skills 工作，不要求在 Web 内置聊天入口。
 
 旧三形态静态故事板没有表达该产品形态，已被负责人拒绝且不产生 Gate 证据。正确形态
-的本地 Web 交互原型与 Codex 场景包已完成技术验收，但尚未由负责人完成产品走查，
-因此 `DG0` 保持 `PARTIAL`。
+的本地 Web 交互原型与 Codex 场景包已完成技术验收。项目负责人随后指示“先默认
+通过”，接受当前内部试点产品基线、关键步骤覆盖和安全边界表达，因此 `DG0` 为
+`PASS`。这不是实际用户测试或市场验证。
 
 ## 产品定义
 
@@ -111,8 +112,8 @@ Web 是产品主体和业务事实界面，MUST 承载：
 | Codex | 三个场景均有上下文、输入事实、结构化输出、限制和 Web 交接 | [Codex 场景包](codex-prototype/README.md) |
 | 视觉与终端 | 桌面四个关键状态和移动端总览、创建页已完成浏览器验证 | [视觉一致性记录](../../prototype/design/fidelity-ledger.md) |
 
-以上是实现和技术验收证据，不替代项目负责人的 Gate 决定，也不构成真实用户可用性、
-效率、诊断准确率或广告效果证据。
+以上实现与技术验收证据已被项目负责人作为本轮 Gate 判断的输入并默认通过，但仍不
+构成真实用户可用性、效率、诊断准确率或广告效果证据。
 
 ## DG0 检查
 
@@ -122,19 +123,20 @@ Web 是产品主体和业务事实界面，MUST 承载：
 | 支持用户与经验层级 | 满足负责人定义门槛 | `EVD-006`、`EVD-012`、`EVD-018` |
 | 三个端到端场景 | 已完成范围评审 | `EVD-015`–`EVD-017` |
 | 产品形态 | 已确认 Web 运营平台 + 独立 Codex 助手 | `EVD-023`、`EVD-024` |
-| 完整 Web 产品流程 | 已实现，待负责人走查 | [本地交互原型](../../prototype/README.md) |
-| Codex 前期辅助流程 | 已编写，待负责人走查 | [Codex 场景包](codex-prototype/README.md) |
-| `DQ-01`–`DQ-08` | 7/8 已解决或延期；`DQ-08` 未关闭 | [发现问题](discovery-questions.md) |
-| 关键步骤覆盖率 | 待负责人评估 | 技术验收已跑通三条流程，但不能替代负责人任务走查 |
-| 关键安全误解 | 待负责人评估 | 原型持续展示数据、审批和无外部写入边界 |
+| 完整 Web 产品流程 | 通过负责人默认验收 | [本地交互原型](../../prototype/README.md)、`EVD-025` |
+| Codex 前期辅助流程 | 通过负责人默认验收 | [Codex 场景包](codex-prototype/README.md)、`EVD-025` |
+| `DQ-01`–`DQ-08` | 已解决或有明确延期理由 | [发现问题](discovery-questions.md)、`EVD-025` |
+| 关键步骤覆盖率 | `PASS`，负责人确认达到至少 80% | `EVD-025` |
+| 关键安全误解 | `PASS`，负责人确认关键误解为 0 | `EVD-025` |
 | 外部市场声明 | 无 | 当前结论只代表负责人定义 |
 
 ## 完成记录
 
-- 决定：`PARTIAL`
+- 决定：`PASS`
 - 日期：2026-07-30
 - 确认者：`project_owner`
-- 当前证据：`EVD-001`–`EVD-024`
-- 主要缺口：负责人完整产品走查、`DQ-08`、关键步骤覆盖率和关键误解确认。
+- 当前证据：`EVD-001`–`EVD-025`
+- 限制：未执行真实用户任务测试；不证明市场、可用性、效率、诊断准确率或广告效果。
 
-`DG0` 通过后仍须由项目负责人另行启动 Phase 0；Gate 通过不会自动扩大任何授权。
+项目负责人在通过后明确要求继续下一步，Phase 0 文档确认已单独启动。Gate 通过和
+Phase 0 启动都不会自动扩大任何外部授权。

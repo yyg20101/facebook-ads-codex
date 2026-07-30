@@ -1,7 +1,7 @@
 ---
 doc_id: DISC-SHAPE-VALIDATION
 type: planning
-status: DRAFT
+status: ACCEPTED
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
@@ -122,6 +122,6 @@ Product Discovery 只验证页面、对象和状态设计；不得执行真实�
   [本地交互原型](../../prototype/README.md)。
 - Codex 原型：三个场景包和 Skill 契约已完成，见
   [Codex 辅助流程](codex-prototype/README.md)。
-- `DQ-08`：仍需项目负责人完成正确形态走查并确认覆盖率与关键误解。
-- `DG0`：保持 `PARTIAL`。
+- `DQ-08`：负责人已通过 `EVD-025` 确认覆盖率门槛和关键误解结果，状态为 `RESOLVED`。
+- `DG0`：`PASS`。
 - 旧三形态故事板：已拒绝，不产生评审完成率或 Gate 证据。

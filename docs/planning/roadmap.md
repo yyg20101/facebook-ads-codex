@@ -12,12 +12,13 @@ last_reviewed: 2026-07-30
 
 ```text
 Documentation baseline
-  -> PRODUCT_DISCOVERY_IN_PROGRESS
+  -> PRODUCT_DISCOVERY_COMPLETE
   -> Full-lifecycle Meta Ads Web platform direction confirmed
   -> Early AI entry confirmed as Codex context + docs + Skills
   -> Three representative scenarios reviewed
-  -> Correct Web and Codex workflow prototype pending
-  -> DG0 PARTIAL
+  -> Web and Codex workflow prototype accepted by project owner
+  -> DG0 PASS
+  -> Phase 0 document confirmation IN_PROGRESS
   -> No runtime code
   -> No deployment authorization
   -> No Meta write authorization
@@ -49,12 +50,14 @@ Gate；当前表不构成实现承诺。
 - `PD-05` 形成内部试点产品定义、内容地图和 `MVP`/`LATER`/`REJECTED` 功能。
 - `PD-06` 评估 `DG0` 并由项目负责人确认。
 
-执行入口见[Product Discovery](../discovery/README.md)。
+`PD-01`–`PD-06` 已完成，`DG0` 由 `EVD-025` 记录为 `PASS`。执行记录见
+[Product Discovery](../discovery/README.md)。
 
 ## Phase 0：业务与权限确认
 
-启动前置条件：`DG0` 为 `PASS`，项目状态为 `READY_FOR_PHASE_0`，且项目负责人另行启动
-Phase 0。当前不得执行本节任务。
+启动前置条件已满足：`DG0` 为 `PASS`，项目状态为 `READY_FOR_PHASE_0`，项目负责人已
+另行启动 Phase 0 文档确认。当前只执行 `P0-01`–`P0-07` 的事实收集与评审；在获得
+单独授权前不得执行 `P0-08` 或访问真实 Meta/Cloudflare 资源。
 
 任务：
 

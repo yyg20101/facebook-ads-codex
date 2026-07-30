@@ -10,7 +10,7 @@ last_reviewed: 2026-07-30
 
 本规范实现根目录 [SECURITY.md](../../SECURITY.md) 的政策，不取代安全政策。
 具体 Cloudflare、Workspace、审批和 Secret 落点属于候选实现；安全政策继续有效，但
-本页在产品形态和架构确定前不构成已接受实现规范。
+本页在架构、ADR 和安全控制落点接受前不构成已接受实现规范。
 
 ## Secret
 

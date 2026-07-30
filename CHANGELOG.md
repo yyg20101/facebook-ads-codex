@@ -28,14 +28,15 @@
 - 当前阶段和授权集中到项目状态文档。
 - 架构、路线图、测试和安全内容拆分到对应领域。
 - 具体 Cloudflare 账户事实改由 Phase 0 确认，仓库只保留逻辑名。
-- 当前状态推进为 `PRODUCT_DISCOVERY_IN_PROGRESS` / `PRODUCT_DISCOVERY`。
+- 当前状态推进为 `READY_FOR_PHASE_0` / `PRODUCT_DISCOVERY_COMPLETE`。
 - 产品定位确认为通用 Meta 广告全流程 Web 运营平台，不做个人定制。
 - 前期 AI 助手确认为独立 Codex 会话，使用上下文、信息文档和 Skills；Web 前期不内置
   聊天入口。
 - 产品发现改为负责人结构化决策与代表性场景评审，不要求额外用户访谈。
 - 所有负责人决定明确标记为尚未经过真实用户或市场验证。
-- `DG0` 评估为 `PARTIAL`；完整 Web 原型和 Codex 辅助流程已具备，剩余缺口为负责人
-  完整走查、关键步骤覆盖率、关键理解偏差和 `DQ-08`。
+- 项目负责人默认验收完整 Web 原型与 Codex 辅助流程，关闭 `DQ-08`，将 `DG0`
+  评估为 `PASS`；该结论不代表真实用户、市场、效率或广告效果验证。
+- Phase 0 文档确认已启动，从 `BQ-01` 开始收集业务和接入事实；G0 尚未评估。
 - Web 与 Codex 的产品职责已确认；Cloudflare、MCP、自动化、现有需求和 ADR 仍为
   候选方案。
 - 原 Phase 0 改为依赖 `DG0`，不再承担目标用户、产品形态和 MVP 定义。
@@ -47,6 +48,6 @@
 
 ### Authorization
 
-- 本版本已启动 Product Discovery，尚未通过 `DG0`。
+- 本版本已完成 Product Discovery 并通过 `DG0`，Phase 0 仅启动文档确认。
 - 本版本包含只使用固定虚构数据的本地产品原型，不包含业务运行时代码、Cloudflare
-  部署或 Meta 写能力。
+  部署、真实 Meta/Cloudflare 访问或 Meta 写能力。

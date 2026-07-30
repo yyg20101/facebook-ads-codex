@@ -8,8 +8,8 @@ last_reviewed: 2026-07-30
 
 # ADR-003：Skill 与 MCP 分工固定
 
-> 候选方案：`EVD-023` 已支持 Codex 与 Skills 的前期产品方向；是否引入 Remote MCP
-> 及其契约仍未决定，`DG0` 前本 ADR 不具有约束力。
+> 候选方案：`EVD-023`、`EVD-025` 已支持 Codex 与 Skills 的前期产品方向；`DG0`
+> 已通过，但是否引入 Remote MCP 及其契约仍未决定，本 ADR 不具有约束力。
 
 ## 背景
 

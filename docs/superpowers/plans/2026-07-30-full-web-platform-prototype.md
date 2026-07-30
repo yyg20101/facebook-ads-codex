@@ -1,7 +1,7 @@
 ---
 doc_id: PLAN-FULL-WEB-PLATFORM-PROTOTYPE
 type: planning
-status: DRAFT
+status: ACCEPTED
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
@@ -118,11 +118,12 @@ Codex 不嵌入 Web 原型。每个场景单独提供一份可复现的上下文
 - `PASS`：桌面 `1536 × 1024`、移动端 `430 × 932` 浏览器验证，页面无横向溢出，
   控制台无 `error` 或 `warn`。
 - `PASS`：单元测试、TypeScript、生产构建、Markdown、链接和文档治理检查。
-- `READY_FOR_OWNER_WALKTHROUGH`：实现与技术验收证据见
+- `PASS`：负责人默认验收已记录为 `EVD-025`；实现与技术验收证据见
   [原型说明](../../../prototype/README.md)和
   [视觉一致性记录](../../../prototype/design/fidelity-ledger.md)。
 
-项目负责人尚未执行第 10 步，因此本计划保持 `DRAFT`，`DG0` 继续为 `PARTIAL`。
+项目负责人已完成第 10 步的默认验收，本计划为 `ACCEPTED`，`DG0` 为 `PASS`。该结果
+不证明真实用户可用性、效率、诊断准确率或广告效果。
 
 ## DG0 验收
 

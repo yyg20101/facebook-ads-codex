@@ -1,7 +1,7 @@
 ---
 doc_id: DISC-INDEX
 type: index
-status: DRAFT
+status: ACCEPTED
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
@@ -10,22 +10,23 @@ last_reviewed: 2026-07-30
 
 本目录是在需求和技术设计前验证产品定义的唯一事实源。项目负责人已确认产品是完整
 Meta 广告 Web 运营平台，前期 AI 助手使用独立 Codex 会话、上下文、信息文档和
-Skills。三个核心场景和初步 MVP 边界仍为 `DRAFT`，不代表真实用户、可用性、外部市场
-或广告效果验证。对应本地 Web 交互原型和 Codex 场景包已经实现，但尚未由项目负责人
-完成 Gate 走查。
+Skills。三个核心场景、MVP 边界、本地 Web 交互原型和 Codex 场景包已由项目负责人
+默认验收，`DG0` 为 `PASS`。该结论只代表负责人定义的内部试点基线，不代表真实用户、
+可用性、外部市场、效率或广告效果验证。
 
 ## 当前记录状态
 
 ```yaml
-research_status: IN_PROGRESS
+research_status: COMPLETE
 discovery_mode: OWNER_DIRECTED_PRODUCT_DEFINITION
 required_user_interviews: 0
-owner_decisions_recorded: 21
+owner_decisions_recorded: 22
 scenario_reviews_completed: 3
 product_shape_decision: CONFIRMED
-design_spec_review: READY_FOR_OWNER_WALKTHROUGH
+design_spec_review: ACCEPTED
 prototype_implementation_status: COMPLETE
 browser_qa_status: PASS
+owner_walkthrough_status: PASS
 ```
 
 这些字段记录研究工作，不复制或扩大[项目状态与授权](../project/status-and-authorizations.md)。
@@ -62,10 +63,9 @@ browser_qa_status: PASS
 
 ## 下一步执行
 
-下一步由项目负责人按照[本地交互原型](../../prototype/README.md)连续走查三个 Web
-场景，并对照 [Codex 场景包](codex-prototype/README.md)确认两层产品分工、关键步骤
-覆盖率和关键误解。旧三形态静态故事板不再使用。该工作仍不包含业务运行时、真实 Meta
-接入、Cloudflare 资源或部署。
+下一步进入 [Phase 0 问卷](../planning/phase-0-questionnaire.md)，逐项确认业务模型、
+账户范围、KPI、归因、数据、用户与基础设施事实。Phase 0 已开始文档确认，但当前仍不
+包含业务运行时、真实 Meta 接入、Cloudflare 资源、部署或广告写操作。
 
 ## 执行规则
 
@@ -77,9 +77,11 @@ browser_qa_status: PASS
 - 负责人决策不得被表述为真实用户或市场验证。
 - 代表性场景少于 3 个、场景评审少于 3 次或任一核心 Gate 条件不满足时，`DG0`
   必须为 `PARTIAL`。
-- `DG0` 未通过时，需求、ADR、技术和实现型规范不得转为 `ACCEPTED`。
+- `DG0` 通过只允许进入需求与架构复核；任何需求或 ADR 仍须满足自身证据和验收条件
+  才能转为 `ACCEPTED`。
 
 ## 启动与完成
 
-研究启动语句和允许动作以[项目状态与授权](../project/status-and-authorizations.md)为准。
-完成研究不自动启动原 Phase 0，也不构成外部访问、部署或 Meta 写授权。
+研究已由 `EVD-025` 完成。当前允许动作以
+[项目状态与授权](../project/status-and-authorizations.md)为准；负责人随后启动 Phase 0
+文档确认，但该决定不构成外部访问、部署或 Meta 写授权。

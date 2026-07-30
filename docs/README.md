@@ -15,9 +15,9 @@ last_reviewed: 2026-07-30
 
 当前阶段、运行模式和授权布尔值只在
 [项目状态与授权](project/status-and-authorizations.md)中维护。项目当前为
-`PRODUCT_DISCOVERY_IN_PROGRESS` / `PRODUCT_DISCOVERY`。完整 Web 运营平台与独立
-Codex 前期助手的分工已由负责人确认并保持 `DRAFT`；本地交互原型与 Codex 场景包已
-完成，`DG0` 尚待负责人完成正确形态的产品走查。
+`READY_FOR_PHASE_0` / `PRODUCT_DISCOVERY_COMPLETE`。完整 Web 运营平台与独立 Codex
+前期助手的内部试点产品定义、本地交互原型和 Codex 场景包已由负责人默认验收，
+`DG0` 为 `PASS`；Phase 0 已进入文档确认，G0 尚未评估。
 
 ## 权威边界
 
@@ -90,7 +90,7 @@ Codex 前期助手的分工已由负责人确认并保持 `DRAFT`；本地交互
 | 分类 | 入口 | 状态 |
 | --- | --- | --- |
 | 项目治理 | [项目章程](project/charter.md) | `ACCEPTED` |
-| 产品发现 | [发现入口](discovery/README.md) | `DRAFT` |
+| 产品发现 | [发现入口](discovery/README.md) | `ACCEPTED` |
 | 需求 | [需求索引](requirements/README.md) | 全部 `DRAFT` |
 | 技术设计 | [技术索引](technical/README.md) | `DRAFT` |
 | 工程规范 | [规范索引](standards/README.md) | 治理已接受，实施规范为候选 |

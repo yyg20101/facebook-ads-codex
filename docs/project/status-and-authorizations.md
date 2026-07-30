@@ -15,17 +15,18 @@ last_reviewed: 2026-07-30
 
 ```yaml
 project_version: 1.0.0
-delivery_state: PRODUCT_DISCOVERY_IN_PROGRESS
-current_phase: PRODUCT_DISCOVERY
+delivery_state: READY_FOR_PHASE_0
+current_phase: PRODUCT_DISCOVERY_COMPLETE
 operation_mode: READ_ONLY
 runtime_implementation_available: false
 production_deployment_authorized: false
 meta_write_operations_authorized: false
 ```
 
-`PRODUCT_DISCOVERY_IN_PROGRESS` 表示项目负责人已确认完整 Web 运营平台与独立 Codex
-前期助手的产品方向。本地交互原型和 Codex 场景包已完成，但负责人产品走查和内部试点
-Gate 尚未完成。`DG0` 通过前不得启动原 Phase 0、Meta 接入或 Cloudflare 技术准备。
+`READY_FOR_PHASE_0` 表示项目负责人已接受完整 Web 运营平台与独立 Codex 前期助手的
+内部试点产品定义，`DG0` 已通过。负责人随后明确要求继续下一步，因此 Phase 0 的文档
+确认已在[问卷](../planning/phase-0-questionnaire.md)中启动。该状态不代表 G0 已通过，
+也不授权真实 Meta/Cloudflare 访问、业务运行时、部署或广告写操作。
 
 `runtime_implementation_available: false` 指没有可连接真实业务数据或外部系统的业务
 运行时。使用固定虚构数据、只在本地浏览器内改变状态的 Product Discovery 原型不构成
@@ -35,15 +36,16 @@ Gate 尚未完成。`DG0` 通过前不得启动原 Phase 0、Meta 接入或 Clou
 
 - 阅读、审查和维护项目文档。
 - 制定实施计划。
-- 准备 Product Discovery 的问题、访谈、脱敏证据和低保真原型材料。
+- 依据已接受的产品定义回答 `BQ-01`–`BQ-12`，维护 Phase 0 决策、需求映射和脱敏证据。
+- 重新评审候选需求、ADR、技术文档和后续 Gate，但不得把评审等同于实施授权。
 - 开发、启动和验证只使用固定虚构数据的本地 Product Discovery 前端原型，以及
   不连接外部系统的 Codex 上下文包和 Skill 契约。
-- 在项目负责人明确启动 Product Discovery 后，开展已协调的内部用户研究。
+- 在项目负责人另行明确范围后，准备不接触真实账户的本地验证材料。
 
 ## 当前禁止
 
 - 开发 Phase 1 或后续运行时代码。
-- 启动原 Phase 0 或回答 `BQ-*` 作为产品定义替代品。
+- 在没有单独授权时执行 `P0-08`、访问真实账户或验证真实 Meta 只读接入。
 - 部署 staging 或 production Cloudflare 资源。
 - 创建 Meta App，或访问 Meta/Cloudflare 账户与真实业务数据。
 - 创建、修改或删除 Meta 广告对象。
@@ -51,31 +53,24 @@ Gate 尚未完成。`DG0` 通过前不得启动原 Phase 0、Meta 接入或 Clou
 - 创建、读取或轮换生产密钥。
 - 邀请、删除或修改 Cloudflare/Meta 成员权限。
 
-## Product Discovery 启动语句
+## 阶段转换记录
 
-项目负责人可在参与者已经由负责人协调后使用以下明确语句启动研究：
+2026-07-30，项目负责人指示“先默认通过”，作为对当前内部试点产品定义、完整 Web
+原型和 Codex 场景包的负责人验收，记录为 `DG0: PASS`。同一指令中的“继续下一步”
+作为单独启动 Phase 0 文档确认的决定。证据见
+[产品定义](../discovery/product-definition.md)和
+[Phase 0 问卷](../planning/phase-0-questionnaire.md)。
 
-```text
-按照 docs/project/charter.md、docs/project/status-and-authorizations.md 和 docs/discovery/README.md 开始执行 Product Discovery。
-```
-
-开始后将状态更新为：
-
-```yaml
-delivery_state: PRODUCT_DISCOVERY_IN_PROGRESS
-current_phase: PRODUCT_DISCOVERY
-production_deployment_authorized: false
-meta_write_operations_authorized: false
-```
-
-`DG0` 通过且项目负责人确认产品定义后，才能更新为：
+本次转换后的项目状态为：
 
 ```yaml
 delivery_state: READY_FOR_PHASE_0
 current_phase: PRODUCT_DISCOVERY_COMPLETE
 ```
 
-更新状态不会自动启动原 Phase 0，也不会扩大任何外部权限。
+Phase 0 先处理 `P0-01`–`P0-07` 的事实确认。`P0-08`、真实 Meta 只读验证和任何
+Cloudflare 操作仍须项目负责人另行明确授权；`DG0`、Phase 0 启动或文档合并均不会
+扩大外部权限。
 
 ## 阶段启动检查
 

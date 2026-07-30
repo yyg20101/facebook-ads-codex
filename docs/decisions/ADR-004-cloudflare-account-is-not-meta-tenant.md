@@ -8,7 +8,8 @@ last_reviewed: 2026-07-30
 
 # ADR-004：Cloudflare 账户不等于 Meta 租户
 
-> 候选方案：本 ADR 尚未由用户问题和产品形态证据支持，`DG0` 前不具有约束力。
+> 候选方案：`DG0` 通过未决定 Cloudflare、Workspace 与 Meta 租户映射；相关 Phase 0
+> 事实和替代方案尚未确认，本 ADR 不具有约束力。
 
 ## 背景
 

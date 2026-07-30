@@ -9,7 +9,8 @@ last_reviewed: 2026-07-30
 # Codex Skills 设计
 
 > 产品方向已确认前期 AI 助手使用 Codex 会话、上下文、信息文档和 Skills。本文中的
-> 具体 Skill 划分、Remote MCP 和工具契约仍是候选设计，`DG0` 前不构成实施授权。
+> 具体 Skill 划分、Remote MCP 和工具契约仍是候选设计；`DG0` 通过未接受这些技术
+> 细节，也不构成实施授权。
 
 ## 前期工作方式
 

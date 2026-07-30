@@ -1,7 +1,7 @@
 ---
 doc_id: DISC-RESEARCH-PLAN
 type: planning
-status: DRAFT
+status: ACCEPTED
 owner: project_owner
 last_reviewed: 2026-07-30
 ---
@@ -64,3 +64,12 @@ Codex 只记录负责人主动提供的产品决定和完全脱敏的代表性�
 - 研究材料包含无法安全脱敏的客户或个人数据。
 - 负责人决策互相冲突且无法确定权威优先级。
 - 需要接触外部用户、真实 Meta 账户或其他未授权资源。
+
+## 完成结果
+
+- 研究状态：`COMPLETE`
+- 产品定义：`ACCEPTED`
+- `DG0`：`PASS`
+- 负责人决定证据：`EVD-001`–`EVD-025`
+- 限制：本轮为负责人主导的内部试点定义，不包含真实用户、外部市场、效率或广告效果
+  验证。

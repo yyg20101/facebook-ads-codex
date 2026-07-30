@@ -8,8 +8,8 @@ last_reviewed: 2026-07-30
 
 # 工程规范
 
-> 候选实现规范：TypeScript、Cloudflare、React、模块边界和依赖策略尚未选定，`DG0`
-> 前不构成实现要求。
+> 候选实现规范：TypeScript、Cloudflare、React、模块边界和依赖策略尚未选定；
+> `DG0` 通过未接受这些技术选择，不构成当前实现要求。
 
 ## 技术基线
 

@@ -9,7 +9,8 @@ last_reviewed: 2026-07-30
 # 产品需求
 
 本页只定义产品需求从发现证据进入需求体系的条件。实际产品定义以
-[内部试点产品定义](../discovery/product-definition.md)为准，当前为 `UNRESOLVED`。
+[内部试点产品定义](../discovery/product-definition.md)为准，当前为 `DRAFT`，
+`DG0` 尚未通过。
 
 ## 固定问题领域
 
@@ -17,17 +18,17 @@ last_reviewed: 2026-07-30
 - 第一轮只验证内部试点，不推导外部客户、代理商、SaaS 或商业模式。
 - 任何产品结论不得超出[项目章程](../project/charter.md)和安全政策。
 
-## 当前未决
+## 当前发现状态
 
 | 产品事实 | 状态 | 来源 |
 | --- | --- | --- |
-| 首要内部用户 | UNRESOLVED | DQ-01 |
-| 核心任务与问题 | UNRESOLVED | DQ-02–DQ-04 |
-| 价值主张 | UNRESOLVED | DQ-05 |
-| 最小产品内容 | UNRESOLVED | DQ-06 |
-| 产品形态和核心流程 | UNRESOLVED | DQ-07 |
+| 首要内部用户 | DRAFT | DQ-01 |
+| 核心任务与问题 | DRAFT | DQ-02–DQ-04 |
+| 价值主张 | DRAFT | DQ-05 |
+| 最小产品内容 | DRAFT | DQ-06 |
+| Web 产品主体与前期 Codex 助手形态 | DRAFT | DQ-07 |
 | 内部试点范围、指标和信任边界 | UNRESOLVED | DQ-08 |
-| MVP 功能清单 | UNRESOLVED | 产品定义与 EVD-* |
+| MVP 功能清单 | DRAFT | 产品定义与 EVD-* |
 
 旧基线中的用户、日报、诊断、建议、控制台、审批和自动化均已迁入
 [候选解决方案](../discovery/solution-hypotheses.md)，不能在没有证据时恢复为产品事实。

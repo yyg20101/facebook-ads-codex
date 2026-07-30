@@ -8,32 +8,32 @@ last_reviewed: 2026-07-30
 
 # 系统架构
 
-> 候选设计：Codex、Web、Cloudflare、MCP 和下述组件尚未被产品证据选择，`DG0` 前
-> 不构成技术基线或实施授权。
+> 产品证据已确认业务主体是 Web 运营平台，前期 AI 入口是 Codex 会话。Cloudflare、
+> MCP、存储和下述运行时组件仍为候选技术方案，`DG0` 前不构成实施授权。
 
 ## 设计目标
 
 系统将 AI 推理与确定性的身份、数据、策略和外部执行分离：
 
-- Codex 是唯一 AI Agent 和日常自然语言入口。
+- Codex 是前期唯一 AI Agent 和自然语言入口。
 - Cloudflare 是单一主控制平面。
-- Web Control Console 提供配置、状态、审批、审计和紧急停止。
+- Web Operations Platform 提供素材、广告创建与管理、数据、测试、审批和审计。
 - Meta Marketing API 是外部数据源及后续受控写入目标。
 
-这些边界由 [ADR-001](../decisions/ADR-001-codex-only-ai-agent.md)、
+这些候选边界记录在 [ADR-001](../decisions/ADR-001-codex-only-ai-agent.md)、
 [ADR-002](../decisions/ADR-002-web-is-not-ai-entry.md)和
-[ADR-005](../decisions/ADR-005-single-control-plane.md)约束。
+[ADR-005](../decisions/ADR-005-single-control-plane.md)中；ADR 接受前不具有实施约束力。
 
 ## 组件关系
 
 ```mermaid
 flowchart TB
   User["用户"] --> Codex["Codex"]
-  User --> Console["Web Control Console"]
+  User --> Web["Web Operations Platform"]
 
   Codex --> Skills["Focused Codex Skills"]
   Skills --> MCP["Remote MCP"]
-  Console --> HTTP["Worker HTTP API"]
+  Web --> HTTP["Worker HTTP API"]
 
   subgraph CF["Cloudflare 主控制平面"]
     MCP --> Domain["共享业务与授权层"]
@@ -56,7 +56,7 @@ flowchart TB
 | Focused Skills | 流程、指标、诊断顺序、输出和安全规则 | 实时认证、租户授权、Token |
 | Remote MCP | 实时数据、服务端授权和受控工具 | 任意 SQL、URL、Graph API |
 | Worker 业务层 | 认证、RBAC、租户、策略、执行和审计 | 第二个聊天或 LLM 决策 Agent |
-| Web Console | 配置、图表、同步状态、审批、审计和 Emergency stop | AI 对话、浏览器直连 Meta |
+| Web Operations Platform | 素材、广告、图表、测试、状态、审批、审计和 Emergency stop | 前期 AI 对话、浏览器直连 Meta |
 | D1 | 关系状态、标准化指标、审批和审计索引 | 明文租户 Token |
 | R2 | 原始快照、导出和 before/after 快照 | Authorization Header、会话 |
 | Queues/Workflows | 异步同步、重试、回补和长任务 | 依赖 Codex 在线 |
@@ -128,7 +128,7 @@ MVP SHOULD 保持单体控制平面。只有出现明确的部署、权限或扩
 ```text
 facebook-ads-codex/
   apps/
-    control-console/
+    operations-platform/
   services/
     control-plane-worker/
       src/
@@ -142,6 +142,8 @@ facebook-ads-codex/
         audit/
       migrations/
   skills/
+    facebook-ads-creative/
+    facebook-ads-campaign-builder/
     facebook-ads-analysis/
     facebook-ads-daily-brief/
     facebook-ads-optimization/
@@ -156,15 +158,22 @@ facebook-ads-codex/
 
 该布局是 Phase 1 的设计输入，不授权创建运行时代码。
 
-## 控制台范围
+## Web 产品范围
 
 候选页面：
 
 ```text
+/overview
+/assets
+/campaigns
+/campaigns/new
+/campaigns/:id
+/ads/:id
+/analytics
+/tests
 /connections
 /workspaces
 /ad-accounts
-/dashboard
 /sync
 /recommendations
 /changes

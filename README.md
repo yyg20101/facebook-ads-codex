@@ -1,10 +1,10 @@
 # Facebook Ads Codex
 
-面向 Meta/Facebook 广告领域的产品发现与后续实现项目。
+面向 Meta/Facebook 广告全流程运营平台的产品发现与后续实现项目。
 
-> 项目负责人已通过内部试点产品设计；`DG0` 仍为 `PARTIAL`，因为三种低保真形态的
-> 同任务走查和真实任务完成率尚未验证。Cloudflare、MCP、运行时架构和自动化仍为
-> 候选方案，不是已接受的实现前提。
+> 项目负责人已确认业务产品主体是完整 Web 运营平台，前期 AI 助手使用独立 Codex
+> 会话、上下文、信息文档和 Skills。`DG0` 仍为 `PARTIAL`，因为正确产品形态的完整
+> Web 流程和 Codex 辅助流程尚未验证。Cloudflare、MCP 和运行时架构仍为候选方案。
 >
 > 当前阶段和授权以[项目状态与授权](docs/project/status-and-authorizations.md)为准。
 
@@ -12,22 +12,23 @@
 
 本轮只完成 `DG0` 剩余的产品形态验证：
 
-- 使用已确认的 `SC-01`–`SC-03` 和同一组脱敏数据制作三种低保真形态。
-- 记录每种形态的任务完成项和数据、权限或 Meta 写操作理解偏差。
-- 验证选定形态的完成率不低于 80%，且关键误解为 0。
-- 结果通过后关闭 `DQ-07`、`DQ-08` 并评估 `DG0`。
+- 建立覆盖素材、广告创建与发布、投放管理、数据分析和持续优化的 Web 信息架构。
+- 使用已确认的 `SC-01`–`SC-03` 制作连续、可交互的完整 Web 产品流程。
+- 为三个场景准备使用上下文、信息文档和 Skills 的 Codex 辅助流程。
+- 验证正确形态的关键步骤覆盖率不低于 80%，且关键误解为 0。
+- 结果通过后关闭 `DQ-08` 并评估 `DG0`。
 - 在产品定义通过 `DG0` 前，不进入原 Phase 0 或任何技术实施。
 
 固定范围和治理边界见[项目章程](docs/project/charter.md)，研究流程见
 [产品发现入口](docs/discovery/README.md)。
 
-## 候选产品形态
+## 已确认产品形态
 
-| 形态 | 验证方式 |
+| 层 | 职责 |
 | --- | --- |
-| Codex 对话式工作流 | 比较基线，使用相同场景走查 |
-| Web 工作台式工作流 | 比较基线，使用相同场景走查 |
-| Web 工作台 + 内置对话助手 | 负责人选定候选，仍须达到 Gate 门槛 |
+| Web 运营平台 | 业务对象、状态、素材、广告创建与管理、图表、操作和审计 |
+| Codex 会话 | 前期 AI 生成、解释、诊断和建议，使用上下文、信息文档和 Skills |
+| 后续受控工具 | 经独立评审后提供实时数据、保存对象和受控 Meta 操作 |
 
 既有[技术文档](docs/technical/README.md)只保存候选方案，不能作为实施依据。
 候选状态只在[候选解决方案登记](docs/discovery/solution-hypotheses.md)中维护。
@@ -39,8 +40,8 @@
 | [项目文档](docs/README.md) | 权威矩阵、任务阅读路径和完整导航 |
 | [项目状态与授权](docs/project/status-and-authorizations.md) | 当前阶段和授权事实源 |
 | [产品发现](docs/discovery/README.md) | 发现问题、研究、证据、形态验证和 DG0 |
-| [产品设计](docs/superpowers/specs/2026-07-30-facebook-ads-assistant-design.md) | 已通过的内部试点产品定义与交互设计 |
-| [原型验证计划](docs/superpowers/plans/2026-07-30-dg0-prototype-validation.md) | `DG0` 剩余三形态同任务验证步骤 |
+| [产品设计](docs/superpowers/specs/2026-07-30-meta-ads-operations-platform-design.md) | 全流程 Web 平台与 Codex 辅助形态设计 |
+| [原型计划](docs/superpowers/plans/2026-07-30-full-web-platform-prototype.md) | 正确产品形态的完整原型实施与验收 |
 | [需求文档](docs/requirements/README.md) | 产品、功能、质量、角色、指标和追踪 |
 | [技术文档](docs/technical/README.md) | 仅供比较的候选架构和实现方案 |
 | [工程规范](docs/standards/README.md) | 代码、接口、数据、安全、测试和发布规则 |

@@ -8,15 +8,16 @@ last_reviewed: 2026-07-30
 
 # 技术文档
 
-本目录保存旧基线中的候选技术方案。产品形态、需求和 ADR 均未接受，因此全部技术内容
-只供 Product Discovery 后比较，不得作为实现依据，也不得表述为已选型、部署或验证。
+本目录保存候选技术方案。产品方向已选择 Web 运营平台与前期 Codex 助手，但 `DG0`、
+需求和 ADR 均未接受，因此技术内容只供后续比较，不得作为实现依据，也不得表述为
+已选型、部署或验证。
 
 | 文档 | 设计范围 |
 | --- | --- |
 | [系统架构](architecture.md) | 组件、责任、边界、拓扑和技术基线 |
 | [领域与数据模型](domain-and-data.md) | 实体、D1、R2、指标粒度和幂等 |
 | [Meta 接入与同步](meta-integration-and-sync.md) | 权限、Token、API、同步和回补 |
-| [Codex Skills](codex-skills.md) | 分析流程、四个聚焦 Skill 和输出 |
+| [Codex Skills](codex-skills.md) | 前期上下文工作方式、六个候选聚焦 Skill 和输出 |
 | [API 与 MCP 契约](api-and-mcp-contracts.md) | 认证、响应、工具和副作用边界 |
 | [认证、审批与审计](auth-approval-and-audit.md) | RBAC、状态机、策略和审计 |
 | [部署与运维](deployment-and-operations.md) | 环境、调度、可观测性和恢复 |

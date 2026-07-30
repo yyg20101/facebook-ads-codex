@@ -26,10 +26,10 @@ last_reviewed: 2026-07-30
 | 8 | 同步与存储 | `technical/domain-and-data.md`、`technical/meta-integration-and-sync.md` | 按数据和流程拆分 | COMPLETE |
 | 9 | 指标语义 | `requirements/metrics-and-reporting.md` | 迁移公式与口径 | COMPLETE |
 | 10 | Codex 分析流程 | `technical/codex-skills.md` | 迁移完整流程 | COMPLETE |
-| 11 | 四个 Codex Skills | `technical/codex-skills.md` | 迁移四个聚焦 Skill | COMPLETE |
+| 11 | Codex Skills | `technical/codex-skills.md` | 迁移原四个并按产品范围扩展候选 Skill | COMPLETE |
 | 12 | Remote MCP 契约 | `technical/api-and-mcp-contracts.md` | 迁移工具与响应边界 | COMPLETE |
 | 13 | 审批状态机 | `technical/auth-approval-and-audit.md` | 迁移状态、策略和操作矩阵 | COMPLETE |
-| 14 | Web Console | `technical/architecture.md`、FR-011 | 迁移页面与行为 | COMPLETE |
+| 14 | Web 产品 | `technical/architecture.md`、FR-011 | 从原控制台扩展为完整运营平台 | COMPLETE |
 | 15 | 定时任务 | `technical/deployment-and-operations.md`、`technical/codex-skills.md` | 按执行主体拆分 | COMPLETE |
 | 16 | 安全要求 | `SECURITY.md`、`technical/security-architecture.md`、安全规范 | 政策、设计、实践分层 | COMPLETE |
 | 17 | 可观测性与质量 | `technical/deployment-and-operations.md`、日志规范、数据设计 | 按责任拆分 | COMPLETE |

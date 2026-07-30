@@ -8,7 +8,8 @@ last_reviewed: 2026-07-30
 
 # ADR-003：Skill 与 MCP 分工固定
 
-> 候选方案：本 ADR 尚未由用户问题和产品形态证据支持，`DG0` 前不具有约束力。
+> 候选方案：`EVD-023` 已支持 Codex 与 Skills 的前期产品方向；是否引入 Remote MCP
+> 及其契约仍未决定，`DG0` 前本 ADR 不具有约束力。
 
 ## 背景
 
@@ -18,7 +19,7 @@ Skill 中会泄漏凭据并允许模型绕过授权。
 ## 决策
 
 - Skill 保存流程、指标、诊断顺序、输出格式和安全规则。
-- Remote MCP 提供实时数据、认证、授权和受控工具。
+- 如果后续引入 Remote MCP，由它提供实时数据、认证、授权和受控工具。
 - Skill MUST NOT 保存 Meta Token、Cloudflare Token 或其他密钥。
 - MCP 服务端 MUST 重新验证 Workspace、广告账户和操作权限。
 - MCP 不信任模型传入的账户 ID、角色或任意 payload。

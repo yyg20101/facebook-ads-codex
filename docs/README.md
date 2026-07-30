@@ -15,8 +15,9 @@ last_reviewed: 2026-07-30
 
 当前阶段、运行模式和授权布尔值只在
 [项目状态与授权](project/status-and-authorizations.md)中维护。项目当前为
-`PRODUCT_DISCOVERY_IN_PROGRESS` / `PRODUCT_DISCOVERY`。内部试点产品形态、三个核心
-场景和 MVP 边界已由负责人确认并保持 `DRAFT`；`DG0` 尚未完成最终评估。
+`PRODUCT_DISCOVERY_IN_PROGRESS` / `PRODUCT_DISCOVERY`。完整 Web 运营平台与独立
+Codex 前期助手的分工已由负责人确认并保持 `DRAFT`；`DG0` 尚未完成正确形态的流程
+验证。
 
 ## 权威边界
 
@@ -25,7 +26,7 @@ last_reviewed: 2026-07-30
 | 项目目标、范围和全局边界 | [项目章程](project/charter.md) | 任何领域文档不得扩大章程范围 |
 | 当前阶段和授权 | [项目状态与授权](project/status-and-authorizations.md) | 其他文档不得复制授权值 |
 | 安全政策 | [根目录安全策略](../SECURITY.md) | 技术设计和编码规范不得削弱安全不变量 |
-| 产品问题与证据 | [产品发现](discovery/README.md) | `DQ-*`、`EVD-*`、原型比较和 `DG0` |
+| 产品问题与证据 | [产品发现](discovery/README.md) | `DQ-*`、`EVD-*`、形态验证和 `DG0` |
 | 产品行为与验收 | [需求文档](requirements/README.md) | 使用稳定需求 ID |
 | 候选架构与实现契约 | [技术文档](technical/README.md) | `DG0` 前不得作为实施依据 |
 | 工程实践 | [规范文档](standards/README.md) | 约束代码、数据、测试和发布 |
@@ -51,8 +52,8 @@ last_reviewed: 2026-07-30
 - [发现问题](discovery/discovery-questions.md)
 - [研究计划](discovery/research-plan.md)
 - [产品形态验证](discovery/product-shape-validation.md)
-- [内部试点产品设计](superpowers/specs/2026-07-30-facebook-ads-assistant-design.md)
-- [DG0 原型验证计划](superpowers/plans/2026-07-30-dg0-prototype-validation.md)
+- [全流程产品设计](superpowers/specs/2026-07-30-meta-ads-operations-platform-design.md)
+- [完整 Web 原型计划](superpowers/plans/2026-07-30-full-web-platform-prototype.md)
 - [产品定义与 DG0](discovery/product-definition.md)
 
 ### Phase 0

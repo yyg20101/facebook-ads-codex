@@ -6,15 +6,15 @@
 [项目章程](docs/project/charter.md)、[需求](docs/requirements/README.md)和
 [技术设计](docs/technical/README.md)实现的：
 
-- 任何被选择的对话式、Web 或混合产品形态。
+- 已选的 Web 运营平台与前期 Codex 会话产品形态。
 - 任何被选择的服务端、API、MCP、存储、队列或工作流实现。
 - Meta Marketing API 数据同步与受控写操作。
 - 认证、授权、租户隔离、审批、审计和密钥处理代码。
 
-Codex、Cloudflare、Web、MCP 和具体存储目前只是候选方案。本策略约束任何后续方案，
-但不代表这些组件已经被产品发现选择。
+Web 运营平台和前期 Codex 会话已由产品发现选择；Cloudflare、MCP 和具体存储仍是候选
+技术方案。本策略约束任何后续方案，但不代表运行时组件已经被接受或实现。
 
-仓库当前处于 Pre-Discovery，没有可运行代码、生产部署或已授权的 Meta 写能力。
+仓库当前处于 Product Discovery，没有可运行代码、生产部署或已授权的 Meta 写能力。
 因此，本策略描述的是必须保持的安全边界，不代表控制已经实现或验证。
 
 需要保护的核心资产包括 Meta Token、OAuth Token、加密根密钥、广告账户数据、

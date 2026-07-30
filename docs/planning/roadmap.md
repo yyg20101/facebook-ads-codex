@@ -13,11 +13,11 @@ last_reviewed: 2026-07-30
 ```text
 Documentation baseline
   -> PRODUCT_DISCOVERY_IN_PROGRESS
-  -> General Meta Ads assistant direction confirmed
-  -> Product scope decisions in progress
-  -> Representative scenarios not started
-  -> Product shape review not started
-  -> DG0 not evaluated
+  -> Full-lifecycle Meta Ads Web platform direction confirmed
+  -> Early AI entry confirmed as Codex context + docs + Skills
+  -> Three representative scenarios reviewed
+  -> Correct Web and Codex workflow prototype pending
+  -> DG0 PARTIAL
   -> No runtime code
   -> No deployment authorization
   -> No Meta write authorization
@@ -32,8 +32,8 @@ Documentation baseline
 | Product Discovery | 无 | 内部用户、问题、形态、内容、MVP 和试点指标 | DG0 |
 | Phase 0：业务与权限确认 | DG0 | 业务、KPI、权限、数据范围和账户决策 | G0 |
 | Phase 1：数据控制平面 | G0 | Worker、D1、R2、同步、质量和 staging 验证 | G1 |
-| Phase 2：MCP 与只读分析 | G1 | Remote MCP、分析 Skill 和只读 MVP | G2 |
-| Phase 3：网页控制台 | G1 | RBAC、配置、图表、同步状态和审计 | G3 |
+| Phase 2：Codex 与只读分析 | G1 | 上下文、聚焦 Skills、候选 Remote MCP 和只读分析 | G2 |
+| Phase 3：Web 运营平台 | G1 | 素材、广告、图表、测试、RBAC、状态和审计 | G3 |
 | Phase 4：审批式写操作 | G2、G3、独立授权 | 状态机、网页审批和有限 Meta 写入 | G4 |
 | Phase 5：有限自动化 | G4、经批准 Dry Run | 规则边界、熔断、白名单和审计自动化 | G5 |
 
@@ -45,7 +45,7 @@ Gate；当前表不构成实现承诺。
 - `PD-01` 由项目负责人确认通用产品定位、支持用户和非目标。
 - `PD-02` 确认广告投放、数据分析及相关能力的范围和优先级。
 - `PD-03` 建立至少 3 个代表性端到端场景并登记脱敏 `EVD-*`。
-- `PD-04` 使用相同场景比较对话式、Web 工作台和混合式低保真方案。
+- `PD-04` 使用完整 Web 原型和 Codex 辅助流程验证已选产品形态。
 - `PD-05` 形成内部试点产品定义、内容地图和 `MVP`/`LATER`/`REJECTED` 功能。
 - `PD-06` 评估 `DG0` 并由项目负责人确认。
 
@@ -82,28 +82,27 @@ Phase 0。当前不得执行本节任务。
 - `P1-07` 实现数据质量检查和同步状态。
 - `P1-08` 添加单元、集成和 fixture 测试。
 
-## Phase 2：Remote MCP 与 Codex 只读分析
+## Phase 2：Codex 与只读分析
 
-以下任务只适用于产品形态选择 Codex 和 Remote MCP 的情况：
+产品已选择 Codex 作为前期 AI 入口；Remote MCP 仍须单独评审：
 
-- `P2-01` 实现 MCP 认证和用户到 Workspace 映射。
-- `P2-02` 实现全部只读工具。
-- `P2-03` 实现分页、限制、错误 envelope 和安全日志。
-- `P2-04` 创建 `facebook-ads-analysis` Skill。
-- `P2-05` 创建 `facebook-ads-daily-brief` Skill。
-- `P2-06` 创建代表性分析和拒绝场景测试。
+- `P2-01` 建立 Codex 上下文文档与 Skills 的加载和验证规则。
+- `P2-02` 创建素材、广告创建、分析、日报、优化和变更管理 Skills。
+- `P2-03` 如果通过 ADR 选择 Remote MCP，实现认证和用户到 Workspace 映射。
+- `P2-04` 如果选择 MCP，实现只读工具、分页、限制、错误 envelope 和安全日志。
+- `P2-05` 创建代表性生成、分析和拒绝场景测试。
 
-G2 完成后形成只读 MVP。
+G2 只证明 Codex 辅助能力；完整产品还必须满足 Web 产品 Gate。
 
-## Phase 3：精简网页控制台
+## Phase 3：Web 运营平台
 
-以下任务只适用于产品形态选择 Web 能力的情况：
+Web 已被选择为业务产品主体，具体实现仍依赖 `DG0`、G0 和技术评审：
 
 - `P3-01` 实现用户认证和 RBAC。
-- `P3-02` 实现连接、账户绑定和指标配置。
-- `P3-03` 实现 dashboard 和同步状态。
-- `P3-04` 实现 recommendations 和 audit。
-- `P3-05` 实现 accessibility、响应式和 E2E 测试。
+- `P3-02` 实现素材中心、广告创建和广告管理的首期范围。
+- `P3-03` 实现数据分析、测试与优化、连接和账户配置。
+- `P3-04` 实现建议、审批交接、同步状态和审计。
+- `P3-05` 实现 accessibility、响应式、跨模块对象关系和 E2E 测试。
 
 ## Phase 4：审批式写操作
 

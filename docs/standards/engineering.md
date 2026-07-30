@@ -14,7 +14,7 @@ last_reviewed: 2026-07-30
 ## 技术基线
 
 - 运行时代码使用 TypeScript，并启用严格类型检查。
-- Cloudflare Worker 是服务端运行时，React + Vite 是控制台基线。
+- Cloudflare Worker 是候选服务端运行时，React + Vite 是候选 Web 产品基线。
 - 输入、环境变量、第三方响应和持久化边界使用运行时 schema 验证。
 - MVP 使用一个控制平面 Worker 和共享业务层，不提前拆分微服务。
 

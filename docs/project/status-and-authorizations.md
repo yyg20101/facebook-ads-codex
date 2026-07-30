@@ -23,9 +23,9 @@ production_deployment_authorized: false
 meta_write_operations_authorized: false
 ```
 
-`PRODUCT_DISCOVERY_IN_PROGRESS` 表示项目负责人主导的产品定义确认已经启动，但支持
-用户、产品形态、内容和功能尚未确认。`DG0` 通过前不得启动原 Phase 0、Meta 接入或
-Cloudflare 技术准备。
+`PRODUCT_DISCOVERY_IN_PROGRESS` 表示项目负责人已确认完整 Web 运营平台与独立 Codex
+前期助手的产品方向，但完整流程原型、Codex 辅助流程和内部试点 Gate 尚未完成。`DG0`
+通过前不得启动原 Phase 0、Meta 接入或 Cloudflare 技术准备。
 
 ## 当前允许
 

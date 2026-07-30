@@ -23,7 +23,7 @@ last_reviewed: 2026-07-30
 ## 状态规则
 
 - `ACCEPTED`：需求语义已经确认，可作为后续设计约束。
-- `DRAFT`：产品价值、产品形态、Phase 0 事实或验收阈值尚未确认。
+- `DRAFT`：产品价值证据、Phase 0 事实、验收阈值或实现边界尚未通过 Gate。
 - `UNRESOLVED`：只用于具体字段或问题，不得作为默认值实施。
 
 文档状态与单项需求状态可以不同。在 Product Discovery 期间：

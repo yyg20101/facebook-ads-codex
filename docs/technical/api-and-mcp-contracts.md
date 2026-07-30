@@ -164,5 +164,5 @@ MCP 与 HTTP 均不得提供：
 
 ## Web HTTP 契约
 
-控制台 HTTP API 与 MCP 使用同一身份映射、授权、领域查询、策略、错误码和审计层。
+Web 运营平台 HTTP API 与 MCP 使用同一身份映射、授权、领域查询、策略、错误码和审计层。
 具体 endpoint 在 Phase 3 技术设计中定义；不得从页面路由反推未经审查的 API。

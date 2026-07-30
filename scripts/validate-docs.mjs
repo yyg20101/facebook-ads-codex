@@ -21,9 +21,8 @@ const REQUIRED_DOCS = [
   "docs/discovery/solution-hypotheses.md",
   "docs/discovery/product-shape-validation.md",
   "docs/discovery/product-definition.md",
-  "docs/discovery/prototypes/README.md",
-  "docs/discovery/prototypes/review-guide.md",
-  "docs/discovery/prototypes/generated/gallery.md",
+  "docs/superpowers/specs/2026-07-30-meta-ads-operations-platform-design.md",
+  "docs/superpowers/plans/2026-07-30-full-web-platform-prototype.md",
   "docs/requirements/README.md",
   "docs/requirements/product.md",
   "docs/requirements/functional.md",
@@ -61,6 +60,14 @@ const REQUIRED_DOCS = [
   "docs/templates/TECHNICAL-DESIGN.md",
   "docs/templates/TEST-PLAN.md",
   "docs/templates/INCIDENT-POSTMORTEM.md"
+];
+
+const FORBIDDEN_OBSOLETE_PATHS = [
+  "docs/discovery/prototypes/generated/gallery.md",
+  "docs/superpowers/plans/2026-07-30-dg0-prototype-validation.md",
+  "docs/superpowers/specs/2026-07-30-facebook-ads-assistant-design.md",
+  "scripts/build-dg0-prototypes.mjs",
+  "scripts/score-dg0-review.mjs"
 ];
 
 const CANDIDATE_TECH_DOCS = [
@@ -261,6 +268,11 @@ function requirementSections(text) {
 for (const required of REQUIRED_DOCS) {
   if (!existsSync(resolve(ROOT, required))) {
     errors.push(`missing required document: ${required}`);
+  }
+}
+for (const obsolete of FORBIDDEN_OBSOLETE_PATHS) {
+  if (existsSync(resolve(ROOT, obsolete))) {
+    errors.push(`obsolete product-shape artifact must be removed: ${obsolete}`);
   }
 }
 

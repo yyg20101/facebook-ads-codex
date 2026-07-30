@@ -43,7 +43,7 @@ FAILED
 
 - `DRAFT -> VALIDATED`：对象、权限、预算和 payload 校验通过。
 - `VALIDATED -> AWAITING_APPROVAL`：授权用户或 Codex 提交。
-- `AWAITING_APPROVAL -> APPROVED/REJECTED`：只允许网页控制台中的授权用户完成。
+- `AWAITING_APPROVAL -> APPROVED/REJECTED`：只允许 Web 运营平台中的授权用户完成。
 - `APPROVED -> EXECUTING`：只允许 `execute_approved_change` 完成。
 - `APPROVED -> STALE`：对象、预算、状态或审批期限变化。
 - `EXECUTING -> SUCCEEDED/FAILED`：记录脱敏 Meta 结果和 after 状态。

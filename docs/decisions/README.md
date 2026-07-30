@@ -15,8 +15,8 @@ last_reviewed: 2026-07-30
 
 | ADR | 决策 | 状态 |
 | --- | --- | --- |
-| [ADR-001](ADR-001-codex-only-ai-agent.md) | Codex 是唯一 AI Agent | `DRAFT` |
-| [ADR-002](ADR-002-web-is-not-ai-entry.md) | 网页不是 AI 入口 | `DRAFT` |
+| [ADR-001](ADR-001-codex-only-ai-agent.md) | 前期 Codex 是唯一 AI Agent | `DRAFT` |
+| [ADR-002](ADR-002-web-is-not-ai-entry.md) | 前期 Web 不重复实现 AI 会话入口 | `DRAFT` |
 | [ADR-003](ADR-003-skills-and-mcp-boundary.md) | Skill 与 MCP 分工固定 | `DRAFT` |
 | [ADR-004](ADR-004-cloudflare-account-is-not-meta-tenant.md) | Cloudflare 账户不等于 Meta 租户 | `DRAFT` |
 | [ADR-005](ADR-005-single-control-plane.md) | MVP 使用单一主控制平面 | `DRAFT` |

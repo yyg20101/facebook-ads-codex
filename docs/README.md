@@ -15,7 +15,8 @@ last_reviewed: 2026-07-30
 
 当前阶段、运行模式和授权布尔值只在
 [项目状态与授权](project/status-and-authorizations.md)中维护。项目当前为
-`PRODUCT_DISCOVERY_REQUIRED` / `PRE_DISCOVERY`，产品形态与功能尚未确认。
+`PRODUCT_DISCOVERY_IN_PROGRESS` / `PRODUCT_DISCOVERY`。内部试点产品形态、三个核心
+场景和 MVP 边界已由负责人确认并保持 `DRAFT`；`DG0` 尚未完成最终评估。
 
 ## 权威边界
 
@@ -50,6 +51,7 @@ last_reviewed: 2026-07-30
 - [发现问题](discovery/discovery-questions.md)
 - [研究计划](discovery/research-plan.md)
 - [产品形态验证](discovery/product-shape-validation.md)
+- [内部试点产品设计](superpowers/specs/2026-07-30-facebook-ads-assistant-design.md)
 - [产品定义与 DG0](discovery/product-definition.md)
 
 ### Phase 0

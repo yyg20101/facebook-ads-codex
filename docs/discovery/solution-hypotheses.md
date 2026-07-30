@@ -23,8 +23,9 @@ last_reviewed: 2026-07-30
 
 状态限定为：
 
-- `UNTESTED`：尚无可比用户证据。
-- `SUPPORTED`：存在支持证据，但不等于已被选入 MVP。
+- `UNTESTED`：尚无负责人决定或可比场景评审证据。
+- `SUPPORTED`：存在负责人决定和场景评审证据，但不等于已被选入 MVP，也不代表
+  真实用户验证。
 - `REJECTED`：证据不支持或与选定产品方向冲突。
 - `INCONCLUSIVE`：证据不足或互相冲突。
 

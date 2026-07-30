@@ -411,7 +411,12 @@ for (const line of evidenceText.split("\n")) {
     errors.push(`discovery evidence ${id}: invalid participant alias ${alias}`);
   }
   if (
-    !["PROBLEM_INTERVIEW", "PROTOTYPE_TEST", "OWNER_DECISION"].includes(method)
+    ![
+      "PROBLEM_INTERVIEW",
+      "PROTOTYPE_TEST",
+      "OWNER_DECISION",
+      "SCENARIO_REVIEW"
+    ].includes(method)
   ) {
     errors.push(`discovery evidence ${id}: invalid method ${method}`);
   }
@@ -729,21 +734,17 @@ if (discoveryComplete) {
   if (unresolvedQuestions.length > 0) {
     errors.push("DG0 PASS cannot contain unresolved discovery questions");
   }
-  const interviewParticipants = new Set(
-    [...evidenceRecords.values()]
-      .filter((record) => record.method === "PROBLEM_INTERVIEW")
-      .map((record) => record.alias)
+  const ownerDecisions = [...evidenceRecords.values()].filter(
+    (record) => record.method === "OWNER_DECISION"
   );
-  const prototypeParticipants = new Set(
-    [...evidenceRecords.values()]
-      .filter((record) => record.method === "PROTOTYPE_TEST")
-      .map((record) => record.alias)
+  const scenarioReviews = [...evidenceRecords.values()].filter(
+    (record) => record.method === "SCENARIO_REVIEW"
   );
-  if (interviewParticipants.size < 3) {
-    errors.push("DG0 PASS requires at least 3 problem interview participants");
+  if (ownerDecisions.length < 1) {
+    errors.push("DG0 PASS requires product owner decision evidence");
   }
-  if (prototypeParticipants.size < 3) {
-    errors.push("DG0 PASS requires at least 3 prototype test participants");
+  if (scenarioReviews.length < 3) {
+    errors.push("DG0 PASS requires at least 3 scenario review records");
   }
   if (
     ![...productFeatures.values()].some(

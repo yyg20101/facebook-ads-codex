@@ -8,15 +8,18 @@ last_reviewed: 2026-07-30
 
 # Product Discovery
 
-本目录是在需求和技术设计前验证产品定义的唯一事实源。当前只固定 Meta/Facebook
-广告问题领域；目标用户、问题、价值、产品形态、内容、功能和技术方案均未确认。
+本目录是在需求和技术设计前验证产品定义的唯一事实源。项目负责人已确认内部试点的
+目标用户范围、问题与价值假设、产品形态、三个核心场景和 MVP 边界；这些结论仍为
+`DRAFT`，且不代表真实用户、可用性、外部市场或广告效果验证。
 
 ## 当前记录状态
 
 ```yaml
-research_status: NOT_STARTED
-participant_target: 3-5
-minimum_valid_participants: 3
+research_status: IN_PROGRESS
+discovery_mode: OWNER_DIRECTED_PRODUCT_DEFINITION
+required_user_interviews: 0
+owner_decisions_recorded: 18
+scenario_reviews_completed: 3
 ```
 
 这些字段记录研究工作，不复制或扩大[项目状态与授权](../project/status-and-authorizations.md)。
@@ -26,7 +29,7 @@ minimum_valid_participants: 3
 
 本轮 Product Discovery 只允许形成：
 
-- 一个有证据支持的内部试点用户角色。
+- 明确的通用产品定位、支持用户类别和经验层级。
 - 1–3 个核心 Job-to-be-Done。
 - 问题、现有替代方案、价值主张和产品内容地图。
 - 对话式、Web 工作台和混合式三种低保真方案的比较结论。
@@ -38,21 +41,25 @@ minimum_valid_participants: 3
 ## 阅读与执行顺序
 
 1. [发现问题](discovery-questions.md)：维护 `DQ-01`–`DQ-08`。
-2. [研究计划](research-plan.md)：确定参与者、顺序、质量和停止条件。
-3. [访谈指南](interview-guide.md)：先收集近期行为，再讨论期待。
+2. [产品定义确认计划](research-plan.md)：确定负责人决策、场景、质量和停止条件。
+3. [访谈指南](interview-guide.md)：仅在未来另行启动真实用户研究时使用。
 4. [证据登记](evidence-log.md)：只保存脱敏 `EVD-*`。
 5. [候选解决方案](solution-hypotheses.md)：保存旧基线，不把它当作事实。
 6. [产品形态验证](product-shape-validation.md)：使用相同任务比较三种形态。
-7. [产品定义与 DG0](product-definition.md)：综合证据并由项目负责人确认。
+7. [内部试点产品设计](../superpowers/specs/2026-07-30-facebook-ads-assistant-design.md)：
+   汇总已确认的交互、场景、权限、失败处理和功能边界。
+8. [产品定义与 DG0](product-definition.md)：综合证据并由项目负责人确认。
 
 ## 执行规则
 
-- 参与者由项目负责人协调，Codex 不自行联系、邀请或安排人员。
-- 问题访谈必须先于原型展示，避免候选方案诱导回答。
-- 同一参与者可以参加两个阶段，但原型反馈不能反向改写问题访谈证据。
-- 研究材料使用 `P-NN` 别名；姓名、联系方式、录音、原始转录和客户数据不得入库。
-- 结论必须链接一个或多个 `EVD-*`；没有证据时保持 `UNRESOLVED`。
-- 少于三名有效参与者或任一核心 Gate 条件不满足时，`DG0` 必须为 `PARTIAL`。
+- 当前只收集产品负责人对定位、范围、优先级、行为、非目标和安全边界的明确决策。
+- 不询问或保存项目负责人的个人投放经历。
+- 至少建立 3 个不含真实账户或客户数据的代表性端到端场景。
+- 三种产品形态必须使用相同场景进行比较，不能用功能愿望替代任务验证。
+- 负责人决策和场景评审必须登记 `EVD-*`；没有决定时保持 `UNRESOLVED`。
+- 负责人决策不得被表述为真实用户或市场验证。
+- 代表性场景少于 3 个、场景评审少于 3 次或任一核心 Gate 条件不满足时，`DG0`
+  必须为 `PARTIAL`。
 - `DG0` 未通过时，需求、ADR、技术和实现型规范不得转为 `ACCEPTED`。
 
 ## 启动与完成

@@ -12,8 +12,11 @@ last_reviewed: 2026-07-30
 
 ```text
 Documentation baseline
-  -> PRODUCT_DISCOVERY_REQUIRED
-  -> Product Discovery not started
+  -> PRODUCT_DISCOVERY_IN_PROGRESS
+  -> General Meta Ads assistant direction confirmed
+  -> Product scope decisions in progress
+  -> Representative scenarios not started
+  -> Product shape review not started
   -> DG0 not evaluated
   -> No runtime code
   -> No deployment authorization
@@ -39,10 +42,10 @@ Gate；当前表不构成实现承诺。
 
 ## Product Discovery
 
-- `PD-01` 协调 3–5 名内部真实用户，至少获得 3 名有效参与者。
-- `PD-02` 先完成问题访谈，登记脱敏 `EVD-*`。
-- `PD-03` 综合近期任务、当前流程、重复成本、风险和期望结果。
-- `PD-04` 使用相同任务比较对话式、Web 工作台和混合式低保真方案。
+- `PD-01` 由项目负责人确认通用产品定位、支持用户和非目标。
+- `PD-02` 确认广告投放、数据分析及相关能力的范围和优先级。
+- `PD-03` 建立至少 3 个代表性端到端场景并登记脱敏 `EVD-*`。
+- `PD-04` 使用相同场景比较对话式、Web 工作台和混合式低保真方案。
 - `PD-05` 形成内部试点产品定义、内容地图和 `MVP`/`LATER`/`REJECTED` 功能。
 - `PD-06` 评估 `DG0` 并由项目负责人确认。
 

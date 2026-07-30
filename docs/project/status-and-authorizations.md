@@ -15,16 +15,17 @@ last_reviewed: 2026-07-30
 
 ```yaml
 project_version: 1.0.0
-delivery_state: PRODUCT_DISCOVERY_REQUIRED
-current_phase: PRE_DISCOVERY
+delivery_state: PRODUCT_DISCOVERY_IN_PROGRESS
+current_phase: PRODUCT_DISCOVERY
 operation_mode: READ_ONLY
 runtime_implementation_available: false
 production_deployment_authorized: false
 meta_write_operations_authorized: false
 ```
 
-`PRODUCT_DISCOVERY_REQUIRED` 表示产品用户、问题、形态、内容和功能尚未确认。
-`DG0` 通过前不得启动原 Phase 0、Meta 接入或 Cloudflare 技术准备。
+`PRODUCT_DISCOVERY_IN_PROGRESS` 表示项目负责人主导的产品定义确认已经启动，但支持
+用户、产品形态、内容和功能尚未确认。`DG0` 通过前不得启动原 Phase 0、Meta 接入或
+Cloudflare 技术准备。
 
 ## 当前允许
 

@@ -6,7 +6,10 @@
   "scripts": {
     "docs:lint": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
     "docs:validate": "node scripts/validate-docs.mjs",
-    "docs:check": "npm run docs:lint && npm run docs:validate"
+    "prototype:build": "node scripts/build-dg0-prototypes.mjs",
+    "prototype:test": "node --test tests/dg0-prototype-*.test.mjs tests/dg0-review-score.test.mjs",
+    "prototype:check": "npm run prototype:test",
+    "docs:check": "npm run docs:lint && npm run docs:validate && npm run prototype:check"
   },
   "engines": {
     "node": ">=20"

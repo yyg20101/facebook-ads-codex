@@ -22,7 +22,7 @@ function gallery() {
           return `![${shape.id} ${scenario.id} ${stage.title}](${id}.svg)`;
         })
         .join("\n\n");
-      return `### ${shape.id}：${shape.name}\n\n${images}`;
+      return `### ${scenario.id} / ${shape.id}：${shape.name}\n\n${images}`;
     }).join("\n\n");
     return `## ${scenario.id}：${scenario.title}\n\n${shapes}`;
   }).join("\n\n");

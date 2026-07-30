@@ -49,7 +49,8 @@ design_spec_review: APPROVED
 6. [产品形态验证](product-shape-validation.md)：使用相同任务比较三种形态。
 7. [内部试点产品设计](../superpowers/specs/2026-07-30-facebook-ads-assistant-design.md)：
    汇总已确认的交互、场景、权限、失败处理和功能边界。
-8. [产品定义与 DG0](product-definition.md)：综合证据并由项目负责人确认。
+8. [DG0 低保真原型](prototypes/README.md)：使用同任务故事板完成三形态比较。
+9. [产品定义与 DG0](product-definition.md)：综合证据并由项目负责人确认。
 
 ## 下一步执行
 

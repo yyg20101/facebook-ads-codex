@@ -11,6 +11,10 @@ on:
       - "package.json"
       - "package-lock.json"
       - "scripts/validate-docs.mjs"
+      - "docs/discovery/prototypes/**"
+      - "scripts/build-dg0-prototypes.mjs"
+      - "scripts/score-dg0-review.mjs"
+      - "tests/dg0-*.test.mjs"
       - ".github/workflows/docs.yml"
   pull_request:
     branches:
@@ -22,6 +26,10 @@ on:
       - "package.json"
       - "package-lock.json"
       - "scripts/validate-docs.mjs"
+      - "docs/discovery/prototypes/**"
+      - "scripts/build-dg0-prototypes.mjs"
+      - "scripts/score-dg0-review.mjs"
+      - "tests/dg0-*.test.mjs"
       - ".github/workflows/docs.yml"
 
 permissions:

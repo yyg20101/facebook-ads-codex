@@ -13,7 +13,7 @@ last_reviewed: 2026-07-30
 
 ## SC-01：从投放目标到可审核广告草稿
 
-### PROTO-A：对话主导
+### SC-01 / PROTO-A：对话主导
 
 ![PROTO-A SC-01 目标简报](proto-a-sc-01-start.svg)
 
@@ -21,7 +21,7 @@ last_reviewed: 2026-07-30
 
 ![PROTO-A SC-01 广告草稿](proto-a-sc-01-result.svg)
 
-### PROTO-B：纯 Web 工作台
+### SC-01 / PROTO-B：纯 Web 工作台
 
 ![PROTO-B SC-01 目标简报](proto-b-sc-01-start.svg)
 
@@ -29,7 +29,7 @@ last_reviewed: 2026-07-30
 
 ![PROTO-B SC-01 广告草稿](proto-b-sc-01-result.svg)
 
-### PROTO-C：Web 工作台 + 内置助手
+### SC-01 / PROTO-C：Web 工作台 + 内置助手
 
 ![PROTO-C SC-01 目标简报](proto-c-sc-01-start.svg)
 
@@ -39,7 +39,7 @@ last_reviewed: 2026-07-30
 
 ## SC-02：从只读投放数据到诊断与行动建议
 
-### PROTO-A：对话主导
+### SC-02 / PROTO-A：对话主导
 
 ![PROTO-A SC-02 数据范围](proto-a-sc-02-start.svg)
 
@@ -47,7 +47,7 @@ last_reviewed: 2026-07-30
 
 ![PROTO-A SC-02 诊断报告](proto-a-sc-02-result.svg)
 
-### PROTO-B：纯 Web 工作台
+### SC-02 / PROTO-B：纯 Web 工作台
 
 ![PROTO-B SC-02 数据范围](proto-b-sc-02-start.svg)
 
@@ -55,7 +55,7 @@ last_reviewed: 2026-07-30
 
 ![PROTO-B SC-02 诊断报告](proto-b-sc-02-result.svg)
 
-### PROTO-C：Web 工作台 + 内置助手
+### SC-02 / PROTO-C：Web 工作台 + 内置助手
 
 ![PROTO-C SC-02 数据范围](proto-c-sc-02-start.svg)
 
@@ -65,7 +65,7 @@ last_reviewed: 2026-07-30
 
 ## SC-03：从素材变体到测试结论
 
-### PROTO-A：对话主导
+### SC-03 / PROTO-A：对话主导
 
 ![PROTO-A SC-03 测试假设](proto-a-sc-03-start.svg)
 
@@ -73,7 +73,7 @@ last_reviewed: 2026-07-30
 
 ![PROTO-A SC-03 测试结论](proto-a-sc-03-result.svg)
 
-### PROTO-B：纯 Web 工作台
+### SC-03 / PROTO-B：纯 Web 工作台
 
 ![PROTO-B SC-03 测试假设](proto-b-sc-03-start.svg)
 
@@ -81,7 +81,7 @@ last_reviewed: 2026-07-30
 
 ![PROTO-B SC-03 测试结论](proto-b-sc-03-result.svg)
 
-### PROTO-C：Web 工作台 + 内置助手
+### SC-03 / PROTO-C：Web 工作台 + 内置助手
 
 ![PROTO-C SC-03 测试假设](proto-c-sc-03-start.svg)
 

@@ -16,8 +16,8 @@ last_reviewed: 2026-07-30
 当前阶段、运行模式和授权布尔值只在
 [项目状态与授权](project/status-and-authorizations.md)中维护。项目当前为
 `PRODUCT_DISCOVERY_IN_PROGRESS` / `PRODUCT_DISCOVERY`。完整 Web 运营平台与独立
-Codex 前期助手的分工已由负责人确认并保持 `DRAFT`；`DG0` 尚未完成正确形态的流程
-验证。
+Codex 前期助手的分工已由负责人确认并保持 `DRAFT`；本地交互原型与 Codex 场景包已
+完成，`DG0` 尚待负责人完成正确形态的产品走查。
 
 ## 权威边界
 
@@ -54,6 +54,9 @@ Codex 前期助手的分工已由负责人确认并保持 `DRAFT`；`DG0` 尚未
 - [产品形态验证](discovery/product-shape-validation.md)
 - [全流程产品设计](superpowers/specs/2026-07-30-meta-ads-operations-platform-design.md)
 - [完整 Web 原型计划](superpowers/plans/2026-07-30-full-web-platform-prototype.md)
+- [本地交互原型](../prototype/README.md)
+- [视觉一致性记录](../prototype/design/fidelity-ledger.md)
+- [Codex 辅助流程原型](discovery/codex-prototype/README.md)
 - [产品定义与 DG0](discovery/product-definition.md)
 
 ### Phase 0

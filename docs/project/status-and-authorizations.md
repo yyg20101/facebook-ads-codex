@@ -24,14 +24,20 @@ meta_write_operations_authorized: false
 ```
 
 `PRODUCT_DISCOVERY_IN_PROGRESS` 表示项目负责人已确认完整 Web 运营平台与独立 Codex
-前期助手的产品方向，但完整流程原型、Codex 辅助流程和内部试点 Gate 尚未完成。`DG0`
-通过前不得启动原 Phase 0、Meta 接入或 Cloudflare 技术准备。
+前期助手的产品方向。本地交互原型和 Codex 场景包已完成，但负责人产品走查和内部试点
+Gate 尚未完成。`DG0` 通过前不得启动原 Phase 0、Meta 接入或 Cloudflare 技术准备。
+
+`runtime_implementation_available: false` 指没有可连接真实业务数据或外部系统的业务
+运行时。使用固定虚构数据、只在本地浏览器内改变状态的 Product Discovery 原型不构成
+业务运行时可用。
 
 ## 当前允许
 
 - 阅读、审查和维护项目文档。
 - 制定实施计划。
 - 准备 Product Discovery 的问题、访谈、脱敏证据和低保真原型材料。
+- 开发、启动和验证只使用固定虚构数据的本地 Product Discovery 前端原型，以及
+  不连接外部系统的 Codex 上下文包和 Skill 契约。
 - 在项目负责人明确启动 Product Discovery 后，开展已协调的内部用户研究。
 
 ## 当前禁止

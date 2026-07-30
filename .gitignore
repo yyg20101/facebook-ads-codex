@@ -1,4 +1,5 @@
 node_modules/
+prototype/dist/
 .DS_Store
 npm-debug.log*
 .superpowers/

@@ -11,7 +11,8 @@ last_reviewed: 2026-07-30
 本目录是在需求和技术设计前验证产品定义的唯一事实源。项目负责人已确认产品是完整
 Meta 广告 Web 运营平台，前期 AI 助手使用独立 Codex 会话、上下文、信息文档和
 Skills。三个核心场景和初步 MVP 边界仍为 `DRAFT`，不代表真实用户、可用性、外部市场
-或广告效果验证。
+或广告效果验证。对应本地 Web 交互原型和 Codex 场景包已经实现，但尚未由项目负责人
+完成 Gate 走查。
 
 ## 当前记录状态
 
@@ -22,7 +23,9 @@ required_user_interviews: 0
 owner_decisions_recorded: 21
 scenario_reviews_completed: 3
 product_shape_decision: CONFIRMED
-design_spec_review: PENDING_REVIEW
+design_spec_review: READY_FOR_OWNER_WALKTHROUGH
+prototype_implementation_status: COMPLETE
+browser_qa_status: PASS
 ```
 
 这些字段记录研究工作，不复制或扩大[项目状态与授权](../project/status-and-authorizations.md)。
@@ -53,13 +56,16 @@ design_spec_review: PENDING_REVIEW
    汇总信息架构、业务对象、核心流程、权限和失败处理。
 8. [完整 Web 原型计划](../superpowers/plans/2026-07-30-full-web-platform-prototype.md)：
    实现已选产品形态和独立 Codex 辅助流程。
-9. [产品定义与 DG0](product-definition.md)：综合证据并由项目负责人确认。
+9. [Codex 辅助流程原型](codex-prototype/README.md)：定义三个场景的上下文、Skill、
+   结构化输出和 Web 手动交接。
+10. [产品定义与 DG0](product-definition.md)：综合证据并由项目负责人确认。
 
 ## 下一步执行
 
-下一步只针对已选形态建立完整 Web 信息架构、可交互的三个端到端场景，以及对应的
-Codex 上下文、文档和 Skills 示例流程。旧三形态静态故事板不再使用。该工作仍不包含
-运行时代码、真实 Meta 接入、Cloudflare 资源或部署。
+下一步由项目负责人按照[本地交互原型](../../prototype/README.md)连续走查三个 Web
+场景，并对照 [Codex 场景包](codex-prototype/README.md)确认两层产品分工、关键步骤
+覆盖率和关键误解。旧三形态静态故事板不再使用。该工作仍不包含业务运行时、真实 Meta
+接入、Cloudflare 资源或部署。
 
 ## 执行规则
 

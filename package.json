@@ -2,16 +2,37 @@
   "name": "facebook-ads-codex",
   "version": "1.0.0",
   "private": true,
-  "description": "Product discovery documentation baseline for the Meta Ads problem space",
+  "description": "Product discovery baseline and simulated Meta Ads operations platform prototype",
   "scripts": {
     "docs:lint": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
     "docs:validate": "node scripts/validate-docs.mjs",
-    "docs:check": "npm run docs:lint && npm run docs:validate"
+    "docs:check": "npm run docs:lint && npm run docs:validate",
+    "prototype:dev": "vite --config prototype/vite.config.ts",
+    "prototype:build": "tsc -p prototype/tsconfig.json --noEmit && vite build --config prototype/vite.config.ts",
+    "prototype:test": "vitest run --config prototype/vite.config.ts",
+    "prototype:check": "npm run prototype:test && npm run prototype:build",
+    "check": "npm run docs:check && npm run prototype:check"
   },
   "engines": {
     "node": ">=20"
   },
+  "dependencies": {
+    "lucide-react": "0.468.0",
+    "react": "19.0.0",
+    "react-dom": "19.0.0"
+  },
   "devDependencies": {
-    "markdownlint-cli2": "0.23.2"
+    "@testing-library/jest-dom": "6.6.3",
+    "@testing-library/react": "16.1.0",
+    "@testing-library/user-event": "14.5.2",
+    "@types/node": "22.10.5",
+    "@types/react": "19.0.3",
+    "@types/react-dom": "19.0.2",
+    "@vitejs/plugin-react": "4.3.4",
+    "jsdom": "25.0.1",
+    "markdownlint-cli2": "0.23.2",
+    "typescript": "5.7.2",
+    "vite": "6.4.3",
+    "vitest": "3.2.7"
   }
 }

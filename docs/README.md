@@ -3,7 +3,7 @@ doc_id: DOC-INDEX
 type: index
 status: ACCEPTED
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # 项目文档
@@ -17,7 +17,8 @@ last_reviewed: 2026-07-30
 [项目状态与授权](project/status-and-authorizations.md)中维护。项目当前为
 `READY_FOR_PHASE_0` / `PRODUCT_DISCOVERY_COMPLETE`。完整 Web 运营平台与独立 Codex
 前期助手的内部试点产品定义、本地交互原型和 Codex 场景包已由负责人默认验收，
-`DG0` 为 `PASS`；Phase 0 已进入文档确认，G0 尚未评估。
+`DG0` 为 `PASS`；Phase 0 的 `BQ-01`–`BQ-12` 已全部回答，G0 因尚未取得真实 Meta
+只读接入证据而未评估。
 
 ## 权威边界
 

@@ -8,8 +8,8 @@ last_reviewed: 2026-07-30
 
 # ADR-005：MVP 使用单一主控制平面
 
-> 候选方案：`DG0` 通过未选择 Cloudflare 或单一控制平面；`BQ-12`、成本、所有权和
-> 替代方案尚未确认，本 ADR 不具有约束力。
+> 候选方案：`BQ-12` 已确认 `cf-primary` 的逻辑所有权，但 `DG0` 通过未接受
+> Cloudflare 单一控制平面架构；成本、实际账户、域名、套餐和替代方案仍待评审。
 
 ## 背景
 
@@ -21,7 +21,8 @@ MVP 需要 Worker、MCP、D1、R2、Queues、Workflows 和 Secret。过早跨账
 - MVP 的控制平面资源位于一个逻辑主 Cloudflare 账户 `cf-primary`。
 - API 与 MCP 使用一个 Worker 项目和共享业务层。
 - staging 与 production 在该账户内使用独立资源和 Secret。
-- 具体账户所有权、域名、套餐和账单由 `BQ-12` 确认。
+- `BQ-12` 已确认具体账户由项目负责人控制并承担未来域名、账单和资源所有权；
+  实际账户、域名和套餐在获得单独授权后验证。
 - 未来跨账户硬隔离必须通过新 ADR，并使用完整独立资源。
 
 ## 后果

@@ -22,8 +22,8 @@ last_reviewed: 2026-07-30
 | `ctr_link` | `link_clicks / impressions` |
 | `cpc_link` | `spend / link_clicks` |
 | `cpm` | `spend / impressions * 1000` |
-| `conversions` | 工作空间配置的主转化事件数量 |
-| `conversion_value` | 主转化事件的归因价值 |
+| `conversions` | 当前分析广告上下文所配置转化事件的归因数量 |
+| `conversion_value` | 当前分析广告上下文所配置转化事件的归因价值 |
 | `cpa` | `spend / conversions` |
 | `roas` | `conversion_value / spend` |
 | `frequency` | `impressions / reach` |
@@ -33,33 +33,60 @@ last_reviewed: 2026-07-30
 
 ## 口径规则
 
+- 投放目标、主 KPI、转化事件、币种、时区、归因口径和历史可用范围 MUST 来自当前
+  广告账户、广告对象及查询返回的实际上下文，不得设置猜测性的项目级默认值。
+- 每份分析结果 MUST 携带广告账户、广告对象、日期范围、币种、时区、归因口径和
+  `data_through`；缺失或冲突的上下文 MUST 标记为 `UNKNOWN` 或 `UNAVAILABLE`。
 - 不同币种不得直接求和或比较。
 - 不同时区不得在未转换前按自然日比较。
 - 不同归因窗口不得直接比较 ROAS、CPA 或 conversions。
 - `clicks` 和 `link_clicks` 不得混用。
-- 主转化事件必须由 Workspace 显式配置。
+- 转化事件必须来自当前分析广告的实际配置和事件数据，或由用户显式映射；不得使用
+  猜测的项目级默认事件。
+- 广告事件缺失、冲突或无法识别时，转化类指标 MUST 标记为未知或不可比较。
+- 首期只使用 Meta 广告账户报告的投放与归因数据；不将外部 CRM 或独立转化数据连接
+  作为首期依赖。
 - Meta 平台归因不能表述为确定的真实增量因果效果。
 
 ## 候选指标配置
 
 ```yaml
-campaign_objective: UNRESOLVED
-primary_kpi: UNRESOLVED
-primary_conversion_event: UNRESOLVED
-currency_policy: no_cross_currency_aggregation
-timezone_policy: ad_account_local_time
-attribution_policy: UNRESOLVED
+campaign_objective_policy: per_ad_object_context
+primary_kpi_policy: derive_from_objective_event_and_account_context
+primary_conversion_event_policy: per_ad_context
+reporting_data_source: meta_ad_account_reported
+external_conversion_join: out_of_scope_for_initial_phase
+currency_policy: per_ad_account_no_cross_currency_aggregation
+timezone_policy: per_ad_account
+attribution_policy: meta_returned_context
+history_read_policy: requested_range_within_account_availability
+analysis_storage_policy: persistent_normalized_history
+normalized_history_retention: 25_months
+generated_analysis_retention: 25_months
+raw_response_retention: 90_days
 ```
 
-这些字段只有在 Product Discovery 选择分析/报告能力后才进入 Phase 0，并分别依赖
-`BQ-03`、`BQ-04` 和 `BQ-07`。当前不得把 ROAS、CPA 或日报预设为用户核心需求。
+`BQ-03`–`BQ-08` 已确认账户上下文驱动策略：产品不要求项目负责人预先选择一个适用于
+所有广告账户的投放目标、主 KPI、转化事件或归因窗口。主 KPI 必须根据当前对象的实际
+目标、事件和可用指标动态选择，并说明选择依据。首期只使用广告账户报告数据；不得把
+ROAS、CPA 或日报硬编码为所有账户的核心指标。
+
+## 历史分析数据
+
+项目 MUST 持久化标准化历史指标及其账户、广告对象、日期、币种、时区、归因口径、
+转化事件、API 版本、同步批次和数据截至时间，以支持趋势分析、区间对比、数据修订识别
+和分析复现。持久化数据仍以广告账户返回事实为来源，不得将项目存储中的旧值表述为
+Meta 当前状态。
+
+标准化历史指标和生成的分析结果滚动保留 25 个月。原始响应、诊断日志、审计记录和
+导出的保留与加速删除规则见[领域与数据模型](../technical/domain-and-data.md#保留与删除)。
 
 ## 候选分析流程
 
 如果选择证据型分析能力，候选流程为：
 
 1. 验证 Workspace、广告账户、日期、时区、币种、归因、新鲜度和同步错误。
-2. 根据投放目标与 Workspace 配置选择主 KPI。
+2. 根据当前广告对象的实际投放目标、转化事件与账户上下文选择主 KPI。
 3. 按 Outcome、delivery、CPM、CTR、CPC、CVR 和转化价值分解变化。
 4. 从账户逐级定位到 Campaign、Ad Set、Ad，必要时才增加 breakdown。
 5. 将结论标记为 `CONFIRMED`、`LIKELY` 或 `HYPOTHESIS`。

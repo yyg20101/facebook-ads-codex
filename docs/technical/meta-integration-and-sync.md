@@ -65,17 +65,19 @@ intraday_sync:
 
 daily_reconciliation:
   cadence: daily
-  trailing_window_days: 7
+  trailing_window_policy: derive_from_account_and_object_attribution_context
   purpose: capture_attribution_and_delayed_conversion_updates
 
 initial_backfill:
-  implementation_default_days: 180
-  configured_days: UNRESOLVED
+  requested_range: caller_selected
+  effective_range: intersection_with_account_available_history
+  implementation_default_days: none
   execution: batched_async
 ```
 
-`implementation_default_days` 不是保留政策或已确认业务值。实际历史范围由 `BQ-08`
-确定，保留期由 `BQ-09` 确定。
+回填范围和归因对账窗口必须依据当前广告账户、广告对象、用户请求与 Meta 实际返回的
+上下文确定，不设置项目级固定天数。持久化数据执行
+[分层保留政策](domain-and-data.md#保留与删除)。
 
 ## 同步流程
 

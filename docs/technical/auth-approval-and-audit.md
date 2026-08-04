@@ -19,8 +19,12 @@ last_reviewed: 2026-07-30
 4. 每次查询和写入重新校验 Workspace 与广告账户绑定。
 5. 业务操作记录 actor、request 和目标。
 
-认证方式由 `BQ-11` 决定，角色分配和审批者由 `BQ-10` 决定。候选能力矩阵见
-[角色与权限](../requirements/roles-and-permissions.md)。
+`BQ-11` 已确认首期使用 Cloudflare Access 且仅允许项目负责人登录。Worker 必须验证
+可信的 Access 身份结果，再映射内部 `user_id`；客户端或未经验证的身份字段不得直接
+授予权限。首期不建设外部注册、密码找回或客户身份系统。
+
+`BQ-10` 已确认只有 `OWNER` 拥有最终审批权；`EDITOR` 可提交但不可批准，`VIEWER`
+只读。能力矩阵见[角色与权限](../requirements/roles-and-permissions.md)。
 
 ## 变更申请状态机
 
@@ -43,12 +47,17 @@ FAILED
 
 - `DRAFT -> VALIDATED`：对象、权限、预算和 payload 校验通过。
 - `VALIDATED -> AWAITING_APPROVAL`：授权用户或 Codex 提交。
-- `AWAITING_APPROVAL -> APPROVED/REJECTED`：只允许 Web 运营平台中的授权用户完成。
+- `AWAITING_APPROVAL -> APPROVED/REJECTED`：只允许 Web 运营平台中经过重新认证和
+  授权校验的 `OWNER` 完成。
 - `APPROVED -> EXECUTING`：只允许 `execute_approved_change` 完成。
 - `APPROVED -> STALE`：对象、预算、状态或审批期限变化。
 - `EXECUTING -> SUCCEEDED/FAILED`：记录脱敏 Meta 结果和 after 状态。
 
 非法状态转换必须被拒绝并记录安全上下文。
+
+首期单用户 `OWNER` 可以审批自己提交的申请，但系统 MUST 强制独立的提交与确认动作，
+在确认页展示目标账户、对象、变更、风险和数据新鲜度，并为两个动作分别记录审计事件。
+该规则不开放当前未授权的 Meta 写操作。
 
 ## 操作矩阵
 

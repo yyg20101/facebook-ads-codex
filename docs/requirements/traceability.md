@@ -27,7 +27,7 @@ last_reviewed: 2026-07-30
 | FR-012 | DQ-06、DQ-08 | 待 EVD-* | [部署与运维](../technical/deployment-and-operations.md) | ADR-001（DRAFT） | 离线调度测试 | G1 | DRAFT |
 | FR-013 | DQ-08 | 待 EVD-* | [认证、审批与审计](../technical/auth-approval-and-audit.md) | ADR-005（DRAFT） | 审计完整性测试 | G1/G4 | DRAFT |
 | FR-014 | DQ-08 | 待 EVD-* | [项目章程](../project/charter.md) | ADR-006（DRAFT） | Gate 与授权负向检查 | DG0/G0–G5 | DRAFT |
-| FR-015 | DQ-06、BQ-09 | 待 EVD-* | [领域与数据](../technical/domain-and-data.md) | 待 DG0 | 保留、删除和导出测试 | G1 | DRAFT |
+| FR-015 | DQ-06、BQ-09 | EVD-019、EVD-023；E-011、E-012 | [领域与数据](../technical/domain-and-data.md) | 待存储设计 ADR | 保留、删除和导出测试 | G1 | DRAFT |
 | FR-016 | DQ-06、BQ-05 | 待 EVD-* | [Meta 接入](../technical/meta-integration-and-sync.md) | 待 DG0 | 外部转化数据契约测试 | Post-MVP | DRAFT |
 | NFR-001 | DQ-01、DQ-08 | 待 EVD-* | [安全架构](../technical/security-architecture.md) | ADR-004（DRAFT） | 跨租户安全测试 | G1–G4 | DRAFT |
 | NFR-002 | DQ-05、DQ-06 | 待 EVD-* | [领域与数据](../technical/domain-and-data.md) | ADR-003（DRAFT） | 指标公式与口径单元测试 | G1/G2 | DRAFT |

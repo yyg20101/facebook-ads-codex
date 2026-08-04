@@ -3,7 +3,7 @@ doc_id: PLAN-ROADMAP
 type: planning
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # 实施路线图
@@ -19,6 +19,8 @@ Documentation baseline
   -> Web and Codex workflow prototype accepted by project owner
   -> DG0 PASS
   -> Phase 0 document confirmation IN_PROGRESS
+  -> BQ-01 through BQ-12 RESOLVED
+  -> External account facts and Meta read-only path NOT VERIFIED
   -> No runtime code
   -> No deployment authorization
   -> No Meta write authorization
@@ -56,8 +58,9 @@ Gate；当前表不构成实现承诺。
 ## Phase 0：业务与权限确认
 
 启动前置条件已满足：`DG0` 为 `PASS`，项目状态为 `READY_FOR_PHASE_0`，项目负责人已
-另行启动 Phase 0 文档确认。当前只执行 `P0-01`–`P0-07` 的事实收集与评审；在获得
-单独授权前不得执行 `P0-08` 或访问真实 Meta/Cloudflare 资源。
+另行启动 Phase 0 文档确认。`BQ-01`–`BQ-12` 已全部回答；`P0-02`、`P0-04`、
+`P0-07` 的外部事实仍待验证。在获得单独授权前不得执行 `P0-08` 或访问真实
+Meta/Cloudflare 资源。
 
 任务：
 
@@ -81,7 +84,7 @@ Gate；当前表不构成实现承诺。
 - `P1-03` 创建 R2、Queues、Workflows 的 staging 配置。
 - `P1-04` 实现加密后的 Meta connection 存储。
 - `P1-05` 实现 Meta 只读客户端、分页、限流和错误分类。
-- `P1-06` 实现增量同步、7 日回补和历史 backfill。
+- `P1-06` 实现增量同步、按账户与广告对象归因上下文回补和历史 backfill。
 - `P1-07` 实现数据质量检查和同步状态。
 - `P1-08` 添加单元、集成和 fixture 测试。
 

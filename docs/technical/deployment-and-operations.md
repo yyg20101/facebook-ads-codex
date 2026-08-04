@@ -14,8 +14,9 @@ last_reviewed: 2026-07-30
 ## 控制平面
 
 MVP 使用一个逻辑主 Cloudflare 账户 `cf-primary` 承载 Worker、Remote MCP、D1、
-R2、Queues、Workflows 和 Secrets。具体账户所有权、域名、套餐和账单归属由
-`BQ-12` 在 Phase 0 确认，仓库不保存个人邮箱或实际账户 ID。
+R2、Queues、Workflows 和 Secrets。`BQ-12` 已确认该账户由项目负责人控制，并负责
+未来生产域名、账单和资源所有权。实际账户 ID、域名和套餐仍需在单独授权后验证；
+仓库不保存个人邮箱或实际账户 ID。
 
 - Wrangler 配置 MUST 显式设置目标 `account_id`。
 - CI/CD MUST 对每个账户和环境使用独立、最小权限 API Token。

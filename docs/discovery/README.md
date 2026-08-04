@@ -3,7 +3,7 @@ doc_id: DISC-INDEX
 type: index
 status: ACCEPTED
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # Product Discovery
@@ -63,9 +63,9 @@ owner_walkthrough_status: PASS
 
 ## 下一步执行
 
-下一步进入 [Phase 0 问卷](../planning/phase-0-questionnaire.md)，逐项确认业务模型、
-账户范围、KPI、归因、数据、用户与基础设施事实。Phase 0 已开始文档确认，但当前仍不
-包含业务运行时、真实 Meta 接入、Cloudflare 资源、部署或广告写操作。
+[Phase 0 问卷](../planning/phase-0-questionnaire.md)中的 `BQ-01`–`BQ-12` 已全部回答。
+下一步是在获得单独授权后验证真实账户事实和 Meta 只读接入；当前仍不包含业务运行时、
+Cloudflare 资源创建、部署或广告写操作。
 
 ## 执行规则
 

@@ -183,4 +183,5 @@ facebook-ads-codex/
 /settings/safety
 ```
 
-页面必须通过 Worker 服务端访问数据。登录方式由 `BQ-11` 决定。
+页面必须通过 Worker 服务端访问数据。`BQ-11` 已确认首期使用 Cloudflare Access，
+且仅允许项目负责人登录；具体 Access 配置仍需后续技术和安全评审。

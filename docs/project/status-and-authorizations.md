@@ -3,7 +3,7 @@ doc_id: GOV-STATUS
 type: governance
 status: ACCEPTED
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # 项目状态与授权
@@ -27,6 +27,9 @@ meta_write_operations_authorized: false
 内部试点产品定义，`DG0` 已通过。负责人随后明确要求继续下一步，因此 Phase 0 的文档
 确认已在[问卷](../planning/phase-0-questionnaire.md)中启动。该状态不代表 G0 已通过，
 也不授权真实 Meta/Cloudflare 访问、业务运行时、部署或广告写操作。
+
+`BQ-01`–`BQ-12` 已全部回答。Phase 0 仍为进行中，因为账户实际数据量、广告上下文、
+Cloudflare 事实和 Meta 只读路径尚未在获得单独授权后验证。
 
 `runtime_implementation_available: false` 指没有可连接真实业务数据或外部系统的业务
 运行时。使用固定虚构数据、只在本地浏览器内改变状态的 Product Discovery 原型不构成
@@ -68,9 +71,9 @@ delivery_state: READY_FOR_PHASE_0
 current_phase: PRODUCT_DISCOVERY_COMPLETE
 ```
 
-Phase 0 先处理 `P0-01`–`P0-07` 的事实确认。`P0-08`、真实 Meta 只读验证和任何
-Cloudflare 操作仍须项目负责人另行明确授权；`DG0`、Phase 0 启动或文档合并均不会
-扩大外部权限。
+Phase 0 的 `BQ-01`–`BQ-12` 已完成负责人确认。`P0-02`、`P0-04`、`P0-07` 的外部
+事实验证以及 `P0-08`、真实 Meta 只读验证和任何 Cloudflare 操作仍须项目负责人另行
+明确授权；`DG0`、问卷完成或文档合并均不会扩大外部权限。
 
 ## 阶段启动检查
 

@@ -3,7 +3,7 @@ doc_id: REQ-PRODUCT
 type: requirements
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # 产品需求
@@ -48,5 +48,6 @@ Phase 0 当前必须：
 
 ## 后续 Phase 0
 
-`BQ-01`–`BQ-12` 正在用于确认账户范围、KPI、归因、数据、权限和基础设施。这些问题
-不用于重新选择首要用户、核心问题或产品形态；未回答项继续保持 `UNRESOLVED`。
+`BQ-01`–`BQ-12` 已全部回答，确认了账户范围、账户上下文驱动指标、数据保留、审批、
+认证和基础设施所有权。这些答案不重新选择首要用户、核心问题或产品形态，也不构成
+真实 Meta/Cloudflare 访问、部署或写操作授权。

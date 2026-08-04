@@ -3,7 +3,7 @@ doc_id: PLAN-GATES
 type: planning
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # Gate 与验证证据
@@ -44,8 +44,8 @@ Gate 是阶段结果的证据门槛，不是权限授权。
 - 测试环境能只读列出至少一个 Meta 广告账户。
 - 未部署 production，未授权 Meta 写操作。
 
-当前 Phase 0 文档确认已启动，G0 为 `NOT_EVALUATED`。真实 Meta 只读验证属于后续
-单独授权动作，不能从 Phase 0 启动推导。
+`BQ-01`–`BQ-12` 已全部回答，当前 G0 仍为 `NOT_EVALUATED`。真实 Meta 只读验证属于
+后续单独授权动作，不能从问卷完成推导。
 
 ## G1：数据控制平面
 

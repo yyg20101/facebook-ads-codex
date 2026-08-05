@@ -45,6 +45,8 @@ const REQUIRED_DOCS = [
   "docs/technical/auth-approval-and-audit.md",
   "docs/technical/deployment-and-operations.md",
   "docs/technical/security-architecture.md",
+  "docs/technical/offline-phase-1-scaffold.md",
+  "docs/technical/offline-read-only-analysis.md",
   "docs/standards/README.md",
   "docs/standards/engineering.md",
   "docs/standards/api-and-errors.md",
@@ -61,6 +63,7 @@ const REQUIRED_DOCS = [
   "docs/planning/gates-and-evidence.md",
   "docs/planning/document-baseline-checklist.md",
   "docs/runbooks/README.md",
+  "docs/runbooks/local-control-plane.md",
   "docs/runbooks/meta-read-connection.md",
   "docs/runbooks/RUNBOOK-TEMPLATE.md",
   "docs/templates/FEATURE-SPEC.md",
@@ -85,7 +88,28 @@ const CANDIDATE_TECH_DOCS = [
   "docs/technical/api-and-mcp-contracts.md",
   "docs/technical/auth-approval-and-audit.md",
   "docs/technical/deployment-and-operations.md",
-  "docs/technical/security-architecture.md"
+  "docs/technical/security-architecture.md",
+  "docs/technical/offline-phase-1-scaffold.md",
+  "docs/technical/offline-read-only-analysis.md"
+];
+
+const OFFLINE_WORKER_FILES = [
+  ".github/workflows/offline-worker.yml",
+  "services/control-plane-worker/src/index.ts",
+  "services/control-plane-worker/migrations/0001_initial.sql",
+  "services/control-plane-worker/fixtures/0001_seed.sql",
+  "services/control-plane-worker/test/worker.spec.ts",
+  "services/control-plane-worker/tsconfig.json",
+  "services/control-plane-worker/vitest.config.mts",
+  "services/control-plane-worker/worker-configuration.d.ts",
+  "services/control-plane-worker/wrangler.jsonc"
+];
+
+const OFFLINE_ANALYSIS_FILES = [
+  "services/control-plane-worker/src/http.ts",
+  "services/control-plane-worker/src/metrics.ts",
+  "services/control-plane-worker/src/read-model.ts",
+  "services/control-plane-worker/test/metrics.spec.ts"
 ];
 
 const CANDIDATE_IMPLEMENTATION_STANDARDS = [
@@ -650,6 +674,14 @@ const metaReadValidationAuthorized = yamlValue(
   statusText,
   "meta_read_validation_authorized"
 );
+const offlinePhaseOneScaffoldAuthorized = yamlValue(
+  statusText,
+  "offline_phase_1_scaffold_authorized"
+);
+const offlineReadOnlyAnalysisAuthorized = yamlValue(
+  statusText,
+  "offline_read_only_analysis_authorized"
+);
 const productionAuthorized = yamlValue(
   statusText,
   "production_deployment_authorized"
@@ -681,6 +713,12 @@ for (const [field, value] of [
 }
 if (!["true", "false"].includes(metaReadValidationAuthorized)) {
   errors.push("meta_read_validation_authorized must be a boolean");
+}
+if (!["true", "false"].includes(offlinePhaseOneScaffoldAuthorized)) {
+  errors.push("offline_phase_1_scaffold_authorized must be a boolean");
+}
+if (!["true", "false"].includes(offlineReadOnlyAnalysisAuthorized)) {
+  errors.push("offline_read_only_analysis_authorized must be a boolean");
 }
 if (
   metaReadValidationAuthorized === "true" &&
@@ -819,6 +857,151 @@ if (phaseZeroStatus === "COMPLETE" && gateZeroStatus !== "PASS") {
 if (deliveryState === "READY_FOR_PHASE_1") {
   if (phaseZeroStatus !== "COMPLETE" || gateZeroStatus !== "PASS") {
     errors.push("READY_FOR_PHASE_1 requires Phase 0 COMPLETE and G0 PASS");
+  }
+}
+if (offlinePhaseOneScaffoldAuthorized === "true") {
+  if (
+    `${deliveryState}|${currentPhase}` !==
+    "READY_FOR_PHASE_0|PRODUCT_DISCOVERY_COMPLETE"
+  ) {
+    errors.push(
+      "offline Phase 1 scaffold authorization requires the Phase 0 readiness state"
+    );
+  }
+  if (dg0Status !== "PASS") {
+    errors.push("offline Phase 1 scaffold authorization requires DG0 PASS");
+  }
+  if (phaseZeroStatus !== "IN_PROGRESS" || gateZeroStatus !== "PARTIAL") {
+    errors.push(
+      "offline Phase 1 scaffold authorization requires Phase 0 IN_PROGRESS and G0 PARTIAL"
+    );
+  }
+  if (
+    runtimeAvailable !== "false" ||
+    productionAuthorized !== "false" ||
+    metaWriteAuthorized !== "false"
+  ) {
+    errors.push(
+      "offline Phase 1 scaffold authorization cannot enable runtime, production, or Meta writes"
+    );
+  }
+
+  for (const path of OFFLINE_WORKER_FILES) {
+    if (!existsSync(resolve(ROOT, path))) {
+      errors.push(`offline Phase 1 scaffold is missing required file: ${path}`);
+    }
+  }
+
+  const workerConfigPath = resolve(
+    ROOT,
+    "services/control-plane-worker/wrangler.jsonc"
+  );
+  const workerConfig = existsSync(workerConfigPath)
+    ? readFileSync(workerConfigPath, "utf8")
+    : "";
+  for (const [label, pattern] of [
+    ["workers_dev=false", /"workers_dev"\s*:\s*false/],
+    ["preview_urls=false", /"preview_urls"\s*:\s*false/],
+    ["local-only D1 placeholder", /"database_id"\s*:\s*"LOCAL_ONLY_DO_NOT_DEPLOY"/],
+    ["offline fixture guard", /"OFFLINE_FIXTURES_ENABLED"\s*:\s*"true"/]
+  ]) {
+    if (!pattern.test(workerConfig)) {
+      errors.push(`offline Worker config must declare ${label}`);
+    }
+  }
+  for (const forbiddenKey of ["account_id", "route", "routes"]) {
+    if (new RegExp(`"${forbiddenKey}"\\s*:`).test(workerConfig)) {
+      errors.push(
+        `offline Worker config must not declare remote key ${forbiddenKey}`
+      );
+    }
+  }
+
+  const packageJson = JSON.parse(
+    readFileSync(resolve(ROOT, "package.json"), "utf8")
+  );
+  const scripts = packageJson.scripts ?? {};
+  if (typeof scripts["worker:check"] !== "string") {
+    errors.push("offline Worker scaffold must expose npm run worker:check");
+  }
+  for (const [name, command] of Object.entries(scripts)) {
+    if (
+      typeof command === "string" &&
+      /\bwrangler\s+deploy\b|\bwrangler\b[^\n]*\s--remote\b/.test(command)
+    ) {
+      errors.push(`package script ${name} must not enable remote Worker operations`);
+    }
+  }
+
+  const workerWorkflow = readFileSync(
+    resolve(ROOT, ".github/workflows/offline-worker.yml"),
+    "utf8"
+  );
+  if (!workerWorkflow.includes("npm run worker:check")) {
+    errors.push("offline Worker CI must run npm run worker:check");
+  }
+  if (/\bsecrets\.|\bwrangler\s+deploy\b|\s--remote\b/.test(workerWorkflow)) {
+    errors.push("offline Worker CI must not consume secrets or run remote operations");
+  }
+}
+if (offlineReadOnlyAnalysisAuthorized === "true") {
+  if (offlinePhaseOneScaffoldAuthorized !== "true") {
+    errors.push("offline read-only analysis requires the offline scaffold authorization");
+  }
+  if (
+    `${deliveryState}|${currentPhase}` !==
+      "READY_FOR_PHASE_0|PRODUCT_DISCOVERY_COMPLETE" ||
+    phaseZeroStatus !== "IN_PROGRESS" ||
+    gateZeroStatus !== "PARTIAL" ||
+    dg0Status !== "PASS"
+  ) {
+    errors.push(
+      "offline read-only analysis requires DG0 PASS, Phase 0 IN_PROGRESS, and G0 PARTIAL"
+    );
+  }
+  if (
+    metaReadValidationAuthorized !== "false" ||
+    runtimeAvailable !== "false" ||
+    productionAuthorized !== "false" ||
+    metaWriteAuthorized !== "false"
+  ) {
+    errors.push(
+      "offline read-only analysis cannot enable Meta reads, runtime availability, deployment, or writes"
+    );
+  }
+  for (const path of OFFLINE_ANALYSIS_FILES) {
+    if (!existsSync(resolve(ROOT, path))) {
+      errors.push(`offline read-only analysis is missing required file: ${path}`);
+    }
+  }
+
+  const offlineHttpSource = readFileSync(
+    resolve(ROOT, "services/control-plane-worker/src/http.ts"),
+    "utf8"
+  );
+  const offlineReadModelSource = readFileSync(
+    resolve(ROOT, "services/control-plane-worker/src/read-model.ts"),
+    "utf8"
+  );
+  if (
+    !offlineHttpSource.includes("isLocalHostname") ||
+    !offlineHttpSource.includes('segments[1] === "offline"')
+  ) {
+    errors.push("offline analysis HTTP routes must retain local-host and /offline guards");
+  }
+  if (!offlineReadModelSource.includes("source_kind = 'FIXTURE'")) {
+    errors.push("offline analysis queries must retain the fixture source guard");
+  }
+  for (const path of OFFLINE_ANALYSIS_FILES.filter((file) => file.endsWith(".ts"))) {
+    const source = readFileSync(resolve(ROOT, path), "utf8");
+    if (source.includes("as unknown as")) {
+      errors.push(`${path}: unsafe double-cast is forbidden in offline analysis code`);
+    }
+  }
+  for (const line of offlineHttpSource.split("\n")) {
+    if (line.includes("fetch(") && !/async fetch\(/.test(line)) {
+      errors.push("offline analysis HTTP code must not make external fetch calls");
+    }
   }
 }
 if (

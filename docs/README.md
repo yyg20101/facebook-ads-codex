@@ -17,8 +17,9 @@ last_reviewed: 2026-08-05
 [项目状态与授权](project/status-and-authorizations.md)中维护。项目当前为
 `READY_FOR_PHASE_0` / `PRODUCT_DISCOVERY_COMPLETE`。完整 Web 运营平台与独立 Codex
 前期助手的内部试点产品定义、本地交互原型和 Codex 场景包已由负责人默认验收，
-`DG0` 为 `PASS`；Phase 0 的 `BQ-01`–`BQ-12` 已全部回答，G0 因尚未取得真实 Meta
-只读接入证据而未评估。
+`DG0` 为 `PASS`；Phase 0 的 `BQ-01`–`BQ-12` 已全部回答。项目负责人决定暂时跳过
+真实配置，因此 G0 为 `PARTIAL`；当前只额外授权使用虚构 fixture 的 Phase 1 离线脚手架。
+负责人随后允许继续其中的离线只读分析切片；该切片不改变 Gate 或外部授权。
 
 ## 权威边界
 
@@ -67,6 +68,9 @@ last_reviewed: 2026-08-05
 - [Phase 0 问卷](planning/phase-0-questionnaire.md)
 - [Gate 与证据](planning/gates-and-evidence.md)
 - [Meta 只读连接验证 Runbook](runbooks/meta-read-connection.md)
+- [离线控制平面脚手架](technical/offline-phase-1-scaffold.md)
+- [离线只读分析](technical/offline-read-only-analysis.md)
+- [本地控制平面 Runbook](runbooks/local-control-plane.md)
 
 ### 数据控制平面
 

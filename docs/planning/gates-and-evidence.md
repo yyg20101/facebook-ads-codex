@@ -44,8 +44,9 @@ Gate 是阶段结果的证据门槛，不是权限授权。
 - 测试环境能只读列出至少一个 Meta 广告账户。
 - 未部署 production，未授权 Meta 写操作。
 
-`BQ-01`–`BQ-12` 已全部回答，当前 G0 仍为 `NOT_EVALUATED`。真实 Meta 只读验证属于
-后续单独授权动作，不能从问卷完成推导。
+`BQ-01`–`BQ-12` 已全部回答。项目负责人决定暂时跳过真实配置，因此当前 G0 为
+`PARTIAL`：业务决策已完成，但 Cloudflare 实际事实与 Meta 只读证据仍缺失。真实 Meta
+只读验证属于后续单独授权动作，不能从问卷、脚手架或测试通过推导。
 
 本地配置模板、离线测试或验证工具通过不构成 Meta 接入证据。`meta_read_access_available`
 表示按[只读验证 Runbook](../runbooks/meta-read-connection.md)成功验证了可重复建立的访问
@@ -54,6 +55,13 @@ Gate 是阶段结果的证据门槛，不是权限授权。
 G0 通过后项目状态转为 `READY_FOR_PHASE_1` / `PHASE_0_COMPLETE`，但运行时可用、
 production 部署、Meta 只读验证和 Meta 写操作授权仍保持关闭。若任何真实验证条件失败，
 G0 必须为 `PARTIAL` 或 `FAIL`，项目继续停留在 Phase 0。
+
+负责人已单独允许在 G0 `PARTIAL` 时进行 Phase 1 离线准备。该例外只覆盖虚构 fixture、
+本地 Worker/D1、类型、migration 和测试，不满足任何 G1 条件，也不允许 staging、
+Cloudflare 资源、真实 Meta 客户端或同步。
+
+负责人随后允许继续离线只读分析切片。fixture 账户列表、指标汇总、上下文兼容检查或
+对应测试通过仍不形成 G0/G1 证据，不证明认证、Meta 数据正确性或真实广告分析有效。
 
 ## G1：数据控制平面
 

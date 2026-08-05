@@ -3,7 +3,7 @@ doc_id: TECH-SECURITY
 type: technical
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # 安全架构
@@ -95,4 +95,5 @@ flowchart LR
 - MCP 参数绕过、日期/行数/指标限制绕过。
 - Emergency stop、缺失策略和对象变化的安全失败。
 
-仓库没有运行时代码，因此这些控制当前均为目标设计，不得在安全报告中描述为已存在。
+仓库仅有使用虚构 fixture 的离线 Worker 脚手架；除已由测试覆盖的本地 D1 约束、错误
+处理和安全失败外，本节控制仍为目标设计，不得在安全报告中描述为已存在。

@@ -14,10 +14,10 @@
 Web 运营平台和前期 Codex 会话已由产品发现选择；Cloudflare、MCP 和具体存储仍是候选
 技术方案。本策略约束任何后续方案，但不代表运行时组件已经被接受或实现。
 
-仓库已完成 Product Discovery，当前只启动 Phase 0 文档确认；仍只有使用固定虚构数据
-的本地前端交互原型，没有业务运行时、生产部署或已授权的 Meta 写能力。因此，本策略
-描述的是必须保持的安全边界；原型中的角色、确认、审计和发布状态均为产品模拟，不代表
-安全控制已经实现或验证。
+仓库已完成 Product Discovery，当前仍处于 Phase 0；除使用固定虚构数据的本地前端
+原型和离线 Worker/D1 脚手架外，没有可连接真实数据的业务运行时、生产部署或已授权的
+Meta 写能力。因此，本策略描述的是必须保持的安全边界；原型中的角色、确认、审计和
+发布状态均为产品模拟，不代表 production 安全控制已经实现或验证。
 
 需要保护的核心资产包括 Meta Token、OAuth Token、加密根密钥、广告账户数据、
 用户与权限关系、审批记录、不可变操作 payload、审计日志和广告对象控制权。
@@ -84,8 +84,9 @@ Web 运营平台和前期 Codex 会话已由产品发现选择；Cloudflare、MC
 
 ## Known Limitations and Compensating Controls
 
-- 当前没有业务运行时实现；原型中的租户隔离、加密、审批、审计和幂等表现只是界面
-  模拟，不能作为经过测试的安全控制。
+- 当前没有可连接真实数据的业务运行时实现；离线控制平面脚手架和原型只使用固定虚构
+  数据。离线读取接口没有 production 认证，必须保持本机限制和 `/offline/` 前缀；其中
+  的 D1 约束、错误处理和测试不能作为 production 安全控制。
 - 外部暴露面、认证方式和专用安全报告渠道仍需在 Phase 0 及后续设计中确认。
 - `production_deployment_authorized=false` 和
   `meta_write_operations_authorized=false` 阻止当前生产部署及 Meta 写操作。

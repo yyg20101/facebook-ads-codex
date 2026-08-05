@@ -3,7 +3,7 @@ doc_id: PLAN-PHASE-0
 type: planning
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # Phase 0 业务与权限确认问卷
@@ -12,7 +12,7 @@ last_reviewed: 2026-07-30
 
 ```yaml
 phase_status: IN_PROGRESS
-gate_status: NOT_EVALUATED
+gate_status: PARTIAL
 ```
 
 本文用于收集 Phase 0 决策和脱敏证据。项目负责人在 `DG0` 默认通过后明确要求继续
@@ -128,6 +128,8 @@ G0 只有在所有阻塞问题有明确答案、测试环境能只读列出至�
 | E-013 | 2026-07-30 | project_owner | 负责人确认首期只有 `OWNER` 拥有最终审批权；该决定不授予当前尚未开放的 Meta 写权限。 | BQ-10、P0-06 |
 | E-014 | 2026-07-30 | project_owner | 负责人确认首期 Web 使用 Cloudflare Access，仅供其本人登录，不建设外部客户身份系统；该决定不授权创建 Cloudflare 资源或部署。 | BQ-11、P0-06 |
 | E-015 | 2026-07-30 | project_owner | 负责人确认由其控制的唯一逻辑 Cloudflare 主账户 `cf-primary` 负责未来生产域名、账单、Workers、数据存储和 Access；未提供或访问实际账户标识。 | BQ-12、P0-07、`cloudflare_primary_account_confirmed` |
+| E-018 | 2026-08-05 | project_owner | 负责人决定暂时跳过真实 ID/Token 配置，并确认继续只使用虚构 fixture、无外部访问且不可部署的 Phase 1 离线脚手架；不豁免 G0。 | G0 `PARTIAL`、Phase 1 离线准备授权 |
+| E-019 | 2026-08-05 | project_owner | 负责人再次要求继续下一步并跳过配置；授权被限定为本机、只读、固定虚构数据的账户和指标汇总切片，不包含真实读取、认证替代或正式 Phase 1。 | G0 `PARTIAL`、离线只读分析授权 |
 
 ## 决策记录
 
@@ -148,14 +150,16 @@ G0 只有在所有阻塞问题有明确答案、测试环境能只读列出至�
 | 2026-07-30 | 首期仅 `OWNER` 拥有最终审批权 | project_owner | 关闭 BQ-10；单用户可自审，但提交和确认保持独立、显式并可审计 | 继续确认网页登录方式 BQ-11 |
 | 2026-07-30 | 首期使用 Cloudflare Access | project_owner | 关闭 BQ-11 和 P0-06；仅允许负责人登录，不建设外部客户身份系统 | 继续确认 Cloudflare 资源所有者 BQ-12 |
 | 2026-07-30 | `cf-primary` 作为唯一逻辑 Cloudflare 主账户 | project_owner | 关闭 BQ-12；确认未来域名、账单与资源所有权，不推导账户访问或部署授权 | 在单独授权后验证实际账户、域名和套餐 |
+| 2026-08-05 | 暂时跳过真实配置并继续离线脚手架 | project_owner | G0 评估为 `PARTIAL`；允许固定虚构数据的本地 Worker/D1 准备，不进入正式 Phase 1 | 完成离线脚手架；以后补齐 E-016、E-017 和 G0 |
+| 2026-08-05 | 继续下一步并再次跳过配置 | project_owner | 允许离线账户列表、日期校验、指标汇总和口径安全失败；不改变阶段或外部权限 | 完成并验证离线只读切片；以后仍补齐 E-016、E-017 和 G0 |
 
 ## 完成记录
 
 - 完成日期：`TBD`
 - 确认者：`TBD`
-- G0 状态：`NOT_EVALUATED`
+- G0 状态：`PARTIAL`
 - 未完成项：无未回答的 `BQ-*`；P0-02 实际数据量、P0-04 账户上下文验证、
   P0-07 外部账户验证、P0-08、G0 Meta 只读接入证据
-- 下一 Gate：G1
+- 下一 Gate：补齐真实只读证据后重新评估 G0；G0 `PASS` 前不得进入 G1
 
 Phase 0 完成仍不等于 production 部署或 Meta 写操作授权。

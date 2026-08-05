@@ -3,7 +3,7 @@ doc_id: PLAN-DOC-MIGRATION
 type: planning
 status: ACCEPTED
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # 文档基线迁移清单
@@ -61,4 +61,5 @@ last_reviewed: 2026-07-30
 - [x] 新增 Product Discovery、DQ-01–DQ-08、EVD 契约和 DG0。
 - [x] 旧产品、功能、技术和实现规范明确降为候选方案。
 - [x] 本地文档校验通过，GitHub CI 已配置为运行同一命令。
-- [x] 版本保持 `1.0.0`，没有运行时代码、部署或外部资源访问。
+- [x] 版本保持 `1.0.0`；当前新增内容仅为固定虚构数据的离线脚手架，没有部署或外部
+  资源访问。

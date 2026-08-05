@@ -17,7 +17,9 @@
 - `BQ-01`–`BQ-12` 已全部回答；账户实际数据量、上下文和 Cloudflare 事实仍待单独授权
   后验证。
 - 根据已选 `MVP` 能力重新评审现有 `FR-*`、`NFR-*`、`SEC-*` 和候选 ADR。
-- G0 通过前不进入 Phase 1，不访问真实 Meta/Cloudflare，不开发业务运行时。
+- G0 当前为 `PARTIAL`。负责人已允许 Phase 1 离线脚手架，但 G0 通过前不进入正式
+  Phase 1，不访问真实 Meta/Cloudflare，也不开发可连接真实数据的业务运行时。
+- 当前可继续的下一步是固定虚构数据的离线只读分析切片，不代表真实账户分析可用。
 
 固定范围和治理边界见[项目章程](docs/project/charter.md)，研究流程见
 [产品发现入口](docs/discovery/README.md)。
@@ -50,6 +52,8 @@
 | [ADR](docs/decisions/README.md) | 候选长期架构决策 |
 | [路线图](docs/planning/roadmap.md) | Product Discovery、Phase 0–5 和 Gate |
 | [Meta 只读验证](docs/runbooks/meta-read-connection.md) | 后续本地填入凭据、授权、验证和撤销流程 |
+| [离线控制平面脚手架](docs/technical/offline-phase-1-scaffold.md) | 当前获准的 Worker、D1、fixture 与测试边界 |
+| [离线只读分析](docs/technical/offline-read-only-analysis.md) | 本机 fixture 账户与指标汇总切片 |
 | [安全策略](SECURITY.md) | 安全政策、威胁和报告范围 |
 | [贡献指南](CONTRIBUTING.md) | 变更和评审流程 |
 
@@ -75,8 +79,8 @@ npm run check
 3. 检查并保留工作区已有变更。
 4. 只实施当前明确授权的阶段。
 
-当前 Phase 0 只开展文档事实确认。真实 Meta/Cloudflare 访问、资源创建、部署和广告
-写操作仍须另行明确授权。
+当前 Phase 0 只开展文档事实确认；唯一例外是已批准的固定虚构数据离线脚手架。真实
+Meta/Cloudflare 访问、资源创建、部署和广告写操作仍须另行明确授权。
 
 ## Phase 0 本地准备
 

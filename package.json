@@ -10,14 +10,25 @@
     "p0:config:check": "node scripts/check-p0-config.mjs",
     "p0:meta:verify": "node scripts/verify-meta-read.mjs",
     "p0:test": "vitest run tests/p0-readiness.test.mjs",
+    "worker:types": "wrangler types services/control-plane-worker/worker-configuration.d.ts --config services/control-plane-worker/wrangler.jsonc",
+    "worker:types:check": "npm run worker:types -- --check",
+    "worker:typecheck": "tsc -p services/control-plane-worker/tsconfig.json --noEmit && tsc -p services/control-plane-worker/test/tsconfig.json --noEmit",
+    "worker:test": "vitest run --config services/control-plane-worker/vitest.config.mts",
+    "worker:check": "npm run worker:types:check && npm run worker:typecheck && npm run worker:test",
+    "worker:dev": "wrangler dev --local --config services/control-plane-worker/wrangler.jsonc",
+    "worker:db:migrate:local": "wrangler d1 migrations apply DB --local --config services/control-plane-worker/wrangler.jsonc",
+    "worker:db:seed:local": "wrangler d1 execute DB --local --file services/control-plane-worker/fixtures/0001_seed.sql --config services/control-plane-worker/wrangler.jsonc",
     "prototype:dev": "vite --config prototype/vite.config.ts",
     "prototype:build": "tsc -p prototype/tsconfig.json --noEmit && vite build --config prototype/vite.config.ts",
     "prototype:test": "vitest run --config prototype/vite.config.ts",
     "prototype:check": "npm run prototype:test && npm run prototype:build",
-    "check": "npm run docs:check && npm run p0:test && npm run prototype:check"
+    "check": "npm run docs:check && npm run p0:test && npm run worker:check && npm run prototype:check"
   },
   "engines": {
-    "node": ">=20"
+    "node": ">=20.18.1"
+  },
+  "overrides": {
+    "undici": "7.29.0"
   },
   "dependencies": {
     "lucide-react": "0.468.0",
@@ -25,6 +36,7 @@
     "react-dom": "19.0.0"
   },
   "devDependencies": {
+    "@cloudflare/vitest-pool-workers": "0.20.2",
     "@testing-library/jest-dom": "6.6.3",
     "@testing-library/react": "16.1.0",
     "@testing-library/user-event": "14.5.2",
@@ -36,6 +48,7 @@
     "markdownlint-cli2": "0.23.2",
     "typescript": "5.7.2",
     "vite": "6.4.3",
-    "vitest": "3.2.7"
+    "vitest": "4.1.0",
+    "wrangler": "4.119.0"
   }
 }

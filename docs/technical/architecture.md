@@ -3,7 +3,7 @@ doc_id: TECH-ARCHITECTURE
 type: technical
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # 系统架构
@@ -157,7 +157,9 @@ facebook-ads-codex/
   wrangler.jsonc
 ```
 
-该布局是 Phase 1 的设计输入，不授权创建运行时代码。
+项目负责人已有限授权按该布局创建本地离线 Worker/D1 脚手架；这不接受候选架构，也不
+授权真实运行时、外部访问或部署。实际边界见
+[离线控制平面脚手架](offline-phase-1-scaffold.md)。
 
 ## Web 产品范围
 

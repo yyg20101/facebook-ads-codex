@@ -21,8 +21,11 @@ Documentation baseline
   -> Phase 0 document confirmation IN_PROGRESS
   -> BQ-01 through BQ-12 RESOLVED
   -> Credential-neutral local readiness tooling AVAILABLE
+  -> G0 PARTIAL; real configuration DEFERRED
+  -> Offline Phase 1 scaffold AUTHORIZED
+  -> Offline read-only analysis slice AUTHORIZED
   -> External account facts and Meta read-only path NOT VERIFIED
-  -> No runtime code
+  -> No real-data or external-service runtime
   -> No deployment authorization
   -> No Meta write authorization
 ```
@@ -65,7 +68,8 @@ Meta/Cloudflare 资源。
 
 仓库已提供本地忽略配置模板、离线检查、固定 GET allowlist 的 Meta 验证工具和测试。
 这些准备不包含真实值，不访问外部系统，也不改变 P0-02、P0-04、P0-07、P0-08 或 G0
-的未完成状态。实际步骤见[Meta 只读连接验证 Runbook](../runbooks/meta-read-connection.md)。
+的未完成状态。项目负责人决定暂时延期这些真实配置项，因此 G0 为 `PARTIAL`。实际步骤
+见[Meta 只读连接验证 Runbook](../runbooks/meta-read-connection.md)。
 
 任务：
 
@@ -80,9 +84,43 @@ Meta/Cloudflare 资源。
 
 使用 [Phase 0 问卷](phase-0-questionnaire.md)收集决定和脱敏证据。
 
+## Phase 1 离线准备轨道
+
+这不是正式 Phase 1 阶段转换。项目负责人只授权在 G0 `PARTIAL` 时并行完成：
+
+- `P1-PREP-01`：本地 TypeScript Worker 与生成的绑定类型。
+- `P1-PREP-02`：Workspace 作用域的初始 D1 migration。
+- `P1-PREP-03`：固定虚构 fixture，禁止真实账户、Token 或响应。
+- `P1-PREP-04`：Workers runtime、D1 约束、类型和安全失败测试。
+- `P1-PREP-05`：只运行离线检查、不含 Secret 或部署步骤的 CI。
+
+该轨道不得实现 Meta 客户端、同步、R2、Queue、Workflow、认证、远程接口或 deployment。
+实现边界见[离线控制平面脚手架](../technical/offline-phase-1-scaffold.md)。
+
+## 离线只读分析切片
+
+项目负责人在完成基础脚手架后指示继续下一步并再次跳过配置。本切片仍不属于正式
+Phase 1，只允许：
+
+- `P1-OFFLINE-READ-01`：从固定 fixture 列出 Workspace 作用域内的广告账户。
+- `P1-OFFLINE-READ-02`：校验有界日期范围和固定 allowlist 参数。
+- `P1-OFFLINE-READ-03`：汇总花费、展示、点击和转化，并正确处理零分母。
+- `P1-OFFLINE-READ-04`：返回币种、时区、点击口径、转化事件、归因、版本、新鲜度和
+  稳定状态。
+- `P1-OFFLINE-READ-05`：验证跨 Workspace、口径冲突、无数据和非本机请求安全失败。
+
+接口必须使用 `/offline/` 前缀、固定虚构数据和本机 Host，不提供认证替代、任意查询、
+Meta 客户端、同步或写操作。详见
+[离线只读分析设计](../technical/offline-read-only-analysis.md)。
+
+`P1-OFFLINE-READ-01`–`P1-OFFLINE-READ-05` 已于 2026-08-05 使用本地 fixture 完成验证；
+该结果不改变 G0 `PARTIAL`，也不把正式 Phase 1 任务标记为完成。
+
 ## Phase 1：Cloudflare 数据控制平面
 
 以下任务只适用于 Product Discovery 和后续技术评审选择 Cloudflare 方案的情况：
+
+正式任务仍依赖 G0 `PASS`；离线准备轨道完成不能把下列任务标为完成。
 
 - `P1-01` 创建 TypeScript Worker 和本地环境。
 - `P1-02` 创建 D1 migration 和租户约束。

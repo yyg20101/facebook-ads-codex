@@ -4,3 +4,5 @@ prototype/dist/
 npm-debug.log*
 .superpowers/
 config/p0-readiness.local.env
+.wrangler/
+services/control-plane-worker/.dev.vars*

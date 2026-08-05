@@ -3,21 +3,22 @@ doc_id: RUNBOOK-INDEX
 type: runbook
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # Runbook 索引
 
-仓库尚无业务运行系统，因此没有 Runbook 可以声明为可用于 production。
+仓库没有可连接真实业务数据的运行系统，因此没有 Runbook 可以声明为可用于 production。
 当前维护计划清单、[标准模板](RUNBOOK-TEMPLATE.md)以及尚未连接真实账户验证的
-[Meta 只读连接验证](meta-read-connection.md)。
+[Meta 只读连接验证](meta-read-connection.md)和已在本地验证的
+[离线控制平面](local-control-plane.md)。
 下列清单来自旧候选架构；只有 `DG0`、需求和技术选型证明对应组件存在后才保留。
 
 ## 计划清单
 
 | Runbook | 最早阶段 | 目的 |
 | --- | --- | --- |
-| Local development | Phase 1 | 启动本地 Worker、依赖和 fixture |
+| [Local development](local-control-plane.md) | Phase 1 离线准备 | 启动本地 Worker、D1 和虚构 fixture |
 | Staging deployment | Phase 1 | 部署和验证 staging 控制平面 |
 | [Meta read connection](meta-read-connection.md) | Phase 0 | 建立、验证和撤销临时只读连接，形成 G0 证据 |
 | Sync recovery | Phase 1 | 处理分页、限流、队列、工作流和回补失败 |

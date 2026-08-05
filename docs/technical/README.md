@@ -3,7 +3,7 @@ doc_id: TECH-INDEX
 type: index
 status: ACCEPTED
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-05
 ---
 
 # 技术文档
@@ -22,6 +22,8 @@ last_reviewed: 2026-07-30
 | [认证、审批与审计](auth-approval-and-audit.md) | RBAC、状态机、策略和审计 |
 | [部署与运维](deployment-and-operations.md) | 环境、调度、可观测性和恢复 |
 | [安全架构](security-architecture.md) | 资产、信任边界、威胁和控制 |
+| [离线控制平面脚手架](offline-phase-1-scaffold.md) | 当前获准的本地 Worker、D1、fixture 和测试边界 |
+| [离线只读分析](offline-read-only-analysis.md) | fixture 账户列表、指标汇总、口径和安全失败边界 |
 
 ## 设计规则
 
@@ -32,3 +34,6 @@ last_reviewed: 2026-07-30
 - 产品未知事实引用 `DQ-*`，后续业务值引用 `BQ-*`。
 - 接口示例不得包含真实 Token、客户数据或账户标识。
 - 实施后必须用测试和运行证据将对应设计状态从草案推进。
+
+当前仓库包含离线控制平面脚手架，只证明候选技术可以在本地使用虚构 fixture 运行；它
+不接受 Cloudflare 架构、不满足 G0/G1，也不构成外部访问或部署授权。

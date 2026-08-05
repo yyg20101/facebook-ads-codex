@@ -8,8 +8,9 @@ last_reviewed: 2026-07-30
 
 # Runbook 索引
 
-仓库尚无可运行系统，因此没有 Runbook 可以声明为已验证或可用于 production。
-当前只维护计划清单和[标准模板](RUNBOOK-TEMPLATE.md)。
+仓库尚无业务运行系统，因此没有 Runbook 可以声明为可用于 production。
+当前维护计划清单、[标准模板](RUNBOOK-TEMPLATE.md)以及尚未连接真实账户验证的
+[Meta 只读连接验证](meta-read-connection.md)。
 下列清单来自旧候选架构；只有 `DG0`、需求和技术选型证明对应组件存在后才保留。
 
 ## 计划清单
@@ -18,7 +19,7 @@ last_reviewed: 2026-07-30
 | --- | --- | --- |
 | Local development | Phase 1 | 启动本地 Worker、依赖和 fixture |
 | Staging deployment | Phase 1 | 部署和验证 staging 控制平面 |
-| Meta read connection | Phase 1 | 建立、验证和撤销只读连接 |
+| [Meta read connection](meta-read-connection.md) | Phase 0 | 建立、验证和撤销临时只读连接，形成 G0 证据 |
 | Sync recovery | Phase 1 | 处理分页、限流、队列、工作流和回补失败 |
 | D1 migration recovery | Phase 1 | 回滚或前向修复 schema migration |
 | Data discrepancy | Phase 1 | 排查系统指标与 Ads Manager 差异 |

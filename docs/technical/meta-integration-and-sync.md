@@ -99,3 +99,7 @@ initial_backfill:
 - 连接失效或权限不足时停止对应账户同步，不扩大 Token 权限。
 - 日内同步和回补由 Cloudflare 调度，不依赖 Codex Scheduled Task。
 - 当前[授权状态](../project/status-and-authorizations.md)不允许创建真实 Meta 连接或执行 API 验证。
+
+Phase 0 的凭据无关准备和固定只读探测接口见
+[Meta 只读连接验证 Runbook](../runbooks/meta-read-connection.md)。该本地工具只用于 G0
+连接证据，不是本文候选同步客户端的运行时实现，也不批准 Token 持久化或持续同步。

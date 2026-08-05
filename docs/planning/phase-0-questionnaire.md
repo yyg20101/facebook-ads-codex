@@ -59,7 +59,7 @@ gate_status: NOT_EVALUATED
 | P0-05 | 确认历史回填和数据保留期 | COMPLETE | project_owner | `E-010`–`E-012` |
 | P0-06 | 确认网页用户、角色、登录方式和审批权 | COMPLETE | project_owner | `E-013`、`E-014` |
 | P0-07 | 确认主 Cloudflare 账户、域名、套餐和所有权 | IN_PROGRESS | project_owner | 所有权模型见 `E-015`；实际账户、域名和套餐待单独授权后验证 |
-| P0-08 | 在单独授权后创建 Meta App 和只读授权路径 | NOT_STARTED | project_owner | 待单独授权 |
+| P0-08 | 在单独授权后创建 Meta App 和只读授权路径 | NOT_STARTED | project_owner | 本地模板、离线校验和安全失败工具已准备；真实验证待单独授权 |
 
 ## 阻塞问题
 
@@ -93,6 +93,21 @@ G0 只有在所有阻塞问题有明确答案、测试环境能只读列出至�
 
 `primary_kpi_configured=true` 表示主 KPI 的上下文选择规则已经确认，不表示所有广告
 账户共用一个固定 KPI；具体值在分析当前广告对象时解析。
+
+`meta_read_access_available=true` 只可在按
+[Meta 只读连接验证 Runbook](../runbooks/meta-read-connection.md)成功验证可重复接入路径后
+填写。验证后撤销临时 Token 不会删除既有 Gate 证据，也不表示仓库保存长期凭据。
+
+## 待验证证据槽位
+
+以下 ID 只定义后续登记顺序，不代表证据已经产生：
+
+- `E-016`：项目负责人从 Cloudflare Dashboard 确认实际账户、域名和套餐事实；只记录
+  完成状态，不记录真实标识。
+- `E-017`：Meta 只读连接验证的脱敏摘要，包括 API 版本、账户别名数量、上下文字段
+  存在性、对象数量区间、结果和限制。
+
+只有真实步骤执行完成后才能把对应记录加入证据登记表。
 
 ## 证据登记
 

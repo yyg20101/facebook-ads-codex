@@ -7,11 +7,14 @@
     "docs:lint": "markdownlint-cli2 \"**/*.md\" \"#node_modules\"",
     "docs:validate": "node scripts/validate-docs.mjs",
     "docs:check": "npm run docs:lint && npm run docs:validate",
+    "p0:config:check": "node scripts/check-p0-config.mjs",
+    "p0:meta:verify": "node scripts/verify-meta-read.mjs",
+    "p0:test": "vitest run tests/p0-readiness.test.mjs",
     "prototype:dev": "vite --config prototype/vite.config.ts",
     "prototype:build": "tsc -p prototype/tsconfig.json --noEmit && vite build --config prototype/vite.config.ts",
     "prototype:test": "vitest run --config prototype/vite.config.ts",
     "prototype:check": "npm run prototype:test && npm run prototype:build",
-    "check": "npm run docs:check && npm run prototype:check"
+    "check": "npm run docs:check && npm run p0:test && npm run prototype:check"
   },
   "engines": {
     "node": ">=20"

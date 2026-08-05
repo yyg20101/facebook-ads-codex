@@ -49,6 +49,7 @@
 | [工程规范](docs/standards/README.md) | 代码、接口、数据、安全、测试和发布规则 |
 | [ADR](docs/decisions/README.md) | 候选长期架构决策 |
 | [路线图](docs/planning/roadmap.md) | Product Discovery、Phase 0–5 和 Gate |
+| [Meta 只读验证](docs/runbooks/meta-read-connection.md) | 后续本地填入凭据、授权、验证和撤销流程 |
 | [安全策略](SECURITY.md) | 安全政策、威胁和报告范围 |
 | [贡献指南](CONTRIBUTING.md) | 变更和评审流程 |
 
@@ -76,6 +77,21 @@ npm run check
 
 当前 Phase 0 只开展文档事实确认。真实 Meta/Cloudflare 访问、资源创建、部署和广告
 写操作仍须另行明确授权。
+
+## Phase 0 本地准备
+
+仓库已提供不含真实值的配置模板和离线校验工具。以后需要验证 G0 时，在本地复制模板、
+设置 `600` 权限并直接用编辑器填值：
+
+```bash
+cp config/p0-readiness.example.env config/p0-readiness.local.env
+chmod 600 config/p0-readiness.local.env
+npm run p0:config:check
+```
+
+本地配置已被 Git 忽略。Token、App ID、广告账户 ID、Cloudflare 标识和域名不得发送到
+聊天或提交到仓库。`npm run p0:meta:verify` 只有在项目负责人另行明确授权、且授权事实源
+已更新后才能执行；详细流程见 [Meta 只读验证](docs/runbooks/meta-read-connection.md)。
 
 ## 文档校验
 

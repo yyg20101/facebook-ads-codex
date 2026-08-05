@@ -3,3 +3,4 @@ prototype/dist/
 .DS_Store
 npm-debug.log*
 .superpowers/
+config/p0-readiness.local.env

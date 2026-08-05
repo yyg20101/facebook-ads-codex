@@ -1,4 +1,5 @@
 import { existsSync, readFileSync, readdirSync, statSync } from "node:fs";
+import { execFileSync } from "node:child_process";
 import { dirname, relative, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -60,6 +61,7 @@ const REQUIRED_DOCS = [
   "docs/planning/gates-and-evidence.md",
   "docs/planning/document-baseline-checklist.md",
   "docs/runbooks/README.md",
+  "docs/runbooks/meta-read-connection.md",
   "docs/runbooks/RUNBOOK-TEMPLATE.md",
   "docs/templates/FEATURE-SPEC.md",
   "docs/templates/TECHNICAL-DESIGN.md",
@@ -118,7 +120,8 @@ const ALLOWED_HYPOTHESIS_STATUSES = new Set([
 const ALLOWED_DELIVERY_PHASES = new Set([
   "PRODUCT_DISCOVERY_REQUIRED|PRE_DISCOVERY",
   "PRODUCT_DISCOVERY_IN_PROGRESS|PRODUCT_DISCOVERY",
-  "READY_FOR_PHASE_0|PRODUCT_DISCOVERY_COMPLETE"
+  "READY_FOR_PHASE_0|PRODUCT_DISCOVERY_COMPLETE",
+  "READY_FOR_PHASE_1|PHASE_0_COMPLETE"
 ]);
 
 function walk(directory) {
@@ -643,6 +646,10 @@ const runtimeAvailable = yamlValue(
   statusText,
   "runtime_implementation_available"
 );
+const metaReadValidationAuthorized = yamlValue(
+  statusText,
+  "meta_read_validation_authorized"
+);
 const productionAuthorized = yamlValue(
   statusText,
   "production_deployment_authorized"
@@ -661,7 +668,7 @@ if (!ALLOWED_DELIVERY_PHASES.has(`${deliveryState}|${currentPhase}`)) {
   );
 }
 if (operationMode !== "READ_ONLY") {
-  errors.push("operation_mode must remain READ_ONLY during product discovery");
+  errors.push("operation_mode must remain READ_ONLY through Phase 0");
 }
 for (const [field, value] of [
   ["runtime_implementation_available", runtimeAvailable],
@@ -671,6 +678,22 @@ for (const [field, value] of [
   if (value !== "false") {
     errors.push(`${field} must remain false during product discovery`);
   }
+}
+if (!["true", "false"].includes(metaReadValidationAuthorized)) {
+  errors.push("meta_read_validation_authorized must be a boolean");
+}
+if (
+  metaReadValidationAuthorized === "true" &&
+  `${deliveryState}|${currentPhase}` !==
+    "READY_FOR_PHASE_0|PRODUCT_DISCOVERY_COMPLETE"
+) {
+  errors.push("Meta read validation can only be authorized during Phase 0");
+}
+if (
+  deliveryState === "READY_FOR_PHASE_1" &&
+  metaReadValidationAuthorized !== "false"
+) {
+  errors.push("Phase 0 completion requires Meta read validation authorization to be closed");
 }
 
 const discoveryIndexFile = resolve(ROOT, "docs/discovery/README.md");
@@ -737,10 +760,12 @@ if (
 const discoveryComplete = dg0Status === "PASS";
 if (discoveryComplete) {
   if (
-    deliveryState !== "READY_FOR_PHASE_0" ||
-    currentPhase !== "PRODUCT_DISCOVERY_COMPLETE"
+    ![
+      "READY_FOR_PHASE_0|PRODUCT_DISCOVERY_COMPLETE",
+      "READY_FOR_PHASE_1|PHASE_0_COMPLETE"
+    ].includes(`${deliveryState}|${currentPhase}`)
   ) {
-    errors.push("DG0 PASS requires READY_FOR_PHASE_0/PRODUCT_DISCOVERY_COMPLETE");
+    errors.push("DG0 PASS requires Phase 0 readiness or a later completed Phase 0 state");
   }
   if (researchStatus !== "COMPLETE" || definitionStatus !== "ACCEPTED") {
     errors.push("DG0 PASS requires complete research and accepted product definition");
@@ -773,8 +798,28 @@ if (discoveryComplete) {
   ) {
     errors.push("DG0 PASS requires at least one MVP product feature");
   }
-} else if (deliveryState === "READY_FOR_PHASE_0") {
-  errors.push("READY_FOR_PHASE_0 requires DG0 PASS");
+} else if (["READY_FOR_PHASE_0", "READY_FOR_PHASE_1"].includes(deliveryState)) {
+  errors.push("Phase 0 readiness or completion requires DG0 PASS");
+}
+
+const phaseZeroStatus = yamlValue(phaseZeroText, "phase_status");
+const gateZeroStatus = yamlValue(phaseZeroText, "gate_status");
+if (!["NOT_STARTED", "IN_PROGRESS", "COMPLETE"].includes(phaseZeroStatus)) {
+  errors.push(`invalid Phase 0 status: ${phaseZeroStatus}`);
+}
+if (!["NOT_EVALUATED", "PARTIAL", "PASS", "FAIL"].includes(gateZeroStatus)) {
+  errors.push(`invalid G0 status: ${gateZeroStatus}`);
+}
+if (gateZeroStatus === "PASS" && phaseZeroStatus !== "COMPLETE") {
+  errors.push("G0 PASS requires Phase 0 COMPLETE");
+}
+if (phaseZeroStatus === "COMPLETE" && gateZeroStatus !== "PASS") {
+  errors.push("Phase 0 COMPLETE requires G0 PASS");
+}
+if (deliveryState === "READY_FOR_PHASE_1") {
+  if (phaseZeroStatus !== "COMPLETE" || gateZeroStatus !== "PASS") {
+    errors.push("READY_FOR_PHASE_1 requires Phase 0 COMPLETE and G0 PASS");
+  }
 }
 if (
   !discoveryComplete &&
@@ -852,7 +897,32 @@ const secretPatterns = [
     pattern: /Authorization:\s*Bearer\s+(?!TOKEN\b|REDACTED\b|<)[A-Za-z0-9._-]{12,}/i
   }
 ];
-for (const [file, text] of contentByFile) {
+const textExtensions = new Set([
+  ".md",
+  ".mjs",
+  ".js",
+  ".ts",
+  ".tsx",
+  ".json",
+  ".jsonc",
+  ".yml",
+  ".yaml",
+  ".env"
+]);
+const trackedAndUnignoredFiles = execFileSync(
+  "git",
+  ["ls-files", "-z", "--cached", "--others", "--exclude-standard"],
+  { cwd: ROOT, encoding: "utf8" }
+)
+  .split("\0")
+  .filter(Boolean)
+  .map((file) => resolve(ROOT, file))
+  .filter((file) => {
+    const extension = file.slice(file.lastIndexOf("."));
+    return textExtensions.has(extension) || file.endsWith("/.gitignore");
+  });
+for (const file of trackedAndUnignoredFiles) {
+  const text = readFileSync(file, "utf8");
   for (const { name, pattern } of secretPatterns) {
     if (pattern.test(text)) {
       errors.push(`${repoPath(file)}: possible ${name}`);

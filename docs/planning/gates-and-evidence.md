@@ -47,6 +47,14 @@ Gate 是阶段结果的证据门槛，不是权限授权。
 `BQ-01`–`BQ-12` 已全部回答，当前 G0 仍为 `NOT_EVALUATED`。真实 Meta 只读验证属于
 后续单独授权动作，不能从问卷完成推导。
 
+本地配置模板、离线测试或验证工具通过不构成 Meta 接入证据。`meta_read_access_available`
+表示按[只读验证 Runbook](../runbooks/meta-read-connection.md)成功验证了可重复建立的访问
+路径；验证后必须撤销临时 Token，仓库不长期保存凭据。
+
+G0 通过后项目状态转为 `READY_FOR_PHASE_1` / `PHASE_0_COMPLETE`，但运行时可用、
+production 部署、Meta 只读验证和 Meta 写操作授权仍保持关闭。若任何真实验证条件失败，
+G0 必须为 `PARTIAL` 或 `FAIL`，项目继续停留在 Phase 0。
+
 ## G1：数据控制平面
 
 G1–G5 均为旧候选方案 Gate。`DG0` 后必须根据选定产品形态重新评审，未被选择的 Gate

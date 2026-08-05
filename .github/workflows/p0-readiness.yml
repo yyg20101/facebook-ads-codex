@@ -1,0 +1,54 @@
+name: Phase 0 readiness
+
+on:
+  push:
+    branches:
+      - dev
+      - main
+    paths:
+      - "config/p0-readiness.example.env"
+      - "package.json"
+      - "package-lock.json"
+      - "scripts/check-p0-config.mjs"
+      - "scripts/lib/p0-readiness.mjs"
+      - "scripts/verify-meta-read.mjs"
+      - "tests/p0-readiness.test.mjs"
+      - ".github/workflows/p0-readiness.yml"
+  pull_request:
+    branches:
+      - dev
+      - main
+    paths:
+      - "config/p0-readiness.example.env"
+      - "package.json"
+      - "package-lock.json"
+      - "scripts/check-p0-config.mjs"
+      - "scripts/lib/p0-readiness.mjs"
+      - "scripts/verify-meta-read.mjs"
+      - "tests/p0-readiness.test.mjs"
+      - ".github/workflows/p0-readiness.yml"
+
+permissions:
+  contents: read
+
+jobs:
+  offline-tests:
+    name: Offline readiness tests
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v5
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v5
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Run offline tests
+        run: npm run p0:test

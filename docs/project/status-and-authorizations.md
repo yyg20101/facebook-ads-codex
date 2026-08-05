@@ -19,6 +19,7 @@ delivery_state: READY_FOR_PHASE_0
 current_phase: PRODUCT_DISCOVERY_COMPLETE
 operation_mode: READ_ONLY
 runtime_implementation_available: false
+meta_read_validation_authorized: false
 production_deployment_authorized: false
 meta_write_operations_authorized: false
 ```
@@ -30,6 +31,10 @@ meta_write_operations_authorized: false
 
 `BQ-01`–`BQ-12` 已全部回答。Phase 0 仍为进行中，因为账户实际数据量、广告上下文、
 Cloudflare 事实和 Meta 只读路径尚未在获得单独授权后验证。
+
+`meta_read_validation_authorized: false` 表示仓库可以维护本地校验工具和不可用占位配置，
+但当前不得执行真实 Meta 请求。项目负责人未来必须在本地填入配置并明确授权一次只读
+验证，本文同步改为 `true` 后，验证命令才允许访问 Meta；验证结束后必须恢复为 `false`。
 
 `runtime_implementation_available: false` 指没有可连接真实业务数据或外部系统的业务
 运行时。使用固定虚构数据、只在本地浏览器内改变状态的 Product Discovery 原型不构成
@@ -44,6 +49,7 @@ Cloudflare 事实和 Meta 只读路径尚未在获得单独授权后验证。
 - 开发、启动和验证只使用固定虚构数据的本地 Product Discovery 前端原型，以及
   不连接外部系统的 Codex 上下文包和 Skill 契约。
 - 在项目负责人另行明确范围后，准备不接触真实账户的本地验证材料。
+- 维护不包含真实值的 Phase 0 配置模板、离线测试和安全失败的 Meta 只读验证工具。
 
 ## 当前禁止
 
@@ -89,7 +95,7 @@ Codex 开始任何阶段前 MUST：
 
 ## 授权变化
 
-生产部署和 Meta 写操作是两个独立授权，不得相互推导。任何授权扩大必须：
+Meta 只读验证、生产部署和 Meta 写操作是相互独立的授权，不得相互推导。任何授权扩大必须：
 
 1. 获得项目负责人明确指令。
 2. 更新本文中的对应值和日期。

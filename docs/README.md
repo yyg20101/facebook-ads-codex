@@ -66,6 +66,7 @@ last_reviewed: 2026-08-05
 - [产品需求](requirements/product.md)
 - [Phase 0 问卷](planning/phase-0-questionnaire.md)
 - [Gate 与证据](planning/gates-and-evidence.md)
+- [Meta 只读连接验证 Runbook](runbooks/meta-read-connection.md)
 
 ### 数据控制平面
 
@@ -97,7 +98,7 @@ last_reviewed: 2026-08-05
 | 工程规范 | [规范索引](standards/README.md) | 治理已接受，实施规范为候选 |
 | 架构决策 | [ADR 索引](decisions/README.md) | ADR-001–006 `DRAFT` |
 | 实施规划 | [路线图](planning/roadmap.md) | `DRAFT` |
-| 运维手册 | [Runbook 索引](runbooks/README.md) | `DRAFT` |
+| 运维手册 | [Runbook 索引](runbooks/README.md) | Meta 只读验证流程为 `DRAFT` |
 | 术语 | [术语表](glossary.md) | `ACCEPTED` |
 
 ## 官方参考

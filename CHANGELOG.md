@@ -20,12 +20,17 @@
 - 独立的 ADR-001–ADR-006 文件。
 - 文档元数据、权威、状态、Git、测试、安全和发布规范。
 - 本地与 GitHub 文档质量检查。
+- Phase 0 本地忽略配置模板、离线配置检查、固定 GET allowlist 的 Meta 只读验证工具、
+  安全失败测试和独立 CI。
+- Meta 只读连接验证 Runbook，覆盖后续本地填值、单独授权、脱敏证据和临时 Token 撤销。
 - 已批准的根目录安全策略。
 
 ### Changed
 
 - 文档入口改为 `docs/README.md`，各领域分别维护唯一事实源。
 - 当前阶段和授权集中到项目状态文档。
+- 增加独立的 `meta_read_validation_authorized` 授权事实；默认关闭，真实请求前必须明确开启，
+  验证结束后必须恢复关闭。
 - 架构、路线图、测试和安全内容拆分到对应领域。
 - 具体 Cloudflare 账户事实改由 Phase 0 确认，仓库只保留逻辑名。
 - 当前状态推进为 `READY_FOR_PHASE_0` / `PRODUCT_DISCOVERY_COMPLETE`。
@@ -61,3 +66,5 @@
 - 本版本已完成 Product Discovery 并通过 `DG0`，Phase 0 仅启动文档确认。
 - 本版本包含只使用固定虚构数据的本地产品原型，不包含业务运行时代码、Cloudflare
   部署、真实 Meta/Cloudflare 访问或 Meta 写能力。
+- Phase 0 只读工具当前仅完成凭据无关准备，未填入真实用户信息，也未执行外部请求或
+  形成 G0 通过证据。

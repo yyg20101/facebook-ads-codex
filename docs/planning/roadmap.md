@@ -20,6 +20,7 @@ Documentation baseline
   -> DG0 PASS
   -> Phase 0 document confirmation IN_PROGRESS
   -> BQ-01 through BQ-12 RESOLVED
+  -> Credential-neutral local readiness tooling AVAILABLE
   -> External account facts and Meta read-only path NOT VERIFIED
   -> No runtime code
   -> No deployment authorization
@@ -61,6 +62,10 @@ Gate；当前表不构成实现承诺。
 另行启动 Phase 0 文档确认。`BQ-01`–`BQ-12` 已全部回答；`P0-02`、`P0-04`、
 `P0-07` 的外部事实仍待验证。在获得单独授权前不得执行 `P0-08` 或访问真实
 Meta/Cloudflare 资源。
+
+仓库已提供本地忽略配置模板、离线检查、固定 GET allowlist 的 Meta 验证工具和测试。
+这些准备不包含真实值，不访问外部系统，也不改变 P0-02、P0-04、P0-07、P0-08 或 G0
+的未完成状态。实际步骤见[Meta 只读连接验证 Runbook](../runbooks/meta-read-connection.md)。
 
 任务：
 

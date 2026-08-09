@@ -64,7 +64,10 @@ creative_brief:
     - $.product.approved_messages[0]
 ```
 
-不得把 brief 写成表现预测、政策结论或 Campaign 配置。
+`product_message` 必须逐字等于输入 `approved_messages[*].message` 按顺序用 `；` 连接的
+结果，不得增加商品名、前缀、后缀或额外标点。`source_fact_paths` 只能包含对应的
+`$.product.approved_messages[N]`。不得把 brief 写成表现预测、政策结论或 Campaign
+配置。
 
 ## 文案和视觉方向
 
@@ -107,6 +110,10 @@ human_review_required: true
 
 两个数组长度必须与 `variant_request.count` 相同，并按 variant_ref 一一对应。不得排名、
 选择赢家、引入第二变量或声称已经生成素材。
+
+每个 copy variant 的 `source_fact_paths` 只能包含对应批准消息路径；每个 visual
+direction 的 `source_fact_paths` 只能包含对应 `$.source_assets[N]` 路径。不得为了说明
+受众、版位、品牌或变体控制而把其他 path 加入这些固定数组。
 
 ## 风险、未知项与人工检查
 

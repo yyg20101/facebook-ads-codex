@@ -70,7 +70,9 @@ ad_draft:
 ```
 
 `fields` 只复制对应输入的语义字段。Ad 可以把 `landing_page.destination_ref` 作为
-`destination_ref`，但不得转换为 URL、Meta ID、endpoint 或实际请求参数。
+`destination_ref`，除此以外不得追加字段。尤其不得把 `asset.asset_ref` 复制为
+`ad_draft.fields.asset_ref`；`$.asset` 只保留为素材审查来源路径。不得转换为 URL、
+Meta ID、endpoint 或实际请求参数。
 
 ## Preflight input 与未知字段
 

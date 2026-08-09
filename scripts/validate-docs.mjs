@@ -302,6 +302,16 @@ const OFFLINE_CODEX_SESSION_FORWARD_TEST_FILES = [
   ".github/workflows/docs.yml"
 ];
 
+const OFFLINE_CODEX_WORKFLOW_SESSION_FORWARD_TEST_FILES = [
+  "docs/technical/offline-codex-workflow-session-forward-test.md",
+  "evals/facebook-ads-workflow-skills/session-cases.mjs",
+  "scripts/prepare-facebook-ads-workflow-forward-test.mjs",
+  "scripts/score-facebook-ads-workflow-forward-test.mjs",
+  "tests/facebook-ads-workflow-forward-test.test.mjs",
+  "package.json",
+  ".github/workflows/docs.yml"
+];
+
 const CANDIDATE_IMPLEMENTATION_STANDARDS = [
   "docs/standards/engineering.md",
   "docs/standards/api-and-errors.md",
@@ -960,6 +970,22 @@ const offlineCodexSessionForwardTestExecutionComplete = yamlValue(
   statusText,
   "offline_codex_session_forward_test_execution_complete"
 );
+const offlineCodexWorkflowSessionForwardTestKitAuthorized = yamlValue(
+  statusText,
+  "offline_codex_workflow_session_forward_test_kit_authorized"
+);
+const offlineCodexWorkflowSessionForwardTestExecutionAuthorized = yamlValue(
+  statusText,
+  "offline_codex_workflow_session_forward_test_execution_authorized"
+);
+const offlineCodexWorkflowSessionForwardTestExecutionComplete = yamlValue(
+  statusText,
+  "offline_codex_workflow_session_forward_test_execution_complete"
+);
+const offlineCodexSkillLocalValidationComplete = yamlValue(
+  statusText,
+  "offline_codex_skill_local_validation_complete"
+);
 const productionAuthorized = yamlValue(
   statusText,
   "production_deployment_authorized"
@@ -1098,6 +1124,71 @@ if (
 ) {
   errors.push(
     "offline Codex session execution cannot enable Meta reads, runtime availability, deployment, or writes"
+  );
+}
+for (const [field, value] of [
+  [
+    "offline_codex_workflow_session_forward_test_kit_authorized",
+    offlineCodexWorkflowSessionForwardTestKitAuthorized
+  ],
+  [
+    "offline_codex_workflow_session_forward_test_execution_authorized",
+    offlineCodexWorkflowSessionForwardTestExecutionAuthorized
+  ],
+  [
+    "offline_codex_workflow_session_forward_test_execution_complete",
+    offlineCodexWorkflowSessionForwardTestExecutionComplete
+  ],
+  [
+    "offline_codex_skill_local_validation_complete",
+    offlineCodexSkillLocalValidationComplete
+  ]
+]) {
+  if (!["true", "false"].includes(value)) {
+    errors.push(`${field} must be a boolean`);
+  }
+}
+if (
+  offlineCodexWorkflowSessionForwardTestKitAuthorized === "true" &&
+  offlineCodexSkillLocalValidationComplete !== "true"
+) {
+  errors.push(
+    "workflow session forward-test kit requires completed local Skill validation"
+  );
+}
+if (
+  offlineCodexWorkflowSessionForwardTestExecutionAuthorized === "true" &&
+  offlineCodexWorkflowSessionForwardTestKitAuthorized !== "true"
+) {
+  errors.push(
+    "workflow session execution requires the workflow forward-test kit authorization"
+  );
+}
+if (
+  offlineCodexWorkflowSessionForwardTestExecutionComplete === "true" &&
+  offlineCodexWorkflowSessionForwardTestKitAuthorized !== "true"
+) {
+  errors.push(
+    "completed workflow session execution requires the workflow forward-test kit authorization"
+  );
+}
+if (
+  offlineCodexWorkflowSessionForwardTestExecutionAuthorized === "true" &&
+  offlineCodexWorkflowSessionForwardTestExecutionComplete === "true"
+) {
+  errors.push(
+    "completed workflow session execution must close its one-time authorization"
+  );
+}
+if (
+  offlineCodexWorkflowSessionForwardTestExecutionAuthorized === "true" &&
+  (metaReadValidationAuthorized !== "false" ||
+    runtimeAvailable !== "false" ||
+    productionAuthorized !== "false" ||
+    metaWriteAuthorized !== "false")
+) {
+  errors.push(
+    "workflow session execution cannot enable Meta reads, runtime availability, deployment, or writes"
   );
 }
 if (
@@ -3561,6 +3652,204 @@ if (offlineCodexSessionForwardTestKitAuthorized === "true") {
     ) {
       errors.push(
         "offline Codex session forward-test kit must remain in the local and GitHub validation path"
+      );
+    }
+  }
+}
+if (offlineCodexWorkflowSessionForwardTestKitAuthorized === "true") {
+  if (
+    metaReadValidationAuthorized !== "false" ||
+    runtimeAvailable !== "false" ||
+    productionAuthorized !== "false" ||
+    metaWriteAuthorized !== "false"
+  ) {
+    errors.push(
+      "workflow session forward-test kit cannot enable Meta reads, runtime availability, deployment, or writes"
+    );
+  }
+  for (const path of OFFLINE_CODEX_WORKFLOW_SESSION_FORWARD_TEST_FILES) {
+    if (!existsSync(resolve(ROOT, path))) {
+      errors.push(
+        `workflow session forward-test kit is missing required file: ${path}`
+      );
+    }
+  }
+
+  if (
+    OFFLINE_CODEX_WORKFLOW_SESSION_FORWARD_TEST_FILES.every((path) =>
+      existsSync(resolve(ROOT, path))
+    )
+  ) {
+    const sessionCases = readFileSync(
+      resolve(ROOT, "evals/facebook-ads-workflow-skills/session-cases.mjs"),
+      "utf8"
+    );
+    const preparer = readFileSync(
+      resolve(ROOT, "scripts/prepare-facebook-ads-workflow-forward-test.mjs"),
+      "utf8"
+    );
+    const scorer = readFileSync(
+      resolve(ROOT, "scripts/score-facebook-ads-workflow-forward-test.mjs"),
+      "utf8"
+    );
+    const forwardTests = readFileSync(
+      resolve(ROOT, "tests/facebook-ads-workflow-forward-test.test.mjs"),
+      "utf8"
+    );
+    const forwardDoc = readFileSync(
+      resolve(
+        ROOT,
+        "docs/technical/offline-codex-workflow-session-forward-test.md"
+      ),
+      "utf8"
+    );
+    const packageJson = readFileSync(resolve(ROOT, "package.json"), "utf8");
+    const docsWorkflow = readFileSync(
+      resolve(ROOT, ".github/workflows/docs.yml"),
+      "utf8"
+    );
+
+    for (let number = 1; number <= 5; number += 1) {
+      const caseId = `FWD-FBW-${String(number).padStart(3, "0")}`;
+      if (!sessionCases.includes(caseId)) {
+        errors.push(
+          `workflow session forward-test kit must retain case ${caseId}`
+        );
+      }
+    }
+    for (const skill of [
+      "facebook-ads-creative",
+      "facebook-ads-campaign-builder",
+      "facebook-ads-daily-brief",
+      "facebook-ads-optimization",
+      "facebook-ads-change-management"
+    ]) {
+      if (!sessionCases.includes(skill)) {
+        errors.push(`workflow session forward-test kit must retain ${skill}`);
+      }
+    }
+    for (const marker of [
+      "FRESH_CODEX_SESSION",
+      "expected_output_withheld",
+      "external_connections_allowed: false",
+      "repository_result_persistence_allowed: false",
+      "allowed_skill_assets",
+      "forbidden_evaluation_assets"
+    ]) {
+      if (!sessionCases.includes(marker)) {
+        errors.push(
+          `workflow session cases must retain protocol marker ${marker}`
+        );
+      }
+    }
+    for (const forbidden of [
+      "createGoldenWorkflowCases",
+      "expected_answer",
+      "evidence_values",
+      "draft:"
+    ]) {
+      if (sessionCases.includes(forbidden)) {
+        errors.push(
+          `workflow session cases must withhold expected output marker ${forbidden}`
+        );
+      }
+    }
+    for (const marker of [
+      "execution_status: \"NOT_RUN\"",
+      "createWorkflowForwardTestCase",
+      "external_write: false"
+    ]) {
+      if (!preparer.includes(marker)) {
+        errors.push(
+          `workflow forward-test preparer must retain ${marker}`
+        );
+      }
+    }
+    for (const marker of [
+      "REQUIRED_WORKFLOW_FORWARD_TEST_ATTESTATION",
+      "expected_output_seen: false",
+      "golden_assets_read: false",
+      "OPERATOR_ATTESTATION",
+      "attestation_independently_verified: false",
+      "evaluateWorkflowDraft",
+      "inputPath !== \"-\"",
+      "external_write: false"
+    ]) {
+      if (!scorer.includes(marker)) {
+        errors.push(`workflow forward-test scorer must retain ${marker}`);
+      }
+    }
+    if (
+      /https?:\/\/|\bfetch\s*\(|XMLHttpRequest|WebSocket|\bOpenAI\b|responses\.create|writeFile|appendFile|localStorage|sessionStorage|indexedDB/.test(
+        `${sessionCases}\n${preparer}\n${scorer}`
+      )
+    ) {
+      errors.push(
+        "workflow session forward-test kit must remain model-free, local, and non-persistent"
+      );
+    }
+    for (const marker of [
+      "lists one isolated prompt for each of the five workflow Skills",
+      "withholds golden drafts and expected answers from every workflow case",
+      "prepares a workflow NOT_RUN case without starting a model or writing a result",
+      "scores operator-attested drafts for all five workflow contexts",
+      "rejects a workflow draft scored against the wrong session case",
+      "rejects an incomplete or unsafe workflow protocol attestation",
+      "scores a workflow stdin result without persisting session data",
+      "returns a safe rejected workflow CLI result for invalid evidence",
+      "requires stdin so workflow session evidence is not read from a persisted file",
+      "keeps workflow preparation and scoring model-free, local, and non-persistent"
+    ]) {
+      if (!forwardTests.includes(marker)) {
+        errors.push(`workflow forward-test tests must retain ${marker}`);
+      }
+    }
+    const executionStatusMarkers =
+      offlineCodexWorkflowSessionForwardTestExecutionComplete === "true"
+        ? [
+            "当前执行状态为 `PASS`",
+            "forward_test_execution_status: PASS",
+            "independent_session_results_recorded: 5",
+            "final_passing_case_count: 5"
+          ]
+        : [
+            "当前执行状态为 `NOT_RUN`",
+            "forward_test_execution_status: NOT_RUN",
+            "independent_session_results_recorded: 0",
+            "final_passing_case_count: 0"
+          ];
+    for (const marker of [
+      "第二十个可逆离线候选切片",
+      "不调用模型、网络或",
+      "attestation_independently_verified: false",
+      "只允许标准输入",
+      "不增加或修改 Web、Worker、HTTP、D1、Meta、MCP 或模型接口",
+      ...executionStatusMarkers
+    ]) {
+      if (!forwardDoc.includes(marker)) {
+        errors.push(
+          `workflow session forward-test documentation must retain ${marker}`
+        );
+      }
+    }
+    if (
+      !packageJson.includes('"skill:workflow:forward-test:prepare"') ||
+      !packageJson.includes('"skill:workflow:forward-test:score"') ||
+      !packageJson.includes('"skill:workflow:forward-test:check"') ||
+      !packageJson.includes("tests/facebook-ads-workflow-forward-test.test.mjs") ||
+      !docsWorkflow.includes(
+        "scripts/prepare-facebook-ads-workflow-forward-test.mjs"
+      ) ||
+      !docsWorkflow.includes(
+        "scripts/score-facebook-ads-workflow-forward-test.mjs"
+      ) ||
+      !docsWorkflow.includes(
+        "tests/facebook-ads-workflow-forward-test.test.mjs"
+      ) ||
+      !docsWorkflow.includes("npm run skill:check")
+    ) {
+      errors.push(
+        "workflow session forward-test kit must remain in the local and GitHub validation path"
       );
     }
   }

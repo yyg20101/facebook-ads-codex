@@ -44,6 +44,9 @@ offline_codex_remaining_skills_development_authorized: true
 offline_codex_skill_development_queue_complete: true
 offline_codex_skill_validation_authorized: true
 offline_codex_skill_local_validation_complete: true
+offline_codex_workflow_session_forward_test_kit_authorized: true
+offline_codex_workflow_session_forward_test_execution_authorized: false
+offline_codex_workflow_session_forward_test_execution_complete: true
 production_deployment_authorized: false
 meta_write_operations_authorized: false
 ```
@@ -250,12 +253,28 @@ G2/G3/G4 证据。
 `offline_codex_skill_local_validation_complete: true` 表示 2026-08-09 已完成以下仓库内
 确定性证据：六个 Skill 目录通过官方结构快速校验；五个本轮 Skill 覆盖就绪、安全
 非就绪和拒绝输入；CLI 覆盖敏感字段、未知字段、外部 guardrail、路径越界、符号链接、
-过大输入和无效 JSON；十一组黄金草稿均获得 8/8；`npm run skill:check` 的 106 项测试、
+过大输入和无效 JSON；十一组黄金草稿均获得 8/8；`npm run skill:check` 的 119 项测试、
 文档检查、Phase 0 测试、Worker 类型与 67 项测试、Web 原型 81 项测试及 production
-build 均通过。该值只允许状态写为 `LOCAL_FIXTURE_VALIDATED`。随后完成的
-`facebook-ads-analysis` 五用例前向评测只验证本仓库固定 fixture 任务，其他项目级 Skill
-仍未执行同类独立会话；两者都不构成通用模型质量、真实数据、Meta/Cloudflare、产品
-需求、Gate、部署或写操作验证。
+build 均通过。该值只允许状态写为 `LOCAL_FIXTURE_VALIDATED`。随后两组五用例独立会话
+评测分别验证 Analysis Skill 与五个 Creative/工作流 Skill 的已提交 fixture 任务；这些
+结果都不构成通用模型质量、真实数据、Meta/Cloudflare、产品需求、Gate、部署或写操作
+验证。
+
+项目负责人随后再次指示“继续下一步”。
+`offline_codex_workflow_session_forward_test_kit_authorized: true` 允许为 Creative、
+Campaign Builder、Daily Brief、Optimization 和 Change Management 五个现有 fixture
+Skill 建立不含黄金草稿的隔离会话 Case、标准输入评分器、专项回归和文档治理。
+该次 `offline_codex_workflow_session_forward_test_execution_authorized` 是一次性执行授权：
+每个 Case 只能使用无历史上下文的新 Codex 会话，只读取该 Case 明确允许的 Skill、契约
+和 validator，不得读取黄金草稿或评分器，不得外连、持久化、部署、提交审批或执行写
+操作。五个 Case 的最终验收完成后，该授权已恢复为 `false`。
+
+`offline_codex_workflow_session_forward_test_execution_complete: true` 表示五个 Case 最终均
+获得 8/8。`FWD-FBW-004`、`005` 首次通过；`001`、`002`、`003` 首次分别因批准信息点
+未精确映射、Ad 字段超出白名单、日报状态增加契约外字段而被拒绝。失败类型保留并收紧
+Skill 后，三项都在新的无历史会话中获得 8/8。合计形成 8 个可评分独立会话；另有 3 次
+基础设施传输中断没有返回 envelope，不计为结果。完整输入、草稿和评分 envelope 未写入
+仓库；隔离协议仍只是操作者声明，不能替代独立技术证明。
 
 `runtime_implementation_available: false` 指没有可连接真实业务数据或外部系统的业务
 运行时。使用固定虚构数据的 Product Discovery 原型、离线 Worker、只读汇总、周期
@@ -275,16 +294,15 @@ build 均通过。该值只允许状态写为 `LOCAL_FIXTURE_VALIDATED`。随后
 固定 fixture 独立会话前向评测最终为 5/5 Case、每项 8/8，但隔离协议只能由操作者声明，
 且范围仅限已提交 fixture 和当前 Skill；它不是通用模型、产品、认证、真实授权、业务
 运行时或 Gate 证据。
-固定 fixture 素材 Skill 已完成本地确定性验证，但独立会话仍未执行；它不是已生成素材、
-Meta 政策审核、商业使用权结论、通用模型质量、产品能力、业务运行时或 Gate 证据。
-其余四个固定 fixture Skill 同样只完成本地确定性验证；Campaign 草稿、日报、优化候选
-和变更申请草稿都不是 Meta 对象、实时状态、已批准动作、已执行变更、产品能力、业务
-运行时或 Gate 证据。
+固定 fixture 素材 Skill 与其余四个工作流 Skill 的代表性独立会话最终均为 8/8，但该
+结果只覆盖五个已提交任务和操作者声明的隔离协议；它不是已生成素材、Meta 政策审核、
+商业使用权结论、真实对象、实时状态、已批准动作、已执行变更、通用模型质量、产品
+能力、业务运行时或 Gate 证据。
 
 ## 当前允许
 
-以下条目记录累计授权上限。当前 Skill 开发队列和本地确定性验证已完成；一次性分析
-Skill 会话评测也已完成并关闭授权。新的模型会话和外部系统验证仍不在当前范围内。
+以下条目记录累计授权上限。当前 Skill 开发队列、本地确定性验证和两次一次性独立会话
+评测均已完成并关闭执行授权。新的模型会话和外部系统验证仍不在当前范围内。
 
 - 阅读、审查和维护项目文档。
 - 制定实施计划。
@@ -472,9 +490,15 @@ Web/Meta/MCP 集成、真实数据、持久化、审批提交、执行、部署�
 部署和任何广告写操作继续禁止。
 
 同日，本地验证阶段已按上述边界完成，五个本轮 Skill 状态更新为
-`LOCAL_FIXTURE_VALIDATED`。这五个 Creative/工作流 Skill 的独立会话仍为 `NOT_RUN`；
-后续完成的 Analysis Skill 五用例评测不覆盖它们，也不改变 G0 `PARTIAL`、
-`runtime_implementation_available: false`、production 部署禁止或 Meta 写操作禁止。
+`LOCAL_FIXTURE_VALIDATED`。后续完成的 Analysis Skill 五用例评测不覆盖它们，也不改变
+G0 `PARTIAL`、`runtime_implementation_available: false`、production 部署禁止或 Meta
+写操作禁止。
+
+项目负责人随后指示“继续下一步”，一次性授权执行 `FWD-FBW-001`–`005`。五个首次
+会话中两项获得 8/8，三项按精确契约被拒绝；收紧 Creative 信息点映射、Campaign Ad
+字段白名单和 Daily Brief 状态字段后，三项分别在新的无历史会话中获得 8/8。最终 5/5
+Case 通过，共形成 8 个可评分独立会话；另有 3 次基础设施传输中断未形成结果。该一次性
+授权随后关闭，不授权后续会话、真实数据、外部系统、部署、审批或写操作。
 
 ## 阶段启动检查
 

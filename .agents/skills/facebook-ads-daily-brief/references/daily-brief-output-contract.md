@@ -71,9 +71,14 @@ review_status:
 today_items: []
 ```
 
+`data_status` 字段必须且只能按示例顺序为 `claim_type`、`report_date`、`freshness`、
+`data_quality`。正常数据下 `delivery_summary` 仍只存在于原输入及确定性
+`preflight.facts`，不得复制进 `data_status`、顶层或任何新增字段。
+
 - `material_changes` 逐项忠实复制 `material_events` 并保留 evidence paths；
 - `today_items` 逐项忠实复制 `open_items`，只可增加 `human_review_required: true`；
-- 正常数据下可引用 `delivery_summary` 作为上下文，但不得计算未提供的衍生指标；
+- 正常数据下只能通过原样 preflight facts 保留 `delivery_summary` 上下文，不得计算
+  未提供的衍生指标或改变固定输出 schema；
 - `DATA_ISSUE` 时不得把 delivery 数字写成表现摘要或判断；
 - 不得新增事件、阈值、因果、排名、推荐或执行状态。
 

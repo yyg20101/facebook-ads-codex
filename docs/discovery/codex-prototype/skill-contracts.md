@@ -22,6 +22,10 @@ Builder、Daily Brief、Optimization 和 Change Management 五项 fixture-only �
 不代表模型回答、真实账户或产品价值已经验证。
 后续[独立会话前向评测](../../technical/offline-codex-session-forward-test.md)已完成五个
 无黄金答案 Case 的最终 8/8；隔离协议只由操作者声明，不代表通用模型质量。
+Creative 与其余四个工作流 Skill 的
+[独立会话前向评测](../../technical/offline-codex-workflow-session-forward-test.md)也已完成
+五个最终 8/8；三项首次拒绝经契约收紧后仅在全新会话复测通过，结论同样只限固定
+fixture。
 
 ## 通用契约
 
@@ -67,8 +71,9 @@ Builder、Daily Brief、Optimization 和 Change Management 五项 fixture-only �
 当前离线开发实现见
 [离线 Codex 素材 Skill](../../technical/offline-codex-creative-skill.md)。它只接受
 `facebook-ads-creative-context/v1` fixture JSON，不执行网络素材搜索、图片/视频生成、
-外部保存或 Meta 操作。它已通过本地固定 fixture 契约验证，但独立会话仍未执行，不得
-声称模型、版权、Meta 审核或真实素材工作流已经验证。
+外部保存或 Meta 操作。它已通过本地固定 fixture 契约验证，代表性独立会话最终为 8/8，
+但隔离仅由操作者声明且范围只限一个 fixture Case；不得声称模型、版权、Meta 审核或
+真实素材工作流已经验证。
 
 ## `facebook-ads-campaign-builder`
 
@@ -93,7 +98,7 @@ Builder、Daily Brief、Optimization 和 Change Management 五项 fixture-only �
 
 当前离线开发实现只接受 `facebook-ads-campaign-context/v1` fixture JSON，输出三层
 `DRAFT`；关键枚举未确认、素材权利或审查不满足时必须 `BLOCKED`。本地确定性测试已
-通过，独立会话仍为 `NOT_RUN`。
+通过，代表性独立会话最终为 8/8。
 
 ## `facebook-ads-daily-brief`
 
@@ -119,7 +124,7 @@ Builder、Daily Brief、Optimization 和 Change Management 五项 fixture-only �
 
 当前离线开发实现只接受 `facebook-ads-daily-brief-context/v1` fixture JSON。数据问题强制
 `DATA_ISSUE`；数据正常且无重要事项时固定“无须处理”。它默认且实际都不创建 change
-request，当前状态为 `LOCAL_FIXTURE_VALIDATED`；独立会话仍为 `NOT_RUN`。
+request，当前状态为 `LOCAL_FIXTURE_VALIDATED`；代表性独立会话最终为 8/8。
 
 ## `facebook-ads-analysis`
 
@@ -184,7 +189,7 @@ request，当前状态为 `LOCAL_FIXTURE_VALIDATED`；独立会话仍为 `NOT_RU
 测试期间配置、allocation、sample 或 comparison window 任一不满足时强制
 `INCONCLUSIVE`；此时只允许继续观察、收集数据、起草下一测试和请求人工评审。证据有效
 时才可形成受限 `PROPOSE_*` 非执行候选；所有建议固定 `automatic_action: false`。当前
-状态为 `LOCAL_FIXTURE_VALIDATED`；独立会话仍为 `NOT_RUN`。
+状态为 `LOCAL_FIXTURE_VALIDATED`；代表性独立会话最终为 8/8。
 
 ## `facebook-ads-change-management`
 
@@ -209,8 +214,8 @@ request，当前状态为 `LOCAL_FIXTURE_VALIDATED`；独立会话仍为 `NOT_RU
 
 当前离线开发实现只接受 `facebook-ads-change-context/v1` fixture JSON，只生成
 `executable: false` 的本地 `DRAFT`。政策固定未评估、写入未授权、Web 审批未请求，
-execution 固定 `NOT_AUTHORIZED`；状态为 `LOCAL_FIXTURE_VALIDATED`，独立会话仍为
-`NOT_RUN`。
+execution 固定 `NOT_AUTHORIZED`；状态为 `LOCAL_FIXTURE_VALIDATED`，代表性独立会话
+最终为 8/8。
 
 ## Web 手动交接
 

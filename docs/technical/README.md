@@ -42,6 +42,7 @@ last_reviewed: 2026-08-09
 | [离线 Codex 独立会话前向评测](offline-codex-session-forward-test.md) | 无黄金答案会话包、手动协议和结果评分链路 |
 | [离线 Codex 素材 Skill](offline-codex-creative-skill.md) | fixture-only 素材上下文、权利 preflight 和人工评审草稿契约 |
 | [离线 Codex 工作流 Skills](offline-codex-workflow-skills.md) | Campaign 草稿、事实日报、证据化优化和不可执行变更草稿契约 |
+| [离线 Codex 工作流 Skills 独立会话前向评测](offline-codex-workflow-session-forward-test.md) | 五个无黄金答案 Skill 会话包、隔离协议和标准输入评分链路 |
 
 ## 设计规则
 
@@ -78,6 +79,7 @@ last_reviewed: 2026-08-09
 修正后在全新会话通过；协议隔离仍只是操作者声明，不能扩展为通用模型结果。
 离线 Codex 素材 Skill 与四个工作流 Skill 已完成显式调用指令、fixture-only schema、
 确定性 preflight 和不可执行草稿契约，并通过固定正反输入、CLI 安全失败和黄金草稿
-输出评分，统一为 `LOCAL_FIXTURE_VALIDATED`。独立 Codex 会话仍为 `NOT_RUN`。它们不
-搜索或生成实际素材，不连接 Web/Meta/MCP，不读取真实数据，不持久化、提交审批或执行
-变更，也不构成版权、Meta 审核、模型质量、产品能力或 G2/G3/G4 证据。
+输出评分，统一为 `LOCAL_FIXTURE_VALIDATED`。五个代表性独立会话最终也均为 8/8；三项
+首次拒绝只在收紧 Skill 后用新的无历史会话复测。操作者隔离声明未被技术独立验证。
+这些结果不搜索或生成实际素材，不连接 Web/Meta/MCP，不读取真实数据，不持久化、提交
+审批或执行变更，也不构成版权、Meta 审核、通用模型质量、产品能力或 G2/G3/G4 证据。

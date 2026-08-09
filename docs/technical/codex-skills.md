@@ -41,14 +41,19 @@ fixture 上下文，期望草稿被隔离；最终 5/5 Case 均为 8/8，隔离�
 第十八个可逆离线开发切片新增
 [`facebook-ads-creative`](offline-codex-creative-skill.md)。它只接受 fixture-only 素材
 上下文，先检查信息点、来源、权利和单变量约束，再形成待人工评审的文案与视觉方向；
-本地固定 fixture 契约验证已通过，状态为 `LOCAL_FIXTURE_VALIDATED`，独立会话仍为
-`NOT_RUN`。
+本地固定 fixture 契约验证已通过，状态为 `LOCAL_FIXTURE_VALIDATED`；代表性独立会话
+最终为 8/8。
 第十九个可逆离线开发切片又补齐
 [四个工作流 Skills](offline-codex-workflow-skills.md)：Campaign Builder、Daily Brief、
 Optimization 和 Change Management 均只接受各自 schema v1 fixture 手动输入，先执行
 确定性 preflight，再形成不可执行草稿。四项均已通过本地固定 fixture 契约验证，状态为
-`LOCAL_FIXTURE_VALIDATED`，独立会话仍为 `NOT_RUN`。Remote MCP、真实数据分析、实际
-素材生成、审批执行和 Meta 写入均未实现或授权。
+`LOCAL_FIXTURE_VALIDATED`；四个代表性独立会话最终均为 8/8。Remote MCP、真实数据
+分析、实际素材生成、审批执行和 Meta 写入均未实现或授权。
+第二十个可逆离线候选切片进一步增加
+[五个工作流 Skill 的独立会话前向评测](offline-codex-workflow-session-forward-test.md)：
+`FWD-FBW-001`–`005` 只包含任务与 fixture context，准备器不启动模型，评分器只接受
+标准输入。五个最终 Case 均为 8/8；三项首次拒绝在收紧契约后用全新会话复测通过，
+隔离协议只由操作者声明。
 
 ## 候选 Skill 划分
 
@@ -157,7 +162,7 @@ Recommended next checks
 - 权利未确认、来源未知、固定项缺失或声明冲突时必须 `BLOCKED`，不得产生变体。
 - 输出只包含可人工评审的创意简报、文案草稿和视觉方向，并标记来源路径、生成状态和
   风险；不执行网络搜索、图片/视频生成、上传或 Campaign 配置。
-- 当前本地固定 fixture 契约验证已通过，独立会话仍为 `NOT_RUN`；完整边界见
+- 当前本地固定 fixture 契约验证已通过，代表性独立会话最终为 8/8；完整边界见
   [离线 Codex 素材 Skill](offline-codex-creative-skill.md)。
 
 ## `facebook-ads-campaign-builder`
@@ -172,7 +177,7 @@ Recommended next checks
   不得猜测默认值。
 - 只输出 Campaign、Ad Set、Ad 三层 `DRAFT` 和人工检查信息，不得声称已创建、发布或
   验证真实账户字段。
-- 当前状态为 `LOCAL_FIXTURE_VALIDATED`，独立会话仍为 `NOT_RUN`；完整边界见
+- 当前状态为 `LOCAL_FIXTURE_VALIDATED`，代表性独立会话最终为 8/8；完整边界见
   [离线 Codex 工作流 Skills](offline-codex-workflow-skills.md)。
 
 ## `facebook-ads-daily-brief`
@@ -186,7 +191,7 @@ Recommended next checks
 - 数据稳定且没有重要事项时明确说“无须处理”。
 - 数据过期、失败或质量检查失败时进入 `DATA_ISSUE`，优先报告数据问题并禁止表现判断。
 - 不创建定时任务、通知、优化建议或变更申请；当前状态为
-  `LOCAL_FIXTURE_VALIDATED`，独立会话仍为 `NOT_RUN`。
+  `LOCAL_FIXTURE_VALIDATED`，代表性独立会话最终为 8/8。
 
 ## `facebook-ads-optimization`
 
@@ -200,7 +205,7 @@ Recommended next checks
   测试或请求人工评审，有效性完整时才可形成受限 `PROPOSE_*` 非执行候选。
 - 所有建议固定为 `PENDING_CONFIRMATION`、`automatic_action: false`；不排名赢家、不
   猜测阈值、不声明未经支持的因果，也不执行预算或状态动作。
-- 当前状态为 `LOCAL_FIXTURE_VALIDATED`，独立会话仍为 `NOT_RUN`；完整边界见
+- 当前状态为 `LOCAL_FIXTURE_VALIDATED`，代表性独立会话最终为 8/8；完整边界见
   [离线 Codex 工作流 Skills](offline-codex-workflow-skills.md)。
 
 ## `facebook-ads-change-management`
@@ -215,7 +220,7 @@ Recommended next checks
 - 政策固定未评估、写入固定未授权、Web 审批固定未请求，execution 固定
   `NOT_AUTHORIZED`。
 - 当前不提交、审批、查询或执行变更，不调用外部写工具；状态为
-  `LOCAL_FIXTURE_VALIDATED`，独立会话仍为 `NOT_RUN`。未来即使引入工具确认，它也只能
+  `LOCAL_FIXTURE_VALIDATED`，代表性独立会话最终为 8/8。未来即使引入工具确认，它也只能
   作为附加防线，不能替代
   网页业务审批和独立写授权。
 

@@ -173,6 +173,20 @@ JSON 为 `DIRECT_CHILD_DAILY_TREND`，`driver_inputs.kind` 为
 `attestation_independently_verified: false` 必须保留。当前一轮已完成最终 5/5 `PASS`，
 一次性授权已经关闭；不得把该结果记录为 Gate 或通用模型证据。
 
+五个 Creative/工作流 Skill 使用独立命令：
+
+```text
+npm run skill:workflow:forward-test:list
+npm run skill:workflow:forward-test:prepare -- FWD-FBW-001
+npm run skill:workflow:forward-test:score -- -
+npm run skill:workflow:forward-test:check
+```
+
+准备器同样固定返回 `NOT_RUN`，评分器只接受标准输入。当前一次性执行最终为 5/5 Case、
+每项 8/8；三项首次拒绝只在收紧对应 Skill 后由新的无历史会话复测。执行授权已关闭，
+再次运行必须先取得新授权，并继续隔离黄金草稿、评分器、外部连接和持久化。该结果只
+覆盖固定 fixture，不代表实际素材、Meta 对象、实时日报、已批准优化或可执行变更。
+
 把任一分析日期改到 preflight 覆盖范围外，确认对应入口立即重新锁定且不会发送指标
 请求；重新运行覆盖新范围的质量检查后才可恢复。改变账户、质量日期或重新发起质量请求
 时，旧凭证和旧指标结果必须清除。分析响应的口径、稳定状态、获取时间或同步批次不匹配
@@ -286,3 +300,7 @@ JSON 为 `DIRECT_CHILD_DAILY_TREND`，`driver_inputs.kind` 为
   会话。`001`、`002`、`004` 首次 8/8；`003`、`005` 首次因否定式禁用词被拒绝，收紧
   Skill 后重测 8/8。最终 5/5 `PASS`；协议隔离只由操作者声明，该记录不是通用模型或
   Gate 证据。
+- 2026-08-09：Creative/工作流 Skills 前向评测形成 5 个首次会话和 3 个失败修正后的
+  全新重测会话。`004`、`005` 首次 8/8；`001`–`003` 分别因批准信息点、Ad 字段和日报
+  状态字段未精确匹配契约被拒绝，收紧 Skill 后重测 8/8。最终 5/5 `PASS`；另有 3 次
+  基础设施传输中断未形成结果。一次性授权已关闭，结果不形成通用模型或 Gate 证据。

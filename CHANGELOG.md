@@ -63,7 +63,9 @@
   分别提供 schema v1、确定性 preflight 与三层广告草稿、事实简报、证据化非执行优化
   候选和不可执行变更草稿契约。
 - 五个上述 Skill 的固定正反 fixture、CLI 安全失败测试、十一组黄金草稿与统一 8 项
-  输出契约评分器；本地状态为 `LOCAL_FIXTURE_VALIDATED`，独立会话保持 `NOT_RUN`。
+  输出契约评分器；本地状态为 `LOCAL_FIXTURE_VALIDATED`。
+- 五个 Creative/工作流 Skill 的无黄金答案独立会话包、文件隔离协议、仅标准输入评分器
+  和专项回归；最终 5/5 Case 均为 8/8，三项首次拒绝经契约收紧后由全新会话复测通过。
 - 统一 `skill:workflow:check`、扩展后的 `skill:eval` / `skill:check`，以及覆盖六个项目级
   Skill 目录和评测材料的 GitHub Actions 路径。
 - 已批准的根目录安全策略。
@@ -172,5 +174,7 @@
   和 Change Management；该决定不授权执行 Skill、运行测试、配置模型或外部环境、读取
   真实数据、连接 Web/Meta/MCP、持久化、提交审批、执行变更、部署或写操作。
 - 开发队列完成后，项目负责人批准本地固定 fixture 验证；结构、正反输入、文件安全、
-  输出契约、文档、Phase 0、Worker、Web 原型和 production build 回归均通过。独立模型
-  会话、真实数据、外部连接、部署和写操作仍未授权或未运行。
+  输出契约、文档、Phase 0、Worker、Web 原型和 production build 回归均通过。
+- 项目负责人随后一次性授权五个 Creative/工作流 Skill 的隔离会话评测；五个首次会话
+  两项通过、三项拒绝，三项在 Skill 修正后由全新会话获得 8/8。一次性授权已经关闭；
+  协议声明未被技术独立验证，结果不形成通用模型、真实数据、产品需求或 Gate 证据。

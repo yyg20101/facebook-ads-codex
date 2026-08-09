@@ -66,6 +66,8 @@ node .agents/skills/facebook-ads-daily-brief/scripts/validate-context.mjs -
 - 不用环比、绝对值或个人经验推导阈值；
 - 不把 `FOLLOW_UP` 改写为自动动作；
 - 输入 `unknowns` 原样保留，新增缺口仅使用 `TASK_*` code。
+- `delivery_summary` 只作为 validator 返回的 `preflight.facts` 输入事实；固定输出没有
+  单独 delivery 字段，也不得把它追加到 `data_status`。
 
 ### 4. 形成简报
 
@@ -76,6 +78,8 @@ node .agents/skills/facebook-ads-daily-brief/scripts/validate-context.mjs -
 - 有事项时按 `BLOCKER`、`WARNING`、`INFO` 顺序展示，但不得引入对象排名；
 - `today_items` 只是待人工查看的事项，不是可执行投放动作；
 - 不输出 recommended action、test plan、change request 或执行参数。
+- `data_status` 的字段必须且只能为 `claim_type`、`report_date`、`freshness`、
+  `data_quality`，保持契约顺序。
 
 ### 5. 输出稳定 JSON
 

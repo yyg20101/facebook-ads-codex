@@ -13,9 +13,14 @@ last_reviewed: 2026-08-09
 实现边界。当前授权只以[项目状态与授权](../project/status-and-authorizations.md)为准。
 
 四个 Skill 均已形成代码和契约，并通过仓库内固定 fixture 的结构、正反输入、CLI
-安全失败与输出契约确定性验证，状态统一为 `LOCAL_FIXTURE_VALIDATED`。独立 Codex
-会话仍为 `NOT_RUN`。这些结果不构成已接受产品能力、模型质量、真实数据接口、Meta
-对象、审批流程、G2/G3/G4 证据或外部写入授权。
+安全失败与输出契约确定性验证，状态统一为 `LOCAL_FIXTURE_VALIDATED`。它们与 Creative
+的五个代表性独立 Codex 会话最终均为 8/8；隔离协议只由操作者声明。这些结果不构成已
+接受产品能力、通用模型质量、真实数据接口、Meta 对象、审批流程、G2/G3/G4 证据或
+外部写入授权。
+
+五个 Creative/工作流 Skill 的无黄金答案会话包和标准输入评分链路见
+[独立会话前向评测](offline-codex-workflow-session-forward-test.md)。首次两项通过、三项
+拒绝；收紧精确映射与字段白名单后，三项分别在全新会话中复测通过。
 
 ## 共同实现约束
 
@@ -134,7 +139,7 @@ tests/
 3. 五个 CLI 均覆盖敏感字段、未知字段、打开外部 guardrail、路径越界、符号链接、
    超过 2 MiB 输入和无效 JSON；
 4. 十一组黄金草稿覆盖五个 Skill 的就绪与安全非就绪输出，统一评分均为 8/8；
-5. `npm run skill:check` 共 106 项 Skill 测试通过；
+5. `npm run skill:check` 共 119 项 Skill 测试通过；
 6. `npm run docs:check`、14 项 Phase 0 测试、67 项 Worker 测试、81 项 Web 原型测试和
    production build 均通过；GitHub Actions 已复用 `npm run skill:check`。
 
@@ -150,6 +155,6 @@ npm run prototype:check
 ```
 
 验证器只证明固定 schema、确定性输出契约和安全失败行为。五个全新独立 Codex 会话的
-手动前向验证仍为 `NOT_RUN`，且当前授权禁止自动启动模型会话。因此不得把
-`LOCAL_FIXTURE_VALIDATED` 简写为 `VALIDATED`，也不得据此推进正式 Phase 2、Phase 4
-或任何 Gate。
+最终 8/8 只覆盖已提交 fixture 任务，且协议隔离未被技术独立验证。不得把
+`LOCAL_FIXTURE_VALIDATED` 或有限 Case `PASS` 简写为通用 `VALIDATED`，也不得据此推进
+正式 Phase 2、Phase 4 或任何 Gate。一次性执行授权已关闭。

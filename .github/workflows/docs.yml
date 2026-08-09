@@ -13,6 +13,8 @@ on:
       - "scripts/validate-docs.mjs"
       - "scripts/prepare-facebook-ads-analysis-forward-test.mjs"
       - "scripts/score-facebook-ads-analysis-forward-test.mjs"
+      - "scripts/prepare-facebook-ads-workflow-forward-test.mjs"
+      - "scripts/score-facebook-ads-workflow-forward-test.mjs"
       - ".agents/skills/facebook-ads-*/**"
       - "evals/facebook-ads-*/**"
       - "tests/facebook-ads-*.test.mjs"
@@ -21,6 +23,7 @@ on:
       - "tests/facebook-ads-analysis-skill.test.mjs"
       - "tests/facebook-ads-analysis-evals.test.mjs"
       - "tests/facebook-ads-analysis-forward-test.test.mjs"
+      - "tests/facebook-ads-workflow-forward-test.test.mjs"
       - ".github/workflows/docs.yml"
   pull_request:
     branches:
@@ -34,6 +37,8 @@ on:
       - "scripts/validate-docs.mjs"
       - "scripts/prepare-facebook-ads-analysis-forward-test.mjs"
       - "scripts/score-facebook-ads-analysis-forward-test.mjs"
+      - "scripts/prepare-facebook-ads-workflow-forward-test.mjs"
+      - "scripts/score-facebook-ads-workflow-forward-test.mjs"
       - ".agents/skills/facebook-ads-*/**"
       - "evals/facebook-ads-*/**"
       - "tests/facebook-ads-*.test.mjs"
@@ -42,6 +47,7 @@ on:
       - "tests/facebook-ads-analysis-skill.test.mjs"
       - "tests/facebook-ads-analysis-evals.test.mjs"
       - "tests/facebook-ads-analysis-forward-test.test.mjs"
+      - "tests/facebook-ads-workflow-forward-test.test.mjs"
       - ".github/workflows/docs.yml"
 
 permissions:

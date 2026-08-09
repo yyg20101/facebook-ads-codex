@@ -59,6 +59,12 @@ node .agents/skills/facebook-ads-creative/scripts/validate-context.mjs -
 `product.approved_messages` 中已有且带 fixture evidence ref 的信息点；不得补充价格、
 折扣、稀缺性、健康功效、认证或比较性声明。
 
+输出映射必须保持精确：`creative_brief.product_message` 等于
+`product.approved_messages[*].message` 按输入顺序用 `；` 连接的原文，不增加商品名、
+前后缀或标点。brief 与 copy variant 的 `source_fact_paths` 只能列出对应
+`$.product.approved_messages[N]`；visual direction 的 `source_fact_paths` 只能列出对应
+`$.source_assets[N]`。其他输入事实可以影响措辞，但不得混入这些受限证据路径数组。
+
 ### 3. 处理权利和阻断项
 
 把 preflight 的 blockers、warnings 和 source asset 状态原样带入最终草稿。

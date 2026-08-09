@@ -20,7 +20,7 @@ Meta 审核或真实素材工作流已经验证。
 development_status: LOCAL_FIXTURE_VALIDATED
 configuration_status: LOCAL_CHECKS_CONFIGURED
 test_status: PASS
-session_validation_status: NOT_RUN
+session_validation_status: PASS
 external_connection: false
 external_write: false
 ```
@@ -28,7 +28,7 @@ external_write: false
 上述值只描述本开发产物，不复制或扩大[项目授权](../project/status-and-authorizations.md)。
 项目负责人先要求完成开发，随后批准进入本地配置与测试。固定 fixture validator、Skill
 结构、CLI 安全失败、黄金草稿评分、文档检查、全仓回归和 CI 命令均已完成；独立 Codex
-会话没有运行。
+代表性会话最终获得 8/8。该有限结果的隔离协议只由操作者声明。
 
 ## 项目级发现路径
 
@@ -96,7 +96,7 @@ guardrail、路径越界、符号链接、过大输入与无效 JSON 拒绝，�
 8/8 输出契约评分。官方 Skill 结构快速校验、Markdown、内部链接、Worker、Web 原型和
 production build 回归也已通过。
 
-代表性全新 Codex 会话仍为 `NOT_RUN`，模型、图片生成供应商、成本、内容安全与真实素材
-接入配置也未开始。`LOCAL_FIXTURE_VALIDATED` 只说明固定输入和确定性契约已验证；本切片
-不接受新的 `FR-*`、`NFR-*`、ADR 或候选架构，不改变 G0 `PARTIAL`，也不授权真实数据、
-外部访问、部署或广告写操作。
+代表性全新 Codex 会话最终为 8/8；首次因批准信息点未精确映射被拒绝，收紧契约后由新
+会话复测通过。模型、图片生成供应商、成本、内容安全与真实素材接入配置仍未开始。
+`LOCAL_FIXTURE_VALIDATED` 和有限 Case `PASS` 都不接受新的 `FR-*`、`NFR-*`、ADR 或
+候选架构，不改变 G0 `PARTIAL`，也不授权真实数据、外部访问、部署或广告写操作。

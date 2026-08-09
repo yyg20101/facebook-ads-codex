@@ -38,8 +38,9 @@
   `facebook-ads-creative`、Campaign Builder、Daily Brief、Optimization 和 Change
   Management 已完成显式指令、schema v1、确定性 preflight 和不可执行草稿契约，并已
   通过固定输入、CLI 安全失败与十一组黄金草稿评分，状态为
-  `LOCAL_FIXTURE_VALIDATED`。这五个其他 Skill 的独立会话仍为 `NOT_RUN`，因此不构成其
-  模型、真实账户、Meta 政策、审批或执行能力验证。
+  `LOCAL_FIXTURE_VALIDATED`。五个无黄金答案代表性独立会话最终也均为 8/8：首次两项
+  通过、三项被精确契约拒绝，收紧 Skill 后三项在全新会话中复测通过。隔离协议仍只是
+  操作者声明，因此不构成通用模型、真实账户、Meta 政策、审批或执行能力验证。
 
 固定范围和治理边界见[项目章程](docs/project/charter.md)，研究流程见
 [产品发现入口](docs/discovery/README.md)。
@@ -91,6 +92,7 @@
 | [离线 Codex 独立会话前向评测](docs/technical/offline-codex-session-forward-test.md) | 准备五类无答案会话包并评分手动返回草稿 |
 | [离线 Codex 素材 Skill](docs/technical/offline-codex-creative-skill.md) | 校验 fixture 素材上下文并形成待人工评审的文案与视觉方向草稿 |
 | [离线 Codex 工作流 Skills](docs/technical/offline-codex-workflow-skills.md) | Campaign 草稿、事实日报、证据化优化和不可执行变更草稿 |
+| [工作流 Skills 独立会话前向评测](docs/technical/offline-codex-workflow-session-forward-test.md) | 五个隔离会话包和确定性结果评分链路 |
 | [安全策略](SECURITY.md) | 安全政策、威胁和报告范围 |
 | [贡献指南](CONTRIBUTING.md) | 变更和评审流程 |
 
@@ -127,10 +129,9 @@ npm run check
 数据、通用分析有效性、优化授权或 Gate 通过。
 确定性草稿评测只证明固定黄金案例满足已提交契约，不代表真实模型、真实账户或用户价值
 已经验证。
-分析 Skill 的独立会话前向评测最终为 5/5 Case、每项 8/8，但协议隔离未被技术独立
-验证，范围也仅限固定 fixture。素材 Skill 与其余四个工作流 Skill 已完成本地固定
-fixture 校验，独立会话仍未执行；它们不代表实际素材已生成、对象已创建、数据已刷新、
-建议已批准、变更可执行，或 Meta 审核、版权和广告效果结论。
+两组独立会话前向评测最终都为 5/5 Case、每项 8/8，但协议隔离未被技术独立验证，范围
+也仅限固定 fixture。Creative 与其余四个工作流 Skill 的有限通过不代表实际素材已生成、
+对象已创建、数据已刷新、建议已批准、变更可执行，或 Meta 审核、版权和广告效果结论。
 Meta/Cloudflare 访问、资源创建、部署和广告写操作仍须另行明确授权。
 
 ## Phase 0 本地准备

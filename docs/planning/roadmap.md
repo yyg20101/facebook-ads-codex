@@ -44,7 +44,7 @@ Documentation baseline
   -> Offline Codex creative Skill LOCAL_FIXTURE_VALIDATED
   -> Offline Codex workflow Skills LOCAL_FIXTURE_VALIDATED
   -> Offline Codex Skill development queue COMPLETE
-  -> Local deterministic validation COMPLETE; other five Skill sessions NOT_RUN
+  -> Workflow Skill forward test PASS; 5/5 at 8/8
   -> External account facts and Meta read-only path NOT VERIFIED
   -> No real-data or external-service runtime
   -> No deployment authorization
@@ -535,11 +535,11 @@ Phase 0、67 项 Worker、81 项原型测试及 production build，官方 Skill 
 - `P2-OFFLINE-CREATIVE-04`：定义创意简报、文案变体、视觉方向、风险、人工评审和手动
   Web 语义交接的稳定草稿契约；不搜索或生成实际素材。
 - `P2-OFFLINE-CREATIVE-05`：开发队列完成后执行本地配置、fixture 正反测试、结构校验、
-  输出评分、全仓回归与 CI 调整；这些确定性项目已完成，独立会话保持 `NOT_RUN`。
+  输出评分、全仓回归与 CI 调整；这些确定性项目已完成，独立会话由后续切片单独治理。
 
 实现边界见[离线 Codex 素材 Skill](../technical/offline-codex-creative-skill.md)。
 `P2-OFFLINE-CREATIVE-01`–`P2-OFFLINE-CREATIVE-05` 的本地确定性项目已完成，状态为
-`LOCAL_FIXTURE_VALIDATED`；独立 Codex 会话仍为 `NOT_RUN`。本切片不接受新的
+`LOCAL_FIXTURE_VALIDATED`；后续代表性独立 Codex 会话最终为 8/8。本切片不接受新的
 `FR-*`、`NFR-*`、ADR 或候选架构，不改变 G0 `PARTIAL`，不形成模型、版权、Meta 审核、
 产品能力、G2/G3 或外部授权证据。
 
@@ -561,14 +561,35 @@ Phase 0、67 项 Worker、81 项原型测试及 production build，官方 Skill 
   `facebook-ads-change-context/v1`、受限语义 patch、政策/审批缺口和
   `NOT_AUTHORIZED` 执行契约。
 - `P2-OFFLINE-WORKFLOW-06`：开发结束后执行四项本地配置、fixture 正反测试、结构校验、
-  输出评分、全仓回归与 CI 调整；这些确定性项目已完成，独立会话保持 `NOT_RUN`。
+  输出评分、全仓回归与 CI 调整；这些确定性项目已完成，独立会话由后续切片单独治理。
 
 `P2-OFFLINE-WORKFLOW-01`–`P2-OFFLINE-WORKFLOW-06` 的本地确定性项目已完成，统一状态为
-`LOCAL_FIXTURE_VALIDATED`；独立 Codex 会话仍为 `NOT_RUN`。实现边界见
+`LOCAL_FIXTURE_VALIDATED`；后续四个代表性独立 Codex 会话最终均为 8/8。实现边界见
 [离线 Codex 工作流 Skills](../technical/offline-codex-workflow-skills.md)。本切片不执行
 Skill，不读取真实账户或客户数据，不连接 Web/Meta/MCP，不持久化，不提交审批，不执行
 变更，也不创建任何外部资源。它不接受新的 `FR-*`、`NFR-*`、ADR 或候选架构，不改变
 G0 `PARTIAL`，不形成产品能力、模型质量、Meta 审核、G2/G3/G4 或外部授权证据。
+
+## 离线 Codex 工作流 Skills 独立会话前向评测切片
+
+项目负责人于 2026-08-09 再次指示继续下一步。本切片只为五个已完成本地确定性验证的
+Creative/工作流 Skill 建立隔离会话材料和一次性执行链路：
+
+- `P2-OFFLINE-WF-FWD-01`：固定五个 Skill 各一个代表性 fixture 会话承诺；
+- `P2-OFFLINE-WF-FWD-02`：建立 `FWD-FBW-001`–`FWD-FBW-005`，包内不含黄金草稿、
+  期望答案或评分路径；
+- `P2-OFFLINE-WF-FWD-03`：准备器只返回 `NOT_RUN`，评分器只接受标准输入、重建固定
+  context 并复用现有 8 项契约；
+- `P2-OFFLINE-WF-FWD-04`：五项独立新会话都获得 8/8 后才能登记 `PASS`；首次失败必须
+  保留并在修正后用新的无历史会话重测。
+
+实现边界见
+[离线 Codex 工作流 Skills 独立会话前向评测](../technical/offline-codex-workflow-session-forward-test.md)。
+测试包与 12 项专项回归已完成。五个首次会话中两项 8/8、三项被精确契约拒绝；收紧
+Creative 信息点映射、Campaign Ad 字段和 Daily Brief 状态字段后，三项分别在全新会话
+复测为 8/8，最终 5/5 `PASS`。隔离协议只由操作者声明，一次性授权已关闭。本切片不形成
+产品、通用模型、版权、Meta 审核、真实对象、审批、执行或 Gate 证据，也不扩大任何
+外部授权。
 
 ## Phase 1：Cloudflare 数据控制平面
 

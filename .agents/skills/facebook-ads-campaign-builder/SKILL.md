@@ -78,6 +78,12 @@ node .agents/skills/facebook-ads-campaign-builder/scripts/validate-context.mjs -
 2. `ad_set_draft`：转化位置、优化/计费事件、预算、排期、受众和版位；
 3. `ad_draft`：素材引用、文本字段、CTA 与落地页 fixture 引用。
 
+三个 `fields` 必须使用精确映射：Campaign 完整复制 `context.campaign`，Ad Set 完整复制
+`context.ad_set`，Ad 只复制 `context.ad` 并追加
+`destination_ref: context.landing_page.destination_ref`。`asset_ref` 只参与 preflight 和
+来源审查，不得复制进 `ad_draft.fields`；`$.asset` 保留在 `source_fact_paths` 也不改变
+这一字段集合。
+
 三个对象都必须为 `claim_type: DRAFT`、`state: DRAFT`，并列出 source fact paths。
 `BLOCKED` 时三个对象均为 `null`。
 

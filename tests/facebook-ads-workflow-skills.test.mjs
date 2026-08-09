@@ -119,6 +119,40 @@ function outputStatus(result) {
 }
 
 describe("offline Facebook Ads workflow Skill input contracts", () => {
+  it("retains exact output mappings learned from fresh-session failures", () => {
+    const creative = readFileSync(
+      resolve(ROOT, ".agents/skills/facebook-ads-creative/SKILL.md"),
+      "utf8",
+    );
+    const campaign = readFileSync(
+      resolve(ROOT, ".agents/skills/facebook-ads-campaign-builder/SKILL.md"),
+      "utf8",
+    );
+    const dailyBrief = readFileSync(
+      resolve(ROOT, ".agents/skills/facebook-ads-daily-brief/SKILL.md"),
+      "utf8",
+    );
+
+    expect(creative).toContain(
+      "`product.approved_messages[*].message` 按输入顺序用 `；` 连接的原文",
+    );
+    expect(creative).toContain(
+      "visual direction 的 `source_fact_paths` 只能列出对应",
+    );
+    expect(campaign).toContain(
+      "`asset_ref` 只参与 preflight 和",
+    );
+    expect(campaign).toContain(
+      "不得复制进 `ad_draft.fields`",
+    );
+    expect(dailyBrief).toContain(
+      "`delivery_summary` 只作为 validator 返回的 `preflight.facts`",
+    );
+    expect(dailyBrief).toContain(
+      "`data_status` 的字段必须且只能为",
+    );
+  });
+
   it.each(CASES)("$skill accepts the ready fixture", (testCase) => {
     expect(testCase.validator(testCase.factory()).status).toBe(testCase.ready);
   });

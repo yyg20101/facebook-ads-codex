@@ -54,6 +54,17 @@ meta_write_operations_authorized: false
 `BQ-01`–`BQ-12` 已全部回答。Phase 0 仍为进行中，因为账户实际数据量、广告上下文、
 Cloudflare 事实和 Meta 只读路径尚未在获得单独授权后验证。
 
+项目负责人于 2026-08-09 指示按推荐继续，完成已确认 MVP 到需求和 ADR 的逐项复核。
+当前 42 项需求中 32 项为 `ACCEPTED`、10 项保持 `DRAFT`；ADR-001、ADR-002、
+ADR-004、ADR-006 为 `ACCEPTED`，ADR-003、ADR-005 保持 `DRAFT`。这些状态只确认需求
+语义和有限决策范围，依据是既有产品证据与 Phase 0 决定，不来自 fixture 实现；它们不
+改变 G0 `PARTIAL`、`runtime_implementation_available: false` 或任何外部授权布尔值。
+
+下文按时间保存的离线授权记录中，“不接受某需求或 ADR”表示对应 fixture 切片本身不
+构成产品证据、接受依据或 Gate 证据；它不覆盖本次基于既有产品证据完成的当前状态。
+需求和 ADR 的实时状态分别以[需求追踪矩阵](../requirements/traceability.md)和
+[ADR 索引](../decisions/README.md)为准。
+
 `meta_read_validation_authorized: false` 表示仓库可以维护本地校验工具和不可用占位配置，
 但当前不得执行真实 Meta 请求。项目负责人未来必须在本地填入配置并明确授权一次只读
 验证，本文同步改为 `true` 后，验证命令才允许访问 Meta；验证结束后必须恢复为 `false`。

@@ -3,13 +3,15 @@ doc_id: REQ-METRICS
 type: requirements
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-08-08
+last_reviewed: 2026-08-09
 ---
 
 # 指标与报告需求
 
-本页保存旧分析方案的候选指标和输出规则。是否需要报告、哪些指标支持核心任务以及用户
-如何理解结果，依赖 `DQ-02`、`DQ-05`、`DQ-06` 和产品形态测试。
+数据看板、证据化分析、测试记录和可复查报告已经进入 MVP；本页保存其账户上下文规则、
+候选指标目录和输出约束。具体账户能提供哪些指标、当前对象的主 KPI、真实容量和 Meta
+口径仍须在获得只读授权后验证，因此本文继续为 `DRAFT`，不能把候选目录理解为所有
+广告都必须返回或优先展示的固定指标。
 
 ## 候选指标
 
@@ -95,7 +97,8 @@ Meta 当前状态。
 
 当前仅使用 fixture 验证方向变化和非因果诊断模式，候选契约见
 [离线周期对比与诊断](../technical/offline-period-comparison-and-diagnostics.md)。该实现不
-接受本页候选指标或 `FR-005`。本地 Web 的账户来源和结果绑定另见
+构成本页候选指标目录已确认、`FR-005` 已实现或 G2 已通过的证据。本地 Web 的账户来源
+和结果绑定另见
 [离线账户上下文](../technical/offline-web-account-context.md)；固定对象范围的汇总一致性与
 显式 comparison 见[离线对象级分析](../technical/offline-object-level-analysis.md)；直接
 子对象的两期可加指标父子对账见
@@ -112,23 +115,24 @@ Meta 当前状态。
 全账户 fixture 的分析前检查见
 [离线数据质量报告](../technical/offline-data-quality-report.md)：主体日粒度、连续覆盖、
 统一报告上下文、对象层级以及账户→Campaign→Ad Set→Ad 三层四项可加指标必须全部
-通过。该候选检查不使用业务效果阈值，也不接受 `FR-002`、`FR-003` 或 `FR-005`。
+通过。该候选检查不使用业务效果阈值，也不构成 `FR-002`、`FR-003` 或 `FR-005` 的
+实现与 Gate 证据。
 本地 Web 的候选强制入口见
 [离线分析质量 Preflight](../technical/offline-analysis-quality-preflight.md)：只有账户、
 分析日期和对象被质量凭证覆盖时才请求指标，响应口径与快照还必须再次匹配。该内存凭证
-不是认证或真实账户授权，也不接受 `FR-004`、`FR-005` 或任何 NFR。
+不是认证或真实账户授权，也不构成 `FR-004`、`FR-005` 或任何 NFR 的实现与 Gate 证据。
 当前可信 comparison 到 Codex 手动输入的候选交接见
 [离线 Codex 分析证据包](../technical/offline-codex-evidence-bundle.md)：只传递 fixture
 范围、新鲜度、事实、确定性模式、直接子对象输入和未知项，不生成分析结论、置信度或
-建议。该切片仍不接受 `FR-005` 或 `NFR-002`。
+建议。该切片仍不构成 `FR-005` 或 `NFR-002` 的实现与 Gate 证据。
 对象与直接子对象日趋势的候选交接见
 [离线 Codex 趋势证据包](../technical/offline-codex-trend-evidence.md)：schema v2 传递完整
 固定 9 项日值和逐日父子对账，但不解释趋势、不使用当前图表指标推导主 KPI，也不排名
 或生成建议。
 当前 schema v2 到只读分析草稿的候选处理见
 [离线 Codex 分析 Skill](../technical/offline-codex-analysis-skill.md)：它先复核输入结构、
-公式和对账，再区分 `FACT`、有限非因果 `INFERENCE` 与 `UNKNOWN`；该切片不接受
-`FR-005` 或 `NFR-002`，也不生成优化动作。
+公式和对账，再区分 `FACT`、有限非因果 `INFERENCE` 与 `UNKNOWN`；该切片不构成
+`FR-005` 或 `NFR-002` 的实现与 Gate 证据，也不生成优化动作。
 五种固定输入到最终草稿契约的候选回归见
 [离线 Codex 分析草稿评测](../technical/offline-codex-analysis-evals.md)：它逐项验证 evidence
 path 与原值、未知项、直接子对象覆盖和非因果安全边界，但不调用模型，不证明真实分析

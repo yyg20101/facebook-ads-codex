@@ -16,7 +16,8 @@
 - `DG0` 已通过，`DQ-08` 已关闭，产品定义状态为 `ACCEPTED`。
 - `BQ-01`–`BQ-12` 已全部回答；账户实际数据量、上下文和 Cloudflare 事实仍待单独授权
   后验证。
-- 根据已选 `MVP` 能力重新评审现有 `FR-*`、`NFR-*`、`SEC-*` 和候选 ADR。
+- 已按 `MVP` 能力复核需求：42 项中 32 项 `ACCEPTED`、10 项 `DRAFT`；ADR-001、
+  ADR-002、ADR-004、ADR-006 已接受，ADR-003、ADR-005 继续等待技术事实和替代方案。
 - G0 当前为 `PARTIAL`。负责人已允许 Phase 1 离线脚手架，但 G0 通过前不进入正式
   Phase 1，不访问真实 Meta/Cloudflare，也不开发可连接真实数据的业务运行时。
 - 固定虚构数据的离线只读汇总、周期对比诊断、本地 Web 接入、账户列表选择、三层广告
@@ -67,7 +68,7 @@
 | [需求文档](docs/requirements/README.md) | 产品、功能、质量、角色、指标和追踪 |
 | [技术文档](docs/technical/README.md) | 仅供比较的候选架构和实现方案 |
 | [工程规范](docs/standards/README.md) | 代码、接口、数据、安全、测试和发布规则 |
-| [ADR](docs/decisions/README.md) | 候选长期架构决策 |
+| [ADR](docs/decisions/README.md) | 已接受与候选长期架构决策 |
 | [路线图](docs/planning/roadmap.md) | Product Discovery、Phase 0–5 和 Gate |
 | [Meta 只读验证](docs/runbooks/meta-read-connection.md) | 后续本地填入凭据、授权、验证和撤销流程 |
 | [离线控制平面脚手架](docs/technical/offline-phase-1-scaffold.md) | 当前获准的 Worker、D1、fixture 与测试边界 |

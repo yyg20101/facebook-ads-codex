@@ -722,6 +722,26 @@ if (solutionHypotheses.size !== 6) {
     `solution hypothesis register must declare 6 entries; found ${solutionHypotheses.size}`
   );
 }
+const decisionIndexFile = resolve(ROOT, "docs/decisions/README.md");
+const decisionIndexText = contentByFile.get(decisionIndexFile) ?? "";
+const indexedDecisionStatuses = new Map();
+for (const line of decisionIndexText.split("\n")) {
+  if (!/^\| \[ADR-\d{3}\]\(/.test(line)) {
+    continue;
+  }
+  const cells = tableCells(line);
+  const id = cells[0]?.match(/^\[(ADR-\d{3})\]\(/)?.[1];
+  const status = cells[2]?.match(/^`(DRAFT|ACCEPTED|SUPERSEDED)`$/)?.[1];
+  if (!id || !status) {
+    errors.push("docs/decisions/README.md: malformed ADR index row");
+    continue;
+  }
+  if (indexedDecisionStatuses.has(id)) {
+    errors.push(`duplicate ADR index row: ${id}`);
+  }
+  indexedDecisionStatuses.set(id, status);
+}
+
 for (let number = 1; number <= 6; number += 1) {
   const id = `SH-${String(number).padStart(3, "0")}`;
   if (!solutionHypotheses.has(id)) {
@@ -3494,6 +3514,14 @@ for (let number = 1; number <= 6; number += 1) {
     continue;
   }
   const metadata = metadataByFile.get(matchingFile);
+  const indexedStatus = indexedDecisionStatuses.get(id);
+  if (!indexedStatus) {
+    errors.push(`ADR index is missing ${id}`);
+  } else if (indexedStatus !== metadata.status) {
+    errors.push(
+      `${id} index status ${indexedStatus} does not match document ${metadata.status}`
+    );
+  }
   if (!discoveryComplete && metadata.status !== "DRAFT") {
     errors.push(`${id} must remain DRAFT until DG0 passes`);
   }
@@ -3503,6 +3531,19 @@ for (let number = 1; number <= 6; number += 1) {
   ) {
     errors.push(`${id} must identify itself as a candidate solution`);
   }
+  if (metadata.status === "ACCEPTED") {
+    const decisionText = contentByFile.get(matchingFile);
+    for (const heading of ["## 备选方案评审", "## 风险与可逆性"]) {
+      if (!decisionText.includes(heading)) {
+        errors.push(`accepted ${id} must include ${heading}`);
+      }
+    }
+  }
+}
+if (indexedDecisionStatuses.size !== 6) {
+  errors.push(
+    `ADR index must declare exactly 6 unique decisions; found ${indexedDecisionStatuses.size}`
+  );
 }
 
 if (!discoveryComplete) {
@@ -3609,9 +3650,31 @@ if (errors.length > 0) {
   process.exit(1);
 }
 
+const requirementStatusCounts = [...declaredRequirements.values()].reduce(
+  (counts, requirement) => {
+    counts[requirement.status] = (counts[requirement.status] ?? 0) + 1;
+    return counts;
+  },
+  { ACCEPTED: 0, DRAFT: 0, SUPERSEDED: 0 }
+);
+const decisionStatusCounts = [...indexedDecisionStatuses.values()].reduce(
+  (counts, status) => {
+    counts[status] = (counts[status] ?? 0) + 1;
+    return counts;
+  },
+  { ACCEPTED: 0, DRAFT: 0, SUPERSEDED: 0 }
+);
+
 console.log(
   `Documentation validation passed: ${docsFiles.length} docs, ` +
-    `${declaredRequirements.size} draft requirements, ` +
+    `${declaredRequirements.size} requirements ` +
+    `(${requirementStatusCounts.ACCEPTED} accepted, ` +
+    `${requirementStatusCounts.DRAFT} draft, ` +
+    `${requirementStatusCounts.SUPERSEDED} superseded), ` +
+    `${indexedDecisionStatuses.size} ADRs ` +
+    `(${decisionStatusCounts.ACCEPTED} accepted, ` +
+    `${decisionStatusCounts.DRAFT} draft, ` +
+    `${decisionStatusCounts.SUPERSEDED} superseded), ` +
     `${tracedRequirements.size} traceability rows, ` +
     `${discoveryQuestions.size} discovery questions, ` +
     `${evidenceRecords.size} evidence records, 12 Phase 0 blocking questions.`

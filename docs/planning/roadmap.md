@@ -20,6 +20,8 @@ Documentation baseline
   -> DG0 PASS
   -> Phase 0 document confirmation IN_PROGRESS
   -> BQ-01 through BQ-12 RESOLVED
+  -> MVP requirement review COMPLETE; 32 ACCEPTED / 10 DRAFT
+  -> ADR review COMPLETE; ADR-001/002/004/006 ACCEPTED, ADR-003/005 DRAFT
   -> Credential-neutral local readiness tooling AVAILABLE
   -> G0 PARTIAL; real configuration DEFERRED
   -> Offline Phase 1 scaffold AUTHORIZED

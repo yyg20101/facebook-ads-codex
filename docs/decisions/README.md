@@ -3,25 +3,28 @@ doc_id: ADR-INDEX
 type: index
 status: ACCEPTED
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-09
 ---
 
 # 架构决策记录
 
-当前没有已接受的产品架构。`DG0` 已通过，但 Phase 0 事实、需求映射和替代方案比较
-尚未完成；ADR-001–006 保存旧基线中的候选决策，均为 `DRAFT`，不得作为产品、技术
-或实施约束。
+`DG0` 通过后已按产品证据、Phase 0 事实、安全边界、替代方案和可逆性重新评审六项旧
+决策。ADR-001、ADR-002、ADR-004、ADR-006 已接受；ADR-003 仍需决定实时服务端工具
+是否采用 Remote MCP，ADR-005 仍需外部 Cloudflare 事实和控制平面方案比较。
+
+`ACCEPTED` ADR 只约束其明确决策范围，不表示候选技术文档整体选型、G0 通过、运行时
+可用、外部资源可访问或部署/Meta 写操作获得授权。
 
 ## 候选决策
 
 | ADR | 决策 | 状态 |
 | --- | --- | --- |
-| [ADR-001](ADR-001-codex-only-ai-agent.md) | 前期 Codex 是唯一 AI Agent | `DRAFT` |
-| [ADR-002](ADR-002-web-is-not-ai-entry.md) | 前期 Web 不重复实现 AI 会话入口 | `DRAFT` |
+| [ADR-001](ADR-001-codex-only-ai-agent.md) | 前期 Codex 是唯一 AI Agent | `ACCEPTED` |
+| [ADR-002](ADR-002-web-is-not-ai-entry.md) | 前期 Web 不重复实现 AI 会话入口 | `ACCEPTED` |
 | [ADR-003](ADR-003-skills-and-mcp-boundary.md) | Skill 与 MCP 分工固定 | `DRAFT` |
-| [ADR-004](ADR-004-cloudflare-account-is-not-meta-tenant.md) | Cloudflare 账户不等于 Meta 租户 | `DRAFT` |
+| [ADR-004](ADR-004-cloudflare-account-is-not-meta-tenant.md) | Cloudflare 账户不等于 Meta 租户 | `ACCEPTED` |
 | [ADR-005](ADR-005-single-control-plane.md) | MVP 使用单一主控制平面 | `DRAFT` |
-| [ADR-006](ADR-006-read-only-first.md) | 能力只读优先并逐级开放 | `DRAFT` |
+| [ADR-006](ADR-006-read-only-first.md) | 能力只读优先并逐级开放 | `ACCEPTED` |
 
 ## 接受条件
 

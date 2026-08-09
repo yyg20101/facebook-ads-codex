@@ -95,8 +95,12 @@
   使用 Cloudflare Access 且仅允许项目负责人。
 - `cf-primary` 确认为项目负责人控制的唯一逻辑 Cloudflare 主账户；实际账户、域名和
   套餐仍待单独授权后验证，ADR-005 继续保持 `DRAFT`。
-- Web 与 Codex 的产品职责已确认；Cloudflare、MCP、自动化、现有需求和 ADR 仍为
-  候选方案。
+- Web 与 Codex 的产品职责已确认；MVP 需求映射完成，保留既有 ID 并新增
+  `FR-017`–`FR-022`，42 项需求中 32 项为 `ACCEPTED`、10 项保持 `DRAFT`。
+- ADR-001、ADR-002、ADR-004、ADR-006 已完成替代方案和可逆性评审并改为
+  `ACCEPTED`；Remote MCP 边界 ADR-003 和单一控制平面 ADR-005 继续为 `DRAFT`。
+- 接受需求和 ADR 不改变 G0、运行时、Cloudflare/Meta 访问、部署或 Meta 写操作授权；
+  未接受技术文档、MCP、自动化和外部写能力继续为候选方案。
 - 原 Phase 0 改为依赖 `DG0`，不再承担目标用户、产品形态和 MVP 定义。
 - Creative、Campaign Builder、Daily Brief、Optimization 和 Change Management 从开发期
   `IMPLEMENTED_UNVERIFIED` 更新为 `LOCAL_FIXTURE_VALIDATED`；该状态不代表模型、真实

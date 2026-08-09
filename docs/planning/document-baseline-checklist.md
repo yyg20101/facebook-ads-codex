@@ -3,7 +3,7 @@ doc_id: PLAN-DOC-MIGRATION
 type: planning
 status: ACCEPTED
 owner: project_owner
-last_reviewed: 2026-08-05
+last_reviewed: 2026-08-09
 ---
 
 # 文档基线迁移清单
@@ -17,7 +17,7 @@ last_reviewed: 2026-08-05
 | --- | --- | --- | --- | --- |
 | 0 | Codex 执行契约与授权 | `project/status-and-authorizations.md`、`AGENTS.md` | 拆分授权与工作规则 | COMPLETE |
 | 1 | 最终目标与成功结果 | `discovery/solution-hypotheses.md`、`requirements/product.md` | 保留为候选假设 | COMPLETE |
-| 2 | ADR-001–006 | `decisions/ADR-001-*.md`–`ADR-006-*.md` | 拆分并降为 DRAFT | COMPLETE |
+| 2 | ADR-001–006 | `decisions/ADR-001-*.md`–`ADR-006-*.md` | 初始拆分并降为 DRAFT；后续状态见 ADR 索引 | COMPLETE |
 | 3 | Cloudflare 状态 | `technical/deployment-and-operations.md`、BQ-12 | 保留逻辑账户；删除个人标识 | COMPLETE |
 | 4 | 范围 | `project/charter.md`、`requirements/product.md` | 章程只固定 Meta 领域 | COMPLETE |
 | 5 | 用户、Workspace、租户 | `requirements/roles-and-permissions.md`、`technical/domain-and-data.md` | 拆分需求与模型 | COMPLETE |
@@ -57,7 +57,8 @@ last_reviewed: 2026-08-05
 - [x] 根 README、AGENTS、贡献指南和变更日志已更新。
 - [x] 仓库中旧规范路径引用为零。
 - [x] 12 个阻塞问题全部保留且只定义一次。
-- [x] 六份 ADR 独立存在且因产品未定义统一为 `DRAFT`。
+- [x] 六份 ADR 独立存在；迁移时因产品未定义统一为 `DRAFT`，当前状态以
+  [ADR 索引](../decisions/README.md)为准。
 - [x] 新增 Product Discovery、DQ-01–DQ-08、EVD 契约和 DG0。
 - [x] 旧产品、功能、技术和实现规范明确降为候选方案。
 - [x] 本地文档校验通过，GitHub CI 已配置为运行同一命令。

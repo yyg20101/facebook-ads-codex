@@ -24,7 +24,7 @@ last_reviewed: 2026-08-09
 不启动正式 Web 阶段。当前又允许 Web 先从本地列表选择 fixture 账户，再请求所选账户
 周期结果；现又允许在该账户下读取并导航 fixture Campaign、Ad Set 和 Ad，但周期指标
 继续保留独立账户级范围。当前进一步允许对已验证 fixture 对象显式加载对象级周期
-结果；这些切片仍不接受候选需求或授权真实账户。
+结果；这些切片仍不构成需求接受或实现证据，也不授权真实账户。
 当前继续允许在已验证 Campaign 或 Ad Set 下显式读取直接子对象拆解，并要求两期四项
 可加指标与父对象完全对账；该切片不选择赢家，也不扩大任何外部权限。
 当前还允许为已验证 Campaign、Ad Set 或 Ad 显式加载 3–31 日固定 fixture 趋势，
@@ -55,6 +55,9 @@ Builder、Daily Brief、Optimization 和 Change Management。五项已完成 sch
 草稿的 8/8 评分，状态为 `LOCAL_FIXTURE_VALIDATED`。独立全新 Codex 会话仍为
 `NOT_RUN`；这些结果不形成产品、模型、版权、Meta 审核、真实对象、审批、执行或 Gate
 证据。
+当前已完成 MVP 需求和 ADR 复核：42 项需求中 32 项为 `ACCEPTED`、10 项为 `DRAFT`；
+ADR-001、ADR-002、ADR-004、ADR-006 已接受，ADR-003、ADR-005 保持草案。这不会改变
+G0、运行时状态或任何外部授权。
 
 ## 权威边界
 
@@ -159,7 +162,7 @@ Builder、Daily Brief、Optimization 和 Change Management。五项已完成 sch
 | 需求 | [需求索引](requirements/README.md) | 全部 `DRAFT` |
 | 技术设计 | [技术索引](technical/README.md) | `DRAFT` |
 | 工程规范 | [规范索引](standards/README.md) | 治理已接受，实施规范为候选 |
-| 架构决策 | [ADR 索引](decisions/README.md) | ADR-001–006 `DRAFT` |
+| 架构决策 | [ADR 索引](decisions/README.md) | ADR-001、002、004、006 `ACCEPTED`；ADR-003、005 `DRAFT` |
 | 实施规划 | [路线图](planning/roadmap.md) | `DRAFT` |
 | 运维手册 | [Runbook 索引](runbooks/README.md) | Meta 只读验证流程为 `DRAFT` |
 | 术语 | [术语表](glossary.md) | `ACCEPTED` |

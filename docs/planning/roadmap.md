@@ -591,6 +591,26 @@ Creative 信息点映射、Campaign Ad 字段和 Daily Brief 状态字段后，�
 产品、通用模型、版权、Meta 审核、真实对象、审批、执行或 Gate 证据，也不扩大任何
 外部授权。
 
+## 离线 Codex 跨 Skill 手动工作流切片
+
+项目负责人于 2026-08-09 指示继续剩余开发任务。本切片只组合已有固定 fixture
+context 与草稿，不调用模型或执行新的 Skill 会话：
+
+- `P2-OFFLINE-CROSS-WORKFLOW-01`：定义
+  `facebook-ads-cross-skill-workflow-bundle/v1`、固定阶段和关闭的 guardrail。
+- `P2-OFFLINE-CROSS-WORKFLOW-02`：实现 Creative→Campaign Builder，精确复制已选
+  文案、素材、受众和版位，并把 Campaign 配置、预算、排期、CTA 与审查保留为人工输入。
+- `P2-OFFLINE-CROSS-WORKFLOW-03`：实现 Optimization→Change Management，只传递一个
+  `PENDING_CONFIRMATION` 动作、证据和目标，patch、政策和审批仍须人工提供。
+- `P2-OFFLINE-CROSS-WORKFLOW-04`：实现阶段草稿、范围、映射、人工输入、非持久化和
+  无外部写入的 10 项确定性评分，以及只接受标准输入的安全失败 CLI。
+- `P2-OFFLINE-CROSS-WORKFLOW-05`：接入统一 Skill 检查、CI 路径和文档治理。
+
+`P2-OFFLINE-CROSS-WORKFLOW-01`–`05` 已完成。两条 bundle 均为 10/10，11 项专项测试
+通过；Daily Brief 保持只读终点，Analysis 未被自动连接到 Optimization。实现边界见
+[离线 Codex 跨 Skill 手动工作流](../technical/offline-codex-cross-skill-workflows.md)。本
+切片不代表实际跨会话、Web 导入、Remote MCP、Meta、审批、执行或 G2/G3/G4 证据。
+
 ## Phase 1：Cloudflare 数据控制平面
 
 以下任务只适用于 Product Discovery 和后续技术评审选择 Cloudflare 方案的情况：
@@ -617,7 +637,8 @@ Creative 信息点映射、Campaign Ad 字段和 Daily Brief 状态字段后，�
 - `P2-05` 创建代表性生成、分析和拒绝场景测试。
 
 当前六个仓库级离线 Skill 候选切片不能替代正式 `P2-01`–`P2-05`。六项只验证了固定
-fixture 契约；跨 Skill 真实流程、代表性独立会话和外部集成测试尚未开始。
+fixture 契约；两组代表性独立会话已完成，两条固定跨 Skill bundle 也已完成本地连续性
+校验，但实际跨会话流程、Web/MCP 交接和外部集成测试尚未开始。
 
 G2 只证明 Codex 辅助能力；完整产品还必须满足 Web 产品 Gate。
 

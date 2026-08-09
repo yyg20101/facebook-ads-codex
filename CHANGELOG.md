@@ -68,6 +68,9 @@
   和专项回归；最终 5/5 Case 均为 8/8，三项首次拒绝经契约收紧后由全新会话复测通过。
 - 统一 `skill:workflow:check`、扩展后的 `skill:eval` / `skill:check`，以及覆盖六个项目级
   Skill 目录和评测材料的 GitHub Actions 路径。
+- 两条 fixture-only 跨 Skill 手动工作流，验证 Creative→Campaign Builder 与
+  Optimization→Change Management 的范围、精确字段映射、人工输入、非持久化和无外部
+  写入边界；包含 10 项评分、11 项专项回归和 `skill:cross-workflow:check`。
 - 已批准的根目录安全策略。
 
 ### Changed
@@ -178,3 +181,6 @@
 - 项目负责人随后一次性授权五个 Creative/工作流 Skill 的隔离会话评测；五个首次会话
   两项通过、三项拒绝，三项在 Skill 修正后由全新会话获得 8/8。一次性授权已经关闭；
   协议声明未被技术独立验证，结果不形成通用模型、真实数据、产品需求或 Gate 证据。
+- 项目负责人随后允许继续 fixture-only 跨 Skill 手动工作流开发与本地校验；该决定只
+  覆盖两条固定 bundle，不授权模型会话、Web/MCP/Meta 集成、真实数据、持久化、审批、
+  部署或写操作。

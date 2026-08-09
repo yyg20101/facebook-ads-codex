@@ -47,6 +47,8 @@ offline_codex_skill_local_validation_complete: true
 offline_codex_workflow_session_forward_test_kit_authorized: true
 offline_codex_workflow_session_forward_test_execution_authorized: false
 offline_codex_workflow_session_forward_test_execution_complete: true
+offline_codex_cross_skill_workflow_development_authorized: true
+offline_codex_cross_skill_workflow_local_validation_complete: true
 production_deployment_authorized: false
 meta_write_operations_authorized: false
 ```
@@ -276,6 +278,19 @@ Skill 后，三项都在新的无历史会话中获得 8/8。合计形成 8 个�
 基础设施传输中断没有返回 envelope，不计为结果。完整输入、草稿和评分 envelope 未写入
 仓库；隔离协议仍只是操作者声明，不能替代独立技术证明。
 
+项目负责人于 2026-08-09 指示“继续剩余开发任务”。
+`offline_codex_cross_skill_workflow_development_authorized: true` 将该指令限定为第二十一个
+可逆离线开发切片：允许把现有固定 fixture Creative→Campaign Builder 与
+Optimization→Change Management 组合为人工交接 bundle，并开发阶段顺序、范围、精确
+字段映射、人工输入和安全边界的确定性校验器。本切片不得调用模型或启动新会话，不连接
+Web、MCP、Meta 或 Cloudflare，不读取真实数据，不持久化结果，不提交审批、不部署或
+执行写操作；Daily Brief 和 Analysis 不得被自动串入动作链。
+
+`offline_codex_cross_skill_workflow_local_validation_complete: true` 表示两条固定 bundle 的
+四个阶段均通过既有 Skill 草稿契约，两个 bundle 均通过 10/10 跨阶段检查，11 项专项
+回归通过。该结果只验证已提交 fixture 的字段连续性和安全失败，不是实际跨会话、Web
+导入、MCP 集成、真实对象、审批或执行证据，也不推进 G2、G3 或 G4。
+
 `runtime_implementation_available: false` 指没有可连接真实业务数据或外部系统的业务
 运行时。使用固定虚构数据的 Product Discovery 原型、离线 Worker、只读汇总、周期
 诊断、广告对象层级、对象级分析和直接子对象拆解切片不构成业务运行时可用。
@@ -298,6 +313,9 @@ Skill 后，三项都在新的无历史会话中获得 8/8。合计形成 8 个�
 结果只覆盖五个已提交任务和操作者声明的隔离协议；它不是已生成素材、Meta 政策审核、
 商业使用权结论、真实对象、实时状态、已批准动作、已执行变更、通用模型质量、产品
 能力、业务运行时或 Gate 证据。
+固定 fixture 跨 Skill 手动工作流只验证 Creative→Campaign Builder 与
+Optimization→Change Management 的静态 bundle 连续性；它不调用模型、不连接 Web、
+MCP 或 Meta，也不是实际端到端产品流程、认证、审批、执行、业务运行时或 Gate 证据。
 
 ## 当前允许
 
@@ -351,6 +369,9 @@ Skill 后，三项都在新的无历史会话中获得 8/8。合计形成 8 个�
   契约；不得提交、批准或执行任何变更。
 - 对 Creative 与其余四个 Skill 运行仓库内 fixture 正反测试、结构校验、输出契约评分、
   文档检查、构建和全仓回归，并把同一本地命令接入 CI；不得启动模型或访问外部系统。
+- 用固定 fixture 验证 Creative→Campaign Builder 与 Optimization→Change Management
+  两条人工交接 bundle 的范围、精确字段映射、人工输入和无副作用边界；不得自动调用
+  Skill、连接 Web/MCP/Meta、持久化、提交审批或执行变更。
 
 ## 当前禁止
 

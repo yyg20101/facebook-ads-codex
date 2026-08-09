@@ -22,6 +22,10 @@ last_reviewed: 2026-08-09
 [独立会话前向评测](offline-codex-workflow-session-forward-test.md)。首次两项通过、三项
 拒绝；收紧精确映射与字段白名单后，三项分别在全新会话中复测通过。
 
+后续[跨 Skill 手动工作流](offline-codex-cross-skill-workflows.md)把其中四个 Skill 组合成
+两条固定 fixture 交接链，验证上游草稿到下游上下文的精确值、范围和人工输入边界。
+Daily Brief 继续是只读终点；该组合不调用模型、不代表 Web 交接或真实流程已集成。
+
 ## 共同实现约束
 
 - 只接受用户手动提供、schema 精确匹配的固定虚构 JSON；
@@ -147,6 +151,7 @@ tests/
 
 ```text
 npm run skill:workflow:check
+npm run skill:cross-workflow:check
 npm run skill:check
 npm run docs:check
 npm run p0:test

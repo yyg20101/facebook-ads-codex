@@ -40,7 +40,10 @@
   通过固定输入、CLI 安全失败与十一组黄金草稿评分，状态为
   `LOCAL_FIXTURE_VALIDATED`。五个无黄金答案代表性独立会话最终也均为 8/8：首次两项
   通过、三项被精确契约拒绝，收紧 Skill 后三项在全新会话中复测通过。隔离协议仍只是
-  操作者声明，因此不构成通用模型、真实账户、Meta 政策、审批或执行能力验证。
+  操作者声明，因此不构成通用模型、真实账户、Meta 政策、审批或执行能力验证。两条
+  fixture-only 跨 Skill 手动交接链现也已通过本地连续性检查：Creative→Campaign
+  Builder 与 Optimization→Change Management 只复制明确映射值，并把预算、排期、
+  policy、approval 等字段保留为人工输入；它们不调用模型、不保存或执行动作。
 
 固定范围和治理边界见[项目章程](docs/project/charter.md)，研究流程见
 [产品发现入口](docs/discovery/README.md)。
@@ -93,6 +96,7 @@
 | [离线 Codex 素材 Skill](docs/technical/offline-codex-creative-skill.md) | 校验 fixture 素材上下文并形成待人工评审的文案与视觉方向草稿 |
 | [离线 Codex 工作流 Skills](docs/technical/offline-codex-workflow-skills.md) | Campaign 草稿、事实日报、证据化优化和不可执行变更草稿 |
 | [工作流 Skills 独立会话前向评测](docs/technical/offline-codex-workflow-session-forward-test.md) | 五个隔离会话包和确定性结果评分链路 |
+| [离线 Codex 跨 Skill 手动工作流](docs/technical/offline-codex-cross-skill-workflows.md) | 两条固定人工交接链的范围、字段连续性和安全失败校验 |
 | [安全策略](SECURITY.md) | 安全政策、威胁和报告范围 |
 | [贡献指南](CONTRIBUTING.md) | 变更和评审流程 |
 
@@ -132,6 +136,7 @@ npm run check
 两组独立会话前向评测最终都为 5/5 Case、每项 8/8，但协议隔离未被技术独立验证，范围
 也仅限固定 fixture。Creative 与其余四个工作流 Skill 的有限通过不代表实际素材已生成、
 对象已创建、数据已刷新、建议已批准、变更可执行，或 Meta 审核、版权和广告效果结论。
+两条跨 Skill bundle 也只验证静态 fixture 传递，不代表实际跨会话、Web 或 MCP 集成。
 Meta/Cloudflare 访问、资源创建、部署和广告写操作仍须另行明确授权。
 
 ## Phase 0 本地准备

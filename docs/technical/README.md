@@ -43,6 +43,7 @@ last_reviewed: 2026-08-09
 | [离线 Codex 素材 Skill](offline-codex-creative-skill.md) | fixture-only 素材上下文、权利 preflight 和人工评审草稿契约 |
 | [离线 Codex 工作流 Skills](offline-codex-workflow-skills.md) | Campaign 草稿、事实日报、证据化优化和不可执行变更草稿契约 |
 | [离线 Codex 工作流 Skills 独立会话前向评测](offline-codex-workflow-session-forward-test.md) | 五个无黄金答案 Skill 会话包、隔离协议和标准输入评分链路 |
+| [离线 Codex 跨 Skill 手动工作流](offline-codex-cross-skill-workflows.md) | Creative→Campaign 与 Optimization→Change 的固定人工交接连续性 |
 
 ## 设计规则
 
@@ -83,3 +84,5 @@ last_reviewed: 2026-08-09
 首次拒绝只在收紧 Skill 后用新的无历史会话复测。操作者隔离声明未被技术独立验证。
 这些结果不搜索或生成实际素材，不连接 Web/Meta/MCP，不读取真实数据，不持久化、提交
 审批或执行变更，也不构成版权、Meta 审核、通用模型质量、产品能力或 G2/G3/G4 证据。
+离线跨 Skill 手动工作流进一步验证两条固定 fixture 链路的范围、字段传递、人工输入和
+无副作用边界；它不调用模型，也不代表实际跨会话、Web 导入或外部集成已经完成。

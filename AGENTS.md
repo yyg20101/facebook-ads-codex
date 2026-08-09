@@ -161,6 +161,12 @@ preflight 和只读草稿契约；不得执行 Skill、运行测试、配置模�
 执行时必须保持 `NOT_RUN`，已执行时也只能引用对应 Case 的有限 `PASS`，不得简写为通用
 `VALIDATED`。
 
+负责人随后允许继续剩余开发任务。该例外只允许把固定 fixture Creative→Campaign
+Builder 与 Optimization→Change Management 组合为人工交接 bundle，并验证阶段、范围、
+精确字段传递、人工输入和安全失败；不得自动调用 Skill、启动模型会话、连接 Web、MCP、
+Meta 或 Cloudflare、持久化、提交审批、部署、执行写操作或正式阶段转换。Daily Brief
+保持只读终点，Analysis 不得在没有独立授权和证据契约时自动进入 Optimization。
+
 ## 文档规则
 
 - 按 [`docs/standards/documentation.md`](docs/standards/documentation.md)维护元数据、

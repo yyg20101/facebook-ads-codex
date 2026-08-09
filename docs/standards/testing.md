@@ -84,6 +84,7 @@ Skill 输入或输出契约变化时运行：
 ```text
 npm run skill:eval
 npm run skill:workflow:check
+npm run skill:cross-workflow:check
 npm run skill:forward-test:check
 npm run skill:check
 ```

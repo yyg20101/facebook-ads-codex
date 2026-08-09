@@ -54,6 +54,12 @@ Optimization 和 Change Management 均只接受各自 schema v1 fixture 手动�
 `FWD-FBW-001`–`005` 只包含任务与 fixture context，准备器不启动模型，评分器只接受
 标准输入。五个最终 Case 均为 8/8；三项首次拒绝在收紧契约后用全新会话复测通过，
 隔离协议只由操作者声明。
+第二十一个可逆离线开发切片新增
+[跨 Skill 手动工作流](offline-codex-cross-skill-workflows.md)：它只在本地组合已经通过
+契约校验的 fixture context 与草稿，验证 Creative→Campaign Builder 和
+Optimization→Change Management 的精确字段传递、人工输入清单和无副作用边界。两条
+bundle 均为 10/10，11 项专项测试通过；本切片不调用模型、不运行新会话、不连接 Web、
+MCP 或 Meta，也不持久化交接结果。
 
 ## 候选 Skill 划分
 

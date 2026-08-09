@@ -57,6 +57,10 @@ Builder、Daily Brief、Optimization 和 Change Management。五项已完成 sch
 答案代表性独立会话最终均为 8/8：首次两项通过、三项拒绝，收紧契约后三项由新的无历史
 会话复测通过。操作者声明的隔离协议未被技术独立验证，因此这些结果不形成产品、通用
 模型、版权、Meta 审核、真实对象、审批、执行或 Gate 证据。
+当前还完成两条 fixture-only 跨 Skill 手动交接链：Creative→Campaign Builder 与
+Optimization→Change Management。校验器会拒绝范围或复制值漂移，并把预算、排期、
+政策、审批等不可推导字段保留为人工输入；它不调用模型、不保存到 Web，也不形成外部
+集成或 Gate 证据。
 当前已完成 MVP 需求和 ADR 复核：42 项需求中 32 项为 `ACCEPTED`、10 项为 `DRAFT`；
 ADR-001、ADR-002、ADR-004、ADR-006 已接受，ADR-003、ADR-005 保持草案。这不会改变
 G0、运行时状态或任何外部授权。
@@ -128,6 +132,7 @@ G0、运行时状态或任何外部授权。
 - [离线 Codex 素材 Skill](technical/offline-codex-creative-skill.md)
 - [离线 Codex 工作流 Skills](technical/offline-codex-workflow-skills.md)
 - [离线 Codex 工作流 Skills 独立会话前向评测](technical/offline-codex-workflow-session-forward-test.md)
+- [离线 Codex 跨 Skill 手动工作流](technical/offline-codex-cross-skill-workflows.md)
 - [本地控制平面 Runbook](runbooks/local-control-plane.md)
 
 ### 数据控制平面
@@ -148,6 +153,7 @@ G0、运行时状态或任何外部授权。
 - [离线 Codex 素材 Skill](technical/offline-codex-creative-skill.md)
 - [离线 Codex 工作流 Skills](technical/offline-codex-workflow-skills.md)
 - [离线 Codex 工作流 Skills 独立会话前向评测](technical/offline-codex-workflow-session-forward-test.md)
+- [离线 Codex 跨 Skill 手动工作流](technical/offline-codex-cross-skill-workflows.md)
 - [API 与 MCP 契约](technical/api-and-mcp-contracts.md)
 - [API 与错误规范](standards/api-and-errors.md)
 
@@ -163,7 +169,7 @@ G0、运行时状态或任何外部授权。
 | --- | --- | --- |
 | 项目治理 | [项目章程](project/charter.md) | `ACCEPTED` |
 | 产品发现 | [发现入口](discovery/README.md) | `ACCEPTED` |
-| 需求 | [需求索引](requirements/README.md) | 全部 `DRAFT` |
+| 需求 | [需求索引](requirements/README.md) | 32 项 `ACCEPTED`；10 项 `DRAFT` |
 | 技术设计 | [技术索引](technical/README.md) | `DRAFT` |
 | 工程规范 | [规范索引](standards/README.md) | 治理已接受，实施规范为候选 |
 | 架构决策 | [ADR 索引](decisions/README.md) | ADR-001、002、004、006 `ACCEPTED`；ADR-003、005 `DRAFT` |

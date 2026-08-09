@@ -229,4 +229,7 @@ execution 固定 `NOT_AUTHORIZED`；状态为 `LOCAL_FIXTURE_VALIDATED`，代表
 
 手动交接不能证明未来 MCP 或 API 方案可用；后续自动保存和写操作需要独立技术与安全
 评审。当前五个新增 Skill 只声明 handoff 语义，`persisted` 与 `external_write` 均固定为
-false，不会自动保存到 Web。
+false，不会自动保存到 Web。当前
+[离线跨 Skill 手动工作流](../../technical/offline-codex-cross-skill-workflows.md)只验证
+Creative→Campaign Builder 与 Optimization→Change Management 的 fixture 字段连续性；
+它仍不执行 Web 导入、模型间自动调用、持久化或外部写入。

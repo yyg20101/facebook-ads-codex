@@ -134,7 +134,7 @@ tests/
 3. 五个 CLI 均覆盖敏感字段、未知字段、打开外部 guardrail、路径越界、符号链接、
    超过 2 MiB 输入和无效 JSON；
 4. 十一组黄金草稿覆盖五个 Skill 的就绪与安全非就绪输出，统一评分均为 8/8；
-5. `npm run skill:check` 共 105 项 Skill 测试通过；
+5. `npm run skill:check` 共 106 项 Skill 测试通过；
 6. `npm run docs:check`、14 项 Phase 0 测试、67 项 Worker 测试、81 项 Web 原型测试和
    production build 均通过；GitHub Actions 已复用 `npm run skill:check`。
 

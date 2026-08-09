@@ -37,7 +37,7 @@ last_reviewed: 2026-08-09
 字段、证据和值、未知项、直接子对象覆盖和安全不变量，不调用模型或外部工具。
 第十七个可逆离线候选切片再增加
 [独立会话前向评测准备](offline-codex-session-forward-test.md)：五个测试包只包含任务与
-fixture 上下文，期望草稿被隔离；当前只验证准备和评分链路，真实会话状态为 `NOT_RUN`。
+fixture 上下文，期望草稿被隔离；最终 5/5 Case 均为 8/8，隔离协议只由操作者声明。
 第十八个可逆离线开发切片新增
 [`facebook-ads-creative`](offline-codex-creative-skill.md)。它只接受 fixture-only 素材
 上下文，先检查信息点、来源、权利和单变量约束，再形成待人工评审的文案与视觉方向；

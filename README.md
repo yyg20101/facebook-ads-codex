@@ -32,13 +32,14 @@
   对账不构成趋势解释。Web 不保存、上传或解释这些输入；显式调用项目级
   `facebook-ads-analysis` 后可生成分层只读草稿，但仍不排名、不生成优化动作或外部写入。
   五种固定黄金场景现可对该草稿做确定性 8/8 契约评分；此过程不调用模型或外部工具。
-  五个无黄金答案的独立会话测试包及结果评分器也已准备；真实全新会话尚未执行，因此
-  前向评测状态仍为 `NOT_RUN`，不能据此宣称模型质量已经验证。fixture-only
+  五个无黄金答案的独立会话测试包及结果评分器也已完成真实执行：最终 5/5 Case 均为
+  8/8；两项首次拒绝在收紧 Skill 后用全新会话重测通过。该隔离协议仍只是操作者声明，
+  不能据此宣称通用模型质量已经验证。fixture-only
   `facebook-ads-creative`、Campaign Builder、Daily Brief、Optimization 和 Change
   Management 已完成显式指令、schema v1、确定性 preflight 和不可执行草稿契约，并已
   通过固定输入、CLI 安全失败与十一组黄金草稿评分，状态为
-  `LOCAL_FIXTURE_VALIDATED`。五个独立全新 Codex 会话仍为 `NOT_RUN`，因此这不构成模型、
-  真实账户、Meta 政策、审批或执行能力验证。
+  `LOCAL_FIXTURE_VALIDATED`。这五个其他 Skill 的独立会话仍为 `NOT_RUN`，因此不构成其
+  模型、真实账户、Meta 政策、审批或执行能力验证。
 
 固定范围和治理边界见[项目章程](docs/project/charter.md)，研究流程见
 [产品发现入口](docs/discovery/README.md)。
@@ -126,11 +127,10 @@ npm run check
 数据、通用分析有效性、优化授权或 Gate 通过。
 确定性草稿评测只证明固定黄金案例满足已提交契约，不代表真实模型、真实账户或用户价值
 已经验证。
-独立会话前向评测当前只完成材料与评分器自测；五个全新会话均未执行，状态为 `NOT_RUN`。
-素材 Skill 当前只完成开发产物，未运行配置、测试或会话验证；它不搜索、生成或上传
-实际素材，也不代表 Meta 审核、版权或广告效果结论。
-Campaign Builder、Daily Brief、Optimization 和 Change Management 同样只完成
-fixture-only 开发产物；它们不代表对象已创建、数据已刷新、建议已批准或变更可执行。
+分析 Skill 的独立会话前向评测最终为 5/5 Case、每项 8/8，但协议隔离未被技术独立
+验证，范围也仅限固定 fixture。素材 Skill 与其余四个工作流 Skill 已完成本地固定
+fixture 校验，独立会话仍未执行；它们不代表实际素材已生成、对象已创建、数据已刷新、
+建议已批准、变更可执行，或 Meta 审核、版权和广告效果结论。
 Meta/Cloudflare 访问、资源创建、部署和广告写操作仍须另行明确授权。
 
 ## Phase 0 本地准备

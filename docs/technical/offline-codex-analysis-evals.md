@@ -146,8 +146,9 @@ prompt、模型配置或用户数据路径。它不接受 `FR-005`、`NFR-002`�
 不改变 G0 `PARTIAL`，也不形成 G2/G3 证据。
 
 后续[离线 Codex 独立会话前向评测](offline-codex-session-forward-test.md)已经准备手动
-fresh-session target 和脱敏 Case，但实际执行仍须独立全新会话。当前状态为 `NOT_RUN`；
-不得把本地确定性黄金草稿或评分管道自测伪装为模型质量基线。
+fresh-session target 和脱敏 Case，并完成五个 Case 的最终 8/8。两项首次拒绝在 Skill
+修正后用全新会话重测；协议隔离仍未被技术独立验证，不得把结果扩展为通用模型质量
+基线。
 
 ## 当前验证结果
 

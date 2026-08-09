@@ -40,11 +40,11 @@ Documentation baseline
   -> Offline Codex trend evidence bundle slice AUTHORIZED
   -> Offline Codex analysis Skill VALIDATED
   -> Offline Codex analysis draft evals VALIDATED
-  -> Offline Codex forward-test kit READY; sessions NOT_RUN
+  -> Offline Codex analysis forward test PASS; 5/5 at 8/8
   -> Offline Codex creative Skill LOCAL_FIXTURE_VALIDATED
   -> Offline Codex workflow Skills LOCAL_FIXTURE_VALIDATED
   -> Offline Codex Skill development queue COMPLETE
-  -> Local deterministic validation COMPLETE; independent sessions NOT_RUN
+  -> Local deterministic validation COMPLETE; other five Skill sessions NOT_RUN
   -> External account facts and Meta read-only path NOT VERIFIED
   -> No real-data or external-service runtime
   -> No deployment authorization
@@ -498,7 +498,7 @@ G0 `PARTIAL`，不接受 `FR-005`、`NFR-002`、任何 ADR 或候选架构，也
 Phase 0、67 项 Worker、81 项原型测试及 production build，官方 Skill 结构校验通过。
 当前结果只证明固定 fixture 草稿契约可重复，不是模型或 Gate 证据。
 
-## 离线 Codex 独立会话前向评测准备切片
+## 离线 Codex 独立会话前向评测切片
 
 项目负责人于 2026-08-09 再次指示继续下一阶段。本切片不增加业务运行时或模型调用，
 只允许建立未来全新 Codex 会话可直接使用的隔离测试材料和手动结果评分链路：
@@ -508,18 +508,18 @@ Phase 0、67 项 Worker、81 项原型测试及 production build，官方 Skill 
   evidence path 或期望答案。
 - `P2-OFFLINE-FWD-03`：准备器只返回 `NOT_RUN`；评分器只重建固定上下文并接收操作者
   草稿与协议声明，不启动模型、不联网、不写结果。
-- `P2-OFFLINE-FWD-04`：只有五个 Case 在独立全新会话中分别 8/8 且负责人确认，未来
-  才能登记会话前向评测通过；评分器自测不得替代真实执行。
+- `P2-OFFLINE-FWD-04`：只有五个 Case 在独立全新会话中分别 8/8 且负责人确认，才能
+  登记会话前向评测通过；评分器自测不得替代真实执行。
 
 实现边界见
 [离线 Codex 独立会话前向评测](../technical/offline-codex-session-forward-test.md)。当前
-`forward_test_execution_status` 为 `NOT_RUN`；本切片不接受 `FR-005`、`NFR-002`、
+`forward_test_execution_status` 为 `PASS`；本切片不接受 `FR-005`、`NFR-002`、
 任何 ADR 或候选架构，不形成模型质量、用户价值、G2/G3 或任何外部授权证据。
 
-`P2-OFFLINE-FWD-01`–`P2-OFFLINE-FWD-04` 的材料与评分链路已通过 11 项专项测试；全仓
-检查通过 85 份规范文档、34 项 Skill、14 项 Phase 0、67 项 Worker、81 项原型测试及
-production build，Skill 结构快速校验通过。实际五个独立会话仍未运行，因此本切片只有
-准备结果，没有模型前向评测结果。
+`P2-OFFLINE-FWD-01`–`P2-OFFLINE-FWD-04` 已执行。`001`、`002`、`004` 首次 8/8；
+`003`、`005` 首次因自然语言含否定式禁用词被拒绝，Skill 修正后分别在全新会话中获得
+8/8。最终 5/5 Case 通过，实际共运行 7 个独立会话；结果仅由操作者声明隔离协议，不是
+真实数据、通用模型或 Gate 证据。
 
 ## 离线 Codex 素材 Skill 开发切片
 

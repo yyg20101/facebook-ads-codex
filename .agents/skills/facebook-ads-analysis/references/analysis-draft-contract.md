@@ -56,7 +56,8 @@ alternative_explanations
 
 Executive 使用的每个路径还必须在 `evidence[*].evidence_paths` 中出现。推断只能描述输入
 事实之间的非因果关系；不得使用“导致”“归因于”“优于”“赢家”或预算、状态、出价、
-受众调整措辞。
+受众调整措辞。所有自然语言字段也不得出现“排名”“最佳”及对应英文词，即使是否定
+用法；`ranking_applied: false` 只允许出现在下述结构化字段中。
 
 ## Evidence 与 counter evidence
 
@@ -104,6 +105,8 @@ Executive 使用的每个路径还必须在 `evidence[*].evidence_paths` 中出�
 - 每项只能包含 `object_ref`、`statement`、`evidence_paths`、`evidence_values`，并至少引用
   对应的 `$.driver_inputs.items[n]` 路径。
 - 不得增加分数、名次、赢家或阈值。
+- 自然语言只可表述“按稳定 fixture 对象 ID 输入顺序完整列出”，不得复述
+  `ranking_applied` 的含义；该安全状态由布尔字段单独表达。
 
 ## Missing data
 

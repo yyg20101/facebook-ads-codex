@@ -55,8 +55,8 @@
   带证据路径的 `FACT`、有限非因果 `INFERENCE` 和保留原项的 `UNKNOWN` 只读草稿。
 - 离线 Codex 分析草稿评测切片，为五种 analysis kind 提供固定黄金场景、精确证据原值
   契约、8 项确定性评分和安全拒绝回归，不调用模型或外部工具。
-- 离线 Codex 独立会话前向评测准备切片，为五种 analysis kind 提供不含黄金草稿的会话
-  包、手动协议和确定性结果评分；真实会话执行状态保持 `NOT_RUN`。
+- 离线 Codex 独立会话前向评测，为五种 analysis kind 提供不含黄金草稿的会话包、手动
+  协议和确定性结果评分；最终 5/5 Case 均在独立会话中获得 8/8。
 - 离线 `facebook-ads-creative` 开发切片，提供显式调用 Skill、fixture-only 素材输入
   schema、权利/来源 preflight、创意简报、文案变体与视觉方向草稿契约。
 - 离线 Campaign Builder、Daily Brief、Optimization 和 Change Management 开发切片，
@@ -105,6 +105,8 @@
 - Creative、Campaign Builder、Daily Brief、Optimization 和 Change Management 从开发期
   `IMPLEMENTED_UNVERIFIED` 更新为 `LOCAL_FIXTURE_VALIDATED`；该状态不代表模型、真实
   数据、Meta 政策、审批或执行能力通过。
+- Analysis Skill 的自然语言约束明确禁止复述结构化安全布尔值；两项首次前向评测拒绝
+  保留后，受影响 Case 均在新的无历史会话中重测通过。
 
 ### Removed
 
@@ -160,6 +162,9 @@
 - 项目负责人允许继续离线 Codex 独立会话前向评测准备切片；该决定只覆盖五个无期望
   答案测试包和手动结果评分器，不授权自动启动模型、模型 API、持久化结果、真实数据、
   外部访问、自动交接、部署或写操作。
+- 项目负责人随后明确授权一次五用例独立会话执行；完成 5 个首次会话和 2 个失败修正后
+  的全新重测会话后，该一次性授权已关闭。协议声明未被技术独立验证，结果不形成通用
+  模型、真实数据、产品需求或 Gate 证据。
 - 项目负责人要求先继续全部开发任务，将配置与测试放到开发结束后；当前决定只授权
   fixture-only `facebook-ads-creative` 的指令、schema、确定性 preflight 与只读草稿
   契约开发，不授权执行测试、配置外部环境、搜索/生成真实素材、连接外部系统或写操作。

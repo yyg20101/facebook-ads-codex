@@ -20,8 +20,8 @@ Builder、Daily Brief、Optimization 和 Change Management 五项 fixture-only �
 代表真实数据接口、产品能力或长期技术方案已被接受。后续固定
 [草稿评测](../../technical/offline-codex-analysis-evals.md)只回归该 Skill 的 JSON 契约，
 不代表模型回答、真实账户或产品价值已经验证。
-后续[独立会话前向评测](../../technical/offline-codex-session-forward-test.md)当前也只准备
-无黄金答案测试包与评分链路，五个全新会话尚未执行。
+后续[独立会话前向评测](../../technical/offline-codex-session-forward-test.md)已完成五个
+无黄金答案 Case 的最终 8/8；隔离协议只由操作者声明，不代表通用模型质量。
 
 ## 通用契约
 
@@ -148,7 +148,7 @@ request，当前状态为 `LOCAL_FIXTURE_VALIDATED`；独立会话仍为 `NOT_RU
 `recommended_actions`，且 `external_write` 固定为 `false`。五种 `analysis_kind` 的
 固定黄金场景和 8 项安全检查见
 [离线 Codex 分析草稿评测](../../technical/offline-codex-analysis-evals.md)。
-独立会话 Case、期望隔离、操作者声明和 `NOT_RUN` 状态见
+独立会话 Case、期望隔离、操作者声明和最终 `PASS` 状态见
 [离线 Codex 独立会话前向评测](../../technical/offline-codex-session-forward-test.md)。
 
 ### Analysis 停止条件

@@ -88,8 +88,9 @@ Skill 在校验通过后才可形成最终草稿：
 最终字段、值绑定和负向检查由后续获准的
 [离线 Codex 分析草稿评测](offline-codex-analysis-evals.md)固定；该评测不改变本页的输入
 授权，也不调用模型或外部工具。
-后续[独立会话前向评测](offline-codex-session-forward-test.md)只准备无黄金答案 Case 和
-手动评分协议；五个全新会话尚未执行，不能反向把本 Skill 标记为模型质量已验证。
+后续[独立会话前向评测](offline-codex-session-forward-test.md)已用无黄金答案 Case 完成
+最终 5/5、每项 8/8；其操作者声明的隔离协议和固定 fixture 范围仍不能反向把本 Skill
+标记为通用模型质量已验证。
 
 ## 验证
 

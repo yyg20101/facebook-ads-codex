@@ -165,4 +165,16 @@ describe("facebook-ads-analysis Skill", () => {
     expect(metadata).toContain("allow_implicit_invocation: false");
     expect(metadata).not.toContain("dependencies:");
   });
+
+  it("keeps structured safety flags out of generated narrative fields", () => {
+    const skill = readFileSync(
+      resolve(ROOT, ".agents/skills/facebook-ads-analysis/SKILL.md"),
+      "utf8",
+    );
+
+    expect(skill).toContain("所有自然语言字段");
+    expect(skill).toContain("即使是否定这些行为");
+    expect(skill).toContain("按稳定 fixture 对象 ID 输入顺序完整列出");
+    expect(skill).toContain("driver_decomposition.ranking_applied: false");
+  });
 });

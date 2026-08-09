@@ -952,6 +952,14 @@ const offlineCodexSessionForwardTestKitAuthorized = yamlValue(
   statusText,
   "offline_codex_session_forward_test_kit_authorized"
 );
+const offlineCodexSessionForwardTestExecutionAuthorized = yamlValue(
+  statusText,
+  "offline_codex_session_forward_test_execution_authorized"
+);
+const offlineCodexSessionForwardTestExecutionComplete = yamlValue(
+  statusText,
+  "offline_codex_session_forward_test_execution_complete"
+);
 const productionAuthorized = yamlValue(
   statusText,
   "production_deployment_authorized"
@@ -1039,6 +1047,57 @@ if (
 ) {
   errors.push(
     "offline_codex_session_forward_test_kit_authorized must be a boolean"
+  );
+}
+if (
+  !["true", "false"].includes(
+    offlineCodexSessionForwardTestExecutionAuthorized
+  )
+) {
+  errors.push(
+    "offline_codex_session_forward_test_execution_authorized must be a boolean"
+  );
+}
+if (
+  !["true", "false"].includes(offlineCodexSessionForwardTestExecutionComplete)
+) {
+  errors.push(
+    "offline_codex_session_forward_test_execution_complete must be a boolean"
+  );
+}
+if (
+  offlineCodexSessionForwardTestExecutionAuthorized === "true" &&
+  offlineCodexSessionForwardTestKitAuthorized !== "true"
+) {
+  errors.push(
+    "offline Codex session execution requires the forward-test kit authorization"
+  );
+}
+if (
+  offlineCodexSessionForwardTestExecutionComplete === "true" &&
+  offlineCodexSessionForwardTestKitAuthorized !== "true"
+) {
+  errors.push(
+    "completed offline Codex session execution requires the forward-test kit authorization"
+  );
+}
+if (
+  offlineCodexSessionForwardTestExecutionAuthorized === "true" &&
+  offlineCodexSessionForwardTestExecutionComplete === "true"
+) {
+  errors.push(
+    "completed offline Codex session execution must close its one-time authorization"
+  );
+}
+if (
+  offlineCodexSessionForwardTestExecutionAuthorized === "true" &&
+  (metaReadValidationAuthorized !== "false" ||
+    runtimeAvailable !== "false" ||
+    productionAuthorized !== "false" ||
+    metaWriteAuthorized !== "false")
+) {
+  errors.push(
+    "offline Codex session execution cannot enable Meta reads, runtime availability, deployment, or writes"
   );
 }
 if (
@@ -3462,13 +3521,23 @@ if (offlineCodexSessionForwardTestKitAuthorized === "true") {
         errors.push(`offline Codex forward-test tests must retain ${marker}`);
       }
     }
+    const executionStatusMarkers =
+      offlineCodexSessionForwardTestExecutionComplete === "true"
+        ? [
+            "当前执行状态为 `PASS`",
+            "forward_test_execution_status: PASS",
+            "independent_session_results_recorded: 5",
+            "first_attempt_rejection_count: 2",
+            "fresh_retry_results_recorded: 2"
+          ]
+        : ["当前执行状态为 `NOT_RUN`", "forward_test_execution_status: NOT_RUN"];
     for (const marker of [
       "第十七个可逆离线候选切片",
-      "当前执行状态为 `NOT_RUN`",
       "不自动启动另一个 Codex 会话",
       "不调用模型 API",
       "attestation_independently_verified: false",
-      "不增加或修改 Web、Worker、HTTP、D1、Meta、MCP 或模型接口"
+      "不增加或修改 Web、Worker、HTTP、D1、Meta、MCP 或模型接口",
+      ...executionStatusMarkers
     ]) {
       if (!forwardDoc.includes(marker)) {
         errors.push(

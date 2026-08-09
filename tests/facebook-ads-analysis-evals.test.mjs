@@ -167,6 +167,16 @@ describe("facebook-ads-analysis deterministic draft evals", () => {
     expect(() =>
       evaluateOfflineAnalysisDraft(writeCase.context, writeCase.draft),
     ).toThrow(/因果、排名或可执行优化措辞/);
+
+    const negatedRankingCase = createGoldenCases()[2];
+    negatedRankingCase.draft.executive_answer.statement =
+      "两个直接子对象按输入顺序列出，未应用排名。";
+    expect(() =>
+      evaluateOfflineAnalysisDraft(
+        negatedRankingCase.context,
+        negatedRankingCase.draft,
+      ),
+    ).toThrow(/因果、排名或可执行优化措辞/);
   });
 
   it("evaluates a stdin envelope without writing files or calling external tools", () => {

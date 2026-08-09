@@ -60,10 +60,14 @@ node scripts/validate-context.mjs -
 
 - comparison 使用 `fact_evidence.baseline`、`current` 和 `changes`。
 - daily trend 使用完整 `fact_evidence.daily_items`，不能只看首尾或当前图表指标。
-- direct children 保持输入顺序，明确 `ranking_applied: false`。
+- direct children 保持输入顺序，并只在结构化字段中写
+  `driver_decomposition.ranking_applied: false`。
 - `observed_patterns` 是确定性数字模式，不是原因。
 
 不要把颜色、曲线外观、序列位置、对象名称或当前展示指标解释成表现排名或主 KPI。
+所有自然语言字段（包括 `statement` 和 `alternative_explanations`）不得出现“排名”、
+“赢家”、“最佳”、“优于”及其英文对应词，即使是否定这些行为。需要说明直接子对象
+顺序时，只写“按稳定 fixture 对象 ID 输入顺序完整列出”；安全布尔值由结构化字段表达。
 
 ### 4. 形成有限推断
 
@@ -113,6 +117,8 @@ external_write
   一致的 `evidence_value`。
 - `counter_evidence` 只能引用现有 `FACT` 或标记为 `UNKNOWN`。
 - `driver_decomposition.ranking_applied` 固定为 `false`；直接子对象必须按输入顺序完整覆盖。
+- 不得在任何自然语言字段中复述 `ranking_applied` 的语义；只保留结构化布尔值，并以
+  “按稳定 fixture 对象 ID 输入顺序完整列出”描述对象顺序。
 - `missing_data[*].claim_type` 固定为 `UNKNOWN`；输入未知项必须原样保留，新增项使用
   `TASK_*`。
 - `confidence` 只能是 `CONFIRMED`、`LIKELY`、`HYPOTHESIS` 或 `NOT_ASSESSED`。
@@ -132,5 +138,6 @@ external_write
 1. 输入已完整校验，且没有敏感字段或未知顶层字段。
 2. 每条事实都有路径及对应原值，每条推断都有事实、置信度和替代解释。
 3. 原始未知项没有被删除或改写成事实。
-4. 直接子对象已完整覆盖，且没有阈值、排名、因果、优化动作或真实数据声明。
+4. 直接子对象已按稳定 ID 输入顺序完整覆盖；自然语言没有禁用词、阈值、因果、优化
+   动作或真实数据声明，安全状态只由结构化字段表达。
 5. 草稿满足 8 项确定性评测，`external_write: false`，且没有执行或提议任何外部调用。

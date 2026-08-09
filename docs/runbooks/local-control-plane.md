@@ -114,8 +114,9 @@ Skill 输出边界见
 [离线 Codex 分析草稿评测](../technical/offline-codex-analysis-evals.md)；它只运行固定
 fixture 和确定性评分器，不得调用模型、修改 prompt 或访问外部服务。
 独立会话评测边界见
-[离线 Codex 独立会话前向评测](../technical/offline-codex-session-forward-test.md)；当前只
-允许准备无答案测试包和评分手动返回草稿，执行状态保持 `NOT_RUN`。
+[离线 Codex 独立会话前向评测](../technical/offline-codex-session-forward-test.md)；当前一轮
+最终 5/5 Case 为 8/8，一次性执行授权已经关闭。准备和评分工具仍不得自行启动会话，
+再次运行须取得新授权。
 
 如需验证 Web 页面，在 Worker 保持运行时打开第二个终端：
 
@@ -166,11 +167,11 @@ JSON 为 `DIRECT_CHILD_DAILY_TREND`，`driver_inputs.kind` 为
 测试协议的 JSON 包。准备器固定返回 `execution_status: NOT_RUN`；不得在当前受污染会话
 内生成回答后冒充全新会话结果，也不得读取 `golden-cases.mjs` 作为回答来源。
 
-未来获得独立会话执行条件后，应在每个全新会话中只提供对应包，显式调用
+未来再次获得独立会话执行授权后，应在每个全新会话中只提供对应包，显式调用
 `$facebook-ads-analysis`，再把返回 JSON 与完整 `protocol_attestation` 通过标准输入交给
 `npm run skill:forward-test:score -- -`。五个 Case 必须分别 8/8；评分器返回的
-`attestation_independently_verified: false` 必须保留。当前没有执行这些会话，不得记录
-为 `PASS` 或 Gate 证据。
+`attestation_independently_verified: false` 必须保留。当前一轮已完成最终 5/5 `PASS`，
+一次性授权已经关闭；不得把该结果记录为 Gate 或通用模型证据。
 
 把任一分析日期改到 preflight 覆盖范围外，确认对应入口立即重新锁定且不会发送指标
 请求；重新运行覆盖新范围的质量检查后才可恢复。改变账户、质量日期或重新发起质量请求
@@ -281,7 +282,7 @@ JSON 为 `DIRECT_CHILD_DAILY_TREND`，`driver_inputs.kind` 为
   23 项；统一检查还通过 84 份规范文档、14 项 Phase 0、67 项 Worker、81 项原型测试及
   production build，官方 Skill 结构校验通过。结果只验证固定 fixture 的结构、证据和值、
   未知项、直接子对象和安全边界，不调用模型，不形成真实账户、用户价值或 Gate 证据。
-- 2026-08-09：独立会话前向评测准备链路通过 11 项专项测试，与既有输入和草稿测试合计
-  34 项；统一检查通过 85 份规范文档、14 项 Phase 0、67 项 Worker、81 项原型测试和
-  production build，Skill 结构快速校验通过。五个真实独立会话均未运行，状态保持
-  `NOT_RUN`，该记录不是模型或 Gate 证据。
+- 2026-08-09：独立会话前向评测实际运行 5 个首次会话和 2 个失败修正后的全新重测
+  会话。`001`、`002`、`004` 首次 8/8；`003`、`005` 首次因否定式禁用词被拒绝，收紧
+  Skill 后重测 8/8。最终 5/5 `PASS`；协议隔离只由操作者声明，该记录不是通用模型或
+  Gate 证据。

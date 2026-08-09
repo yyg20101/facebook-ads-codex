@@ -1,0 +1,6 @@
+interface:
+  display_name: "Facebook Ads Change Management"
+  short_description: "校验离线优化动作并生成不可执行、待审批的结构化变更草稿"
+  default_prompt: "Use $facebook-ads-change-management to turn this structured offline fixture action into a non-executable change draft."
+policy:
+  allow_implicit_invocation: false

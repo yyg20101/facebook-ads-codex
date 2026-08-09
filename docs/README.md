@@ -3,7 +3,7 @@ doc_id: DOC-INDEX
 type: index
 status: ACCEPTED
 owner: project_owner
-last_reviewed: 2026-08-05
+last_reviewed: 2026-08-09
 ---
 
 # 项目文档
@@ -19,7 +19,42 @@ last_reviewed: 2026-08-05
 前期助手的内部试点产品定义、本地交互原型和 Codex 场景包已由负责人默认验收，
 `DG0` 为 `PASS`；Phase 0 的 `BQ-01`–`BQ-12` 已全部回答。项目负责人决定暂时跳过
 真实配置，因此 G0 为 `PARTIAL`；当前只额外授权使用虚构 fixture 的 Phase 1 离线脚手架。
-负责人随后允许继续其中的离线只读分析切片；该切片不改变 Gate 或外部授权。
+负责人随后允许继续其中的离线只读汇总与周期诊断切片；这些切片不改变 Gate 或外部
+授权。负责人又允许把周期诊断接入本地 Web 原型；该接入只使用固定开发代理与 fixture，
+不启动正式 Web 阶段。当前又允许 Web 先从本地列表选择 fixture 账户，再请求所选账户
+周期结果；现又允许在该账户下读取并导航 fixture Campaign、Ad Set 和 Ad，但周期指标
+继续保留独立账户级范围。当前进一步允许对已验证 fixture 对象显式加载对象级周期
+结果；这些切片仍不接受候选需求或授权真实账户。
+当前继续允许在已验证 Campaign 或 Ad Set 下显式读取直接子对象拆解，并要求两期四项
+可加指标与父对象完全对账；该切片不选择赢家，也不扩大任何外部权限。
+当前还允许为已验证 Campaign、Ad Set 或 Ad 显式加载 3–31 日固定 fixture 趋势，
+一次只展示固定 9 项指标中的一项；该切片不解释趋势，也不改变 Gate 或外部权限。
+当前进一步允许为已验证 Campaign 或 Ad Set 加载全部直接子对象的同期日趋势，并逐日
+验证四项可加指标与父对象一致；结果按稳定 ID 展示，不排名、不判断赢家或解释趋势。
+当前还允许对一个已验证 fixture 账户运行全层级离线数据质量报告；只有唯一粒度、完整
+覆盖、统一口径、对象层级和三层逐日汇总全部通过才返回结果。该报告不评价广告表现，
+也不形成 Gate 或真实 Meta 数据证据。
+当前进一步要求把该通过结果作为本地 Web 指标分析的强制 preflight；账户、分析日期、
+对象、指标口径和响应快照必须匹配，否则分析保持锁定或拒绝结果。凭证只存在页面内存，
+不构成认证、授权、Gate 或真实数据证据。
+当前还允许把已通过 preflight 的 comparison 或直接子对象拆解派生为确定性只读 JSON，
+由负责人手动带入 Codex `facebook-ads-analysis` 会话。该输入不保存、不自动上传，也不
+构成分析结论、建议、真实数据或外部授权。
+当前进一步允许把已通过 preflight 的对象趋势或直接子对象趋势派生为 schema v2 手动
+输入；完整固定 9 项日值和逐日父子对账仍只是 fixture 事实，不解释趋势或形成建议。
+当前还允许显式调用仓库级 `facebook-ads-analysis`，对该 schema v2 fixture 输入先做
+确定性校验，再生成区分事实、有限非因果推断和未知项的只读草稿。它不连接真实账户、
+不排名、不应用业务阈值、不生成优化动作，也不改变任何 Gate 或外部授权。
+当前进一步允许用五种固定 fixture 黄金场景、精确草稿契约和确定性评分器回归该 Skill；
+评分只验证结构、证据和值、未知项、直接子对象覆盖和安全边界，不调用模型或外部工具。
+当前还允许准备五个不含黄金草稿的独立 Codex 会话测试包和手动结果评分器；材料与评分
+链路已进入本地校验，但独立会话尚未执行，状态保持 `NOT_RUN`，不能声称模型质量通过。
+当前开发轨道还包含显式调用、fixture-only 的 `facebook-ads-creative`、Campaign
+Builder、Daily Brief、Optimization 和 Change Management。五项已完成 schema v1、
+确定性 preflight、不可执行草稿契约，并通过固定正反输入、CLI 文件安全和十一组黄金
+草稿的 8/8 评分，状态为 `LOCAL_FIXTURE_VALIDATED`。独立全新 Codex 会话仍为
+`NOT_RUN`；这些结果不形成产品、模型、版权、Meta 审核、真实对象、审批、执行或 Gate
+证据。
 
 ## 权威边界
 
@@ -70,6 +105,23 @@ last_reviewed: 2026-08-05
 - [Meta 只读连接验证 Runbook](runbooks/meta-read-connection.md)
 - [离线控制平面脚手架](technical/offline-phase-1-scaffold.md)
 - [离线只读分析](technical/offline-read-only-analysis.md)
+- [离线周期对比与诊断](technical/offline-period-comparison-and-diagnostics.md)
+- [离线 Web 分析接入](technical/offline-web-analysis-integration.md)
+- [离线 Web 账户上下文](technical/offline-web-account-context.md)
+- [离线广告对象层级](technical/offline-ad-object-hierarchy.md)
+- [离线对象级分析](technical/offline-object-level-analysis.md)
+- [离线直接子对象拆解](technical/offline-direct-child-breakdown.md)
+- [离线对象日趋势](technical/offline-object-daily-trend.md)
+- [离线直接子对象日趋势](technical/offline-direct-child-daily-trend.md)
+- [离线数据质量报告](technical/offline-data-quality-report.md)
+- [离线分析质量 Preflight](technical/offline-analysis-quality-preflight.md)
+- [离线 Codex 分析证据包](technical/offline-codex-evidence-bundle.md)
+- [离线 Codex 趋势证据包](technical/offline-codex-trend-evidence.md)
+- [离线 Codex 分析 Skill](technical/offline-codex-analysis-skill.md)
+- [离线 Codex 分析草稿评测](technical/offline-codex-analysis-evals.md)
+- [离线 Codex 独立会话前向评测](technical/offline-codex-session-forward-test.md)
+- [离线 Codex 素材 Skill](technical/offline-codex-creative-skill.md)
+- [离线 Codex 工作流 Skills](technical/offline-codex-workflow-skills.md)
 - [本地控制平面 Runbook](runbooks/local-control-plane.md)
 
 ### 数据控制平面
@@ -82,6 +134,13 @@ last_reviewed: 2026-08-05
 ### Codex 与 MCP
 
 - [Codex Skills](technical/codex-skills.md)
+- [离线 Codex 分析证据包](technical/offline-codex-evidence-bundle.md)
+- [离线 Codex 趋势证据包](technical/offline-codex-trend-evidence.md)
+- [离线 Codex 分析 Skill](technical/offline-codex-analysis-skill.md)
+- [离线 Codex 分析草稿评测](technical/offline-codex-analysis-evals.md)
+- [离线 Codex 独立会话前向评测](technical/offline-codex-session-forward-test.md)
+- [离线 Codex 素材 Skill](technical/offline-codex-creative-skill.md)
+- [离线 Codex 工作流 Skills](technical/offline-codex-workflow-skills.md)
 - [API 与 MCP 契约](technical/api-and-mcp-contracts.md)
 - [API 与错误规范](standards/api-and-errors.md)
 

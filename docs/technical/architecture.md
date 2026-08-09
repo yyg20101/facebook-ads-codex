@@ -142,13 +142,14 @@ facebook-ads-codex/
         workflows/
         audit/
       migrations/
-  skills/
-    facebook-ads-creative/
-    facebook-ads-campaign-builder/
-    facebook-ads-analysis/
-    facebook-ads-daily-brief/
-    facebook-ads-optimization/
-    facebook-ads-change-management/
+  .agents/
+    skills/
+      facebook-ads-creative/
+      facebook-ads-campaign-builder/
+      facebook-ads-analysis/
+      facebook-ads-daily-brief/
+      facebook-ads-optimization/
+      facebook-ads-change-management/
   tests/
     fixtures/
     integration/
@@ -160,6 +161,8 @@ facebook-ads-codex/
 项目负责人已有限授权按该布局创建本地离线 Worker/D1 脚手架；这不接受候选架构，也不
 授权真实运行时、外部访问或部署。实际边界见
 [离线控制平面脚手架](offline-phase-1-scaffold.md)。
+当前仅 `facebook-ads-analysis` 已按项目级 Codex 发现路径作为固定 fixture 离线切片
+实现；这不授权创建其他候选 Skill，也不接受本节整体布局。
 
 ## Web 产品范围
 

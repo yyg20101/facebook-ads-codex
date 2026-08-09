@@ -3,7 +3,7 @@ doc_id: STD-TESTING
 type: standard
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-09
 ---
 
 # 测试规范
@@ -76,6 +76,26 @@ npm run docs:check
 ```
 
 检查 Markdown、内部链接、元数据、状态、ID、追踪矩阵、旧规范引用和常见敏感信息。
+
+## Skill 评测
+
+Skill 输入或输出契约变化时运行：
+
+```text
+npm run skill:eval
+npm run skill:workflow:check
+npm run skill:forward-test:check
+npm run skill:check
+```
+
+- 黄金场景 MUST 使用可提交的脱敏 fixture，不得包含真实账户、Token 或客户数据。
+- 确定性 schema、证据绑定和安全不变量 MUST 使用本地断言，不依赖模型随机输出。
+- 模型、prompt 或实际应用路径的质量评测 MUST 单独建立 target adapter 和授权；不得用
+  静态黄金草稿冒充模型质量证据。
+- 全新会话前向评测包 MUST 隔离黄金草稿和期望答案；准备完成 MUST 标记 `NOT_RUN`，
+  操作者声明 MUST 标注为未被技术独立验证。
+- 未真实启动独立会话时 MUST 只报告材料与评分链路结果，不得报告模型或 Skill 会话通过。
+- 新发现的契约回归 MUST 增加正向或负向案例，并进入 CI。
 
 ## Gate 证据
 

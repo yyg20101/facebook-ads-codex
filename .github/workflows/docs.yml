@@ -11,6 +11,16 @@ on:
       - "package.json"
       - "package-lock.json"
       - "scripts/validate-docs.mjs"
+      - "scripts/prepare-facebook-ads-analysis-forward-test.mjs"
+      - "scripts/score-facebook-ads-analysis-forward-test.mjs"
+      - ".agents/skills/facebook-ads-*/**"
+      - "evals/facebook-ads-*/**"
+      - "tests/facebook-ads-*.test.mjs"
+      - ".agents/skills/facebook-ads-analysis/**"
+      - "evals/facebook-ads-analysis/**"
+      - "tests/facebook-ads-analysis-skill.test.mjs"
+      - "tests/facebook-ads-analysis-evals.test.mjs"
+      - "tests/facebook-ads-analysis-forward-test.test.mjs"
       - ".github/workflows/docs.yml"
   pull_request:
     branches:
@@ -22,6 +32,16 @@ on:
       - "package.json"
       - "package-lock.json"
       - "scripts/validate-docs.mjs"
+      - "scripts/prepare-facebook-ads-analysis-forward-test.mjs"
+      - "scripts/score-facebook-ads-analysis-forward-test.mjs"
+      - ".agents/skills/facebook-ads-*/**"
+      - "evals/facebook-ads-*/**"
+      - "tests/facebook-ads-*.test.mjs"
+      - ".agents/skills/facebook-ads-analysis/**"
+      - "evals/facebook-ads-analysis/**"
+      - "tests/facebook-ads-analysis-skill.test.mjs"
+      - "tests/facebook-ads-analysis-evals.test.mjs"
+      - "tests/facebook-ads-analysis-forward-test.test.mjs"
       - ".github/workflows/docs.yml"
 
 permissions:
@@ -48,3 +68,6 @@ jobs:
 
       - name: Validate documentation
         run: npm run docs:check
+
+      - name: Validate offline Codex Skills
+        run: npm run skill:check

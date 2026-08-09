@@ -19,7 +19,25 @@
 - 根据已选 `MVP` 能力重新评审现有 `FR-*`、`NFR-*`、`SEC-*` 和候选 ADR。
 - G0 当前为 `PARTIAL`。负责人已允许 Phase 1 离线脚手架，但 G0 通过前不进入正式
   Phase 1，不访问真实 Meta/Cloudflare，也不开发可连接真实数据的业务运行时。
-- 当前可继续的下一步是固定虚构数据的离线只读分析切片，不代表真实账户分析可用。
+- 固定虚构数据的离线只读汇总、周期对比诊断、本地 Web 接入、账户列表选择、三层广告
+  对象导航、对象级周期分析和直接子对象拆解切片已获准；它们不代表真实账户或真实
+  对象分析可用，也不构成正式 Phase 1、Phase 2 或 Phase 3。对象日趋势切片也只允许
+  对固定 fixture 一次展示一项指标，不解释趋势。直接子对象日趋势进一步逐日验证四项
+  可加指标与父对象一致，但不对任何子对象排名或选择赢家。离线数据质量报告进一步
+  要求账户与全部对象的粒度、覆盖、上下文、层级和逐日汇总全量通过，但不评价广告表现。
+  本地 Web 现在还把该通过结果作为指标分析 preflight；超出账户、日期、对象或快照边界
+  的分析保持锁定或被拒绝。当前可信 comparison 还可派生为确定性只读 JSON，由负责人
+  手动带入 Codex；对象和直接子对象趋势现也可派生 schema v2 输入，完整日值与逐日
+  对账不构成趋势解释。Web 不保存、上传或解释这些输入；显式调用项目级
+  `facebook-ads-analysis` 后可生成分层只读草稿，但仍不排名、不生成优化动作或外部写入。
+  五种固定黄金场景现可对该草稿做确定性 8/8 契约评分；此过程不调用模型或外部工具。
+  五个无黄金答案的独立会话测试包及结果评分器也已准备；真实全新会话尚未执行，因此
+  前向评测状态仍为 `NOT_RUN`，不能据此宣称模型质量已经验证。fixture-only
+  `facebook-ads-creative`、Campaign Builder、Daily Brief、Optimization 和 Change
+  Management 已完成显式指令、schema v1、确定性 preflight 和不可执行草稿契约，并已
+  通过固定输入、CLI 安全失败与十一组黄金草稿评分，状态为
+  `LOCAL_FIXTURE_VALIDATED`。五个独立全新 Codex 会话仍为 `NOT_RUN`，因此这不构成模型、
+  真实账户、Meta 政策、审批或执行能力验证。
 
 固定范围和治理边界见[项目章程](docs/project/charter.md)，研究流程见
 [产品发现入口](docs/discovery/README.md)。
@@ -54,12 +72,30 @@
 | [Meta 只读验证](docs/runbooks/meta-read-connection.md) | 后续本地填入凭据、授权、验证和撤销流程 |
 | [离线控制平面脚手架](docs/technical/offline-phase-1-scaffold.md) | 当前获准的 Worker、D1、fixture 与测试边界 |
 | [离线只读分析](docs/technical/offline-read-only-analysis.md) | 本机 fixture 账户与指标汇总切片 |
+| [离线周期诊断](docs/technical/offline-period-comparison-and-diagnostics.md) | 等长周期变化与非因果诊断模式 |
+| [离线 Web 分析接入](docs/technical/offline-web-analysis-integration.md) | 本地原型读取 fixture 结果的边界与验证 |
+| [离线 Web 账户上下文](docs/technical/offline-web-account-context.md) | 从本地列表选择 fixture 账户并绑定周期结果 |
+| [离线广告对象层级](docs/technical/offline-ad-object-hierarchy.md) | Campaign、Ad Set、Ad 的 fixture 父级约束与本地导航 |
+| [离线对象级分析](docs/technical/offline-object-level-analysis.md) | 已验证 fixture 对象的指标、周期对比与 Web 范围绑定 |
+| [离线直接子对象拆解](docs/technical/offline-direct-child-breakdown.md) | Campaign/Ad Set 直接子对象变化与父子汇总对账 |
+| [离线对象日趋势](docs/technical/offline-object-daily-trend.md) | Campaign、Ad Set、Ad 的固定日值与单指标本地趋势 |
+| [离线直接子对象日趋势](docs/technical/offline-direct-child-daily-trend.md) | Campaign/Ad Set 的直接子级多序列日值与逐日父子对账 |
+| [离线数据质量报告](docs/technical/offline-data-quality-report.md) | fixture 全账户主体日数据的完整性、一致性与层级汇总核验 |
+| [离线分析质量 Preflight](docs/technical/offline-analysis-quality-preflight.md) | 用内存质量凭证锁定本地指标分析范围和响应快照 |
+| [离线 Codex 分析证据包](docs/technical/offline-codex-evidence-bundle.md) | 把当前可信 fixture 结果整理为 Codex 手动分析输入 |
+| [离线 Codex 趋势证据包](docs/technical/offline-codex-trend-evidence.md) | 把当前可信对象与直接子对象日趋势整理为 schema v2 手动输入 |
+| [离线 Codex 分析 Skill](docs/technical/offline-codex-analysis-skill.md) | 显式校验 schema v2 fixture 并生成 FACT/INFERENCE/UNKNOWN 草稿 |
+| [离线 Codex 分析草稿评测](docs/technical/offline-codex-analysis-evals.md) | 用五类黄金场景检查草稿证据绑定和安全边界 |
+| [离线 Codex 独立会话前向评测](docs/technical/offline-codex-session-forward-test.md) | 准备五类无答案会话包并评分手动返回草稿 |
+| [离线 Codex 素材 Skill](docs/technical/offline-codex-creative-skill.md) | 校验 fixture 素材上下文并形成待人工评审的文案与视觉方向草稿 |
+| [离线 Codex 工作流 Skills](docs/technical/offline-codex-workflow-skills.md) | Campaign 草稿、事实日报、证据化优化和不可执行变更草稿 |
 | [安全策略](SECURITY.md) | 安全政策、威胁和报告范围 |
 | [贡献指南](CONTRIBUTING.md) | 变更和评审流程 |
 
 ## 本地原型
 
-原型只使用固定虚构数据，不包含后端、真实登录、Meta 连接或外部写入：
+原型只使用固定虚构数据，不包含真实登录、Meta 连接或外部写入；数据分析页可选连接
+本机 fixture Worker：
 
 ```bash
 npm install
@@ -79,7 +115,21 @@ npm run check
 3. 检查并保留工作区已有变更。
 4. 只实施当前明确授权的阶段。
 
-当前 Phase 0 只开展文档事实确认；唯一例外是已批准的固定虚构数据离线脚手架。真实
+当前 Phase 0 只开展文档事实确认；唯一例外是已批准的固定虚构数据离线脚手架、只读
+分析、本地 Web 账户上下文、对象层级导航、对象级分析和直接子对象拆解切片。真实
+对象日趋势、直接子对象逐日对账和全层级数据质量报告也属于同一固定 fixture 例外。
+本地分析质量 preflight 只在该例外内约束指标入口和响应，不代表认证或真实授权。
+离线 Codex 证据包及趋势扩展只整理当前 fixture 输入，不代表趋势解释、分析结论、建议
+或任何外部授权。
+项目级分析 Skill 只处理手动 schema v2 fixture，输出仍是候选只读草稿，不代表真实
+数据、通用分析有效性、优化授权或 Gate 通过。
+确定性草稿评测只证明固定黄金案例满足已提交契约，不代表真实模型、真实账户或用户价值
+已经验证。
+独立会话前向评测当前只完成材料与评分器自测；五个全新会话均未执行，状态为 `NOT_RUN`。
+素材 Skill 当前只完成开发产物，未运行配置、测试或会话验证；它不搜索、生成或上传
+实际素材，也不代表 Meta 审核、版权或广告效果结论。
+Campaign Builder、Daily Brief、Optimization 和 Change Management 同样只完成
+fixture-only 开发产物；它们不代表对象已创建、数据已刷新、建议已批准或变更可执行。
 Meta/Cloudflare 访问、资源创建、部署和广告写操作仍须另行明确授权。
 
 ## Phase 0 本地准备

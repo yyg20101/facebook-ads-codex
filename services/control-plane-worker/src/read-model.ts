@@ -14,7 +14,39 @@ export type AccountListResult =
   | { kind: "ok"; accounts: FixtureAdAccount[] }
   | { kind: "capacity_exceeded" };
 
-interface SummaryContext {
+export type FixtureAdObjectLevel = "CAMPAIGN" | "AD_SET" | "AD";
+
+export interface FixtureAdObject {
+  id: string;
+  externalObjectRef: string;
+  objectLevel: FixtureAdObjectLevel;
+  parentObjectId: string | null;
+  displayName: string;
+  sourceKind: "FIXTURE";
+  syncRunId: string;
+  fetchedAt: string;
+}
+
+export interface FixtureAdObjectCounts {
+  campaigns: number;
+  adSets: number;
+  ads: number;
+}
+
+export type AdObjectHierarchyResult =
+  | {
+      kind: "ok";
+      account: FixtureAdAccount;
+      objects: FixtureAdObject[];
+      counts: FixtureAdObjectCounts;
+    }
+  | { kind: "not_found" }
+  | { kind: "capacity_exceeded" }
+  | { kind: "invalid_hierarchy" };
+
+const MAX_OFFLINE_AD_OBJECTS = 50;
+
+export interface SummaryContext {
   currency: string;
   timezoneName: string;
   clickMetricKind: "ALL_CLICKS" | "LINK_CLICKS";
@@ -26,10 +58,17 @@ interface SummaryContext {
   syncRunIds: string[];
 }
 
+interface SummaryCoverage {
+  expectedDays: number;
+  observedDays: number;
+  complete: boolean;
+}
+
 export interface AccountSummary {
   account: FixtureAdAccount;
   requestedRange: { dateStart: string; dateStop: string };
   actualRange: { dateStart: string; dateStop: string };
+  coverage: SummaryCoverage;
   totals: MetricTotals;
   derived: DerivedMetrics;
   context: SummaryContext;
@@ -39,6 +78,35 @@ export type AccountSummaryResult =
   | { kind: "ok"; summary: AccountSummary }
   | { kind: "not_found" }
   | { kind: "data_unavailable" }
+  | { kind: "incompatible_context" };
+
+export interface FixtureDailyTrendItem {
+  date: string;
+  totals: MetricTotals;
+  derived: DerivedMetrics;
+}
+
+export interface FixtureSubjectTrend {
+  account: FixtureAdAccount;
+  requestedRange: { dateStart: string; dateStop: string };
+  items: FixtureDailyTrendItem[];
+  context: SummaryContext;
+}
+
+export interface FixtureAdObjectTrend extends FixtureSubjectTrend {
+  object: FixtureAdObject;
+}
+
+export type SubjectTrendResult =
+  | { kind: "ok"; trend: FixtureSubjectTrend }
+  | { kind: "data_unavailable" }
+  | { kind: "incomplete_coverage" }
+  | { kind: "incompatible_context" };
+
+export type AdObjectTrendResult =
+  | { kind: "ok"; trend: FixtureAdObjectTrend }
+  | { kind: "data_unavailable" }
+  | { kind: "incomplete_coverage" }
   | { kind: "incompatible_context" };
 
 function requireString(row: Record<string, unknown>, key: string): string {
@@ -96,6 +164,22 @@ function nullableNonNegativeInteger(
   return value;
 }
 
+function inclusiveUtcDays(dateStart: string, dateStop: string): number {
+  const start = Date.parse(`${dateStart}T00:00:00Z`);
+  const stop = Date.parse(`${dateStop}T00:00:00Z`);
+  const days = (stop - start) / 86_400_000 + 1;
+  if (!Number.isSafeInteger(days) || days < 1) {
+    throw new Error("Invalid summary date range");
+  }
+  return days;
+}
+
+function isoDateAtOffset(dateStart: string, offset: number): string {
+  const timestamp =
+    Date.parse(`${dateStart}T00:00:00Z`) + offset * 86_400_000;
+  return new Date(timestamp).toISOString().slice(0, 10);
+}
+
 function parseAccount(row: Record<string, unknown>): FixtureAdAccount {
   const sourceKind = requireString(row, "source_kind");
   if (sourceKind !== "FIXTURE") {
@@ -110,6 +194,33 @@ function parseAccount(row: Record<string, unknown>): FixtureAdAccount {
     sourceKind,
     dataThrough: nullableString(row, "data_through"),
     insightRowCount: requireNonNegativeInteger(row, "insight_row_count")
+  };
+}
+
+function parseAdObject(row: Record<string, unknown>): FixtureAdObject {
+  const sourceKind = requireString(row, "source_kind");
+  if (sourceKind !== "FIXTURE") {
+    throw new Error("Offline read model encountered a non-fixture ad object");
+  }
+
+  const objectLevel = requireString(row, "object_level");
+  if (
+    objectLevel !== "CAMPAIGN" &&
+    objectLevel !== "AD_SET" &&
+    objectLevel !== "AD"
+  ) {
+    throw new Error("Offline read model encountered an invalid object level");
+  }
+
+  return {
+    id: requireString(row, "id"),
+    externalObjectRef: requireString(row, "external_object_ref"),
+    objectLevel,
+    parentObjectId: nullableString(row, "parent_object_id"),
+    displayName: requireString(row, "display_name"),
+    sourceKind,
+    syncRunId: requireString(row, "sync_run_id"),
+    fetchedAt: requireString(row, "fetched_at")
   };
 }
 
@@ -132,6 +243,7 @@ async function findAccount(
        LEFT JOIN insights_daily AS i
          ON i.workspace_id = a.workspace_id
         AND i.ad_account_id = a.id
+        AND i.object_level = 'ACCOUNT'
        WHERE a.workspace_id = ?1
          AND a.id = ?2
          AND a.source_kind = 'FIXTURE'
@@ -166,6 +278,7 @@ export async function listFixtureAdAccounts(
        LEFT JOIN insights_daily AS i
          ON i.workspace_id = a.workspace_id
         AND i.ad_account_id = a.id
+        AND i.object_level = 'ACCOUNT'
        WHERE a.workspace_id = ?1
          AND a.source_kind = 'FIXTURE'
        GROUP BY
@@ -187,6 +300,85 @@ export async function listFixtureAdAccounts(
   return { kind: "ok", accounts: result.results.map(parseAccount) };
 }
 
+export async function listFixtureAdObjects(
+  db: D1Database,
+  workspaceId: string,
+  adAccountId: string
+): Promise<AdObjectHierarchyResult> {
+  const account = await findAccount(db, workspaceId, adAccountId);
+  if (account === null) {
+    return { kind: "not_found" };
+  }
+
+  const result = await db
+    .prepare(
+      `SELECT
+         id,
+         parent_object_id,
+         external_object_ref,
+         object_level,
+         display_name,
+         source_kind,
+         sync_run_id,
+         fetched_at
+       FROM meta_ad_objects
+       WHERE workspace_id = ?1
+         AND ad_account_id = ?2
+         AND source_kind = 'FIXTURE'
+       ORDER BY
+         CASE object_level
+           WHEN 'CAMPAIGN' THEN 1
+           WHEN 'AD_SET' THEN 2
+           WHEN 'AD' THEN 3
+           ELSE 4
+         END,
+         id
+       LIMIT 51`
+    )
+    .bind(workspaceId, adAccountId)
+    .all();
+
+  if (result.results.length > MAX_OFFLINE_AD_OBJECTS) {
+    return { kind: "capacity_exceeded" };
+  }
+
+  const objects = result.results.map(parseAdObject);
+  const objectsById = new Map(objects.map((object) => [object.id, object]));
+  const counts: FixtureAdObjectCounts = {
+    campaigns: 0,
+    adSets: 0,
+    ads: 0
+  };
+
+  for (const object of objects) {
+    if (object.objectLevel === "CAMPAIGN") {
+      counts.campaigns += 1;
+      if (object.parentObjectId !== null) {
+        return { kind: "invalid_hierarchy" };
+      }
+      continue;
+    }
+
+    const parent =
+      object.parentObjectId === null
+        ? undefined
+        : objectsById.get(object.parentObjectId);
+    const expectedParentLevel =
+      object.objectLevel === "AD_SET" ? "CAMPAIGN" : "AD_SET";
+    if (parent?.objectLevel !== expectedParentLevel) {
+      return { kind: "invalid_hierarchy" };
+    }
+
+    if (object.objectLevel === "AD_SET") {
+      counts.adSets += 1;
+    } else {
+      counts.ads += 1;
+    }
+  }
+
+  return { kind: "ok", account, objects, counts };
+}
+
 function resolveStabilityStatus(
   provisionalRows: number,
   reconcilingRows: number,
@@ -205,22 +397,22 @@ function resolveStabilityStatus(
   return "STABLE";
 }
 
-export async function getFixtureAccountSummary(
+async function getFixtureSubjectSummary(
   db: D1Database,
   workspaceId: string,
-  adAccountId: string,
+  account: FixtureAdAccount,
+  objectLevel: "ACCOUNT" | FixtureAdObjectLevel,
+  objectRef: string,
   dateStart: string,
   dateStop: string
 ): Promise<AccountSummaryResult> {
-  const account = await findAccount(db, workspaceId, adAccountId);
-  if (account === null) {
-    return { kind: "not_found" };
-  }
-
   const row = await db
     .prepare(
       `SELECT
          COUNT(*) AS row_count,
+         COUNT(DISTINCT date_start) AS distinct_dates,
+         SUM(CASE WHEN date_start = date_stop THEN 1 ELSE 0 END)
+           AS daily_rows,
          SUM(spend_minor_units) AS spend_minor_units,
          SUM(impressions) AS impressions,
          SUM(clicks) AS clicks,
@@ -249,15 +441,16 @@ export async function getFixtureAccountSummary(
        FROM insights_daily
        WHERE workspace_id = ?1
          AND ad_account_id = ?2
-         AND object_ref = ?3
-         AND object_level = 'ACCOUNT'
-         AND date_start >= ?4
-         AND date_stop <= ?5`
+         AND object_level = ?3
+         AND object_ref = ?4
+         AND date_start >= ?5
+         AND date_stop <= ?6`
     )
     .bind(
       workspaceId,
-      adAccountId,
-      account.externalAccountRef,
+      account.id,
+      objectLevel,
+      objectRef,
       dateStart,
       dateStop
     )
@@ -301,6 +494,11 @@ export async function getFixtureAccountSummary(
     clicks: nullableNonNegativeInteger(row, "clicks"),
     conversions: nullableNonNegativeInteger(row, "conversions")
   };
+  const actualStart = requireString(row, "actual_start");
+  const actualStop = requireString(row, "actual_stop");
+  const expectedDays = inclusiveUtcDays(dateStart, dateStop);
+  const distinctDates = requireNonNegativeInteger(row, "distinct_dates");
+  const dailyRows = requireNonNegativeInteger(row, "daily_rows");
 
   const syncResult = await db
     .prepare(
@@ -308,17 +506,18 @@ export async function getFixtureAccountSummary(
        FROM insights_daily
        WHERE workspace_id = ?1
          AND ad_account_id = ?2
-         AND object_ref = ?3
-         AND object_level = 'ACCOUNT'
-         AND date_start >= ?4
-         AND date_stop <= ?5
+         AND object_level = ?3
+         AND object_ref = ?4
+         AND date_start >= ?5
+         AND date_stop <= ?6
        ORDER BY sync_run_id
        LIMIT 32`
     )
     .bind(
       workspaceId,
-      adAccountId,
-      account.externalAccountRef,
+      account.id,
+      objectLevel,
+      objectRef,
       dateStart,
       dateStop
     )
@@ -333,8 +532,18 @@ export async function getFixtureAccountSummary(
       account,
       requestedRange: { dateStart, dateStop },
       actualRange: {
-        dateStart: requireString(row, "actual_start"),
-        dateStop: requireString(row, "actual_stop")
+        dateStart: actualStart,
+        dateStop: actualStop
+      },
+      coverage: {
+        expectedDays,
+        observedDays: rowCount,
+        complete:
+          rowCount === expectedDays &&
+          distinctDates === rowCount &&
+          dailyRows === rowCount &&
+          actualStart === dateStart &&
+          actualStop === dateStop
       },
       totals,
       derived: deriveMetrics(totals),
@@ -355,5 +564,263 @@ export async function getFixtureAccountSummary(
         syncRunIds
       }
     }
+  };
+}
+
+export async function getFixtureAccountSummary(
+  db: D1Database,
+  workspaceId: string,
+  adAccountId: string,
+  dateStart: string,
+  dateStop: string
+): Promise<AccountSummaryResult> {
+  const account = await findAccount(db, workspaceId, adAccountId);
+  if (account === null) {
+    return { kind: "not_found" };
+  }
+
+  return getFixtureSubjectSummary(
+    db,
+    workspaceId,
+    account,
+    "ACCOUNT",
+    account.externalAccountRef,
+    dateStart,
+    dateStop
+  );
+}
+
+export async function getFixtureAdObjectSummary(
+  db: D1Database,
+  workspaceId: string,
+  account: FixtureAdAccount,
+  object: FixtureAdObject,
+  dateStart: string,
+  dateStop: string
+): Promise<AccountSummaryResult> {
+  return getFixtureSubjectSummary(
+    db,
+    workspaceId,
+    account,
+    object.objectLevel,
+    object.externalObjectRef,
+    dateStart,
+    dateStop
+  );
+}
+
+async function getFixtureSubjectTrend(
+  db: D1Database,
+  workspaceId: string,
+  account: FixtureAdAccount,
+  objectLevel: "ACCOUNT" | FixtureAdObjectLevel,
+  objectRef: string,
+  dateStart: string,
+  dateStop: string
+): Promise<SubjectTrendResult> {
+  const result = await db
+    .prepare(
+      `SELECT
+         date_start,
+         date_stop,
+         object_level,
+         object_ref,
+         currency,
+         timezone_name,
+         click_metric_kind,
+         conversion_event_ref,
+         attribution_spec_hash,
+         api_version,
+         sync_run_id,
+         spend_minor_units,
+         impressions,
+         clicks,
+         conversions,
+         stability_status,
+         fetched_at
+       FROM insights_daily
+       WHERE workspace_id = ?1
+         AND ad_account_id = ?2
+         AND object_level = ?3
+         AND object_ref = ?4
+         AND date_start >= ?5
+         AND date_stop <= ?6
+       ORDER BY date_start ASC
+       LIMIT 32`
+    )
+    .bind(
+      workspaceId,
+      account.id,
+      objectLevel,
+      objectRef,
+      dateStart,
+      dateStop
+    )
+    .all<Record<string, unknown>>();
+
+  const rows = result.results;
+  if (rows.length === 0) {
+    return { kind: "data_unavailable" };
+  }
+
+  const expectedDays = inclusiveUtcDays(dateStart, dateStop);
+  if (rows.length !== expectedDays) {
+    return { kind: "incomplete_coverage" };
+  }
+
+  for (const [index, row] of rows.entries()) {
+    const rowStart = requireString(row, "date_start");
+    const rowStop = requireString(row, "date_stop");
+    if (
+      rowStart !== rowStop ||
+      rowStart !== isoDateAtOffset(dateStart, index)
+    ) {
+      return { kind: "incomplete_coverage" };
+    }
+  }
+
+  const firstRow = rows[0];
+  if (firstRow === undefined) {
+    return { kind: "data_unavailable" };
+  }
+  const currency = requireString(firstRow, "currency");
+  const timezoneName = requireString(firstRow, "timezone_name");
+  const clickMetricKind = requireString(firstRow, "click_metric_kind");
+  const conversionEventRef = requireString(firstRow, "conversion_event_ref");
+  const attributionSpecHash = requireString(firstRow, "attribution_spec_hash");
+  const apiVersion = requireString(firstRow, "api_version");
+
+  if (
+    currency !== account.currency ||
+    timezoneName !== account.timezoneName ||
+    (clickMetricKind !== "ALL_CLICKS" && clickMetricKind !== "LINK_CLICKS")
+  ) {
+    return { kind: "incompatible_context" };
+  }
+
+  const items: FixtureDailyTrendItem[] = [];
+  const syncRunIds = new Set<string>();
+  let provisionalRows = 0;
+  let reconcilingRows = 0;
+  let stableRows = 0;
+  let fetchedAt = "";
+  let fetchedAtTimestamp = Number.NEGATIVE_INFINITY;
+
+  for (const row of rows) {
+    if (
+      requireString(row, "object_level") !== objectLevel ||
+      requireString(row, "object_ref") !== objectRef ||
+      requireString(row, "currency") !== currency ||
+      requireString(row, "timezone_name") !== timezoneName ||
+      requireString(row, "click_metric_kind") !== clickMetricKind ||
+      requireString(row, "conversion_event_ref") !== conversionEventRef ||
+      requireString(row, "attribution_spec_hash") !== attributionSpecHash ||
+      requireString(row, "api_version") !== apiVersion
+    ) {
+      return { kind: "incompatible_context" };
+    }
+
+    const stabilityStatus = requireString(row, "stability_status");
+    if (stabilityStatus === "PROVISIONAL") {
+      provisionalRows += 1;
+    } else if (stabilityStatus === "RECONCILING") {
+      reconcilingRows += 1;
+    } else if (stabilityStatus === "STABLE") {
+      stableRows += 1;
+    } else {
+      throw new Error("Invalid D1 stability status");
+    }
+
+    const rowFetchedAt = requireString(row, "fetched_at");
+    const rowFetchedAtTimestamp = Date.parse(rowFetchedAt);
+    if (!Number.isFinite(rowFetchedAtTimestamp)) {
+      throw new Error("Invalid D1 fetched_at timestamp");
+    }
+    if (rowFetchedAtTimestamp > fetchedAtTimestamp) {
+      fetchedAt = rowFetchedAt;
+      fetchedAtTimestamp = rowFetchedAtTimestamp;
+    }
+
+    syncRunIds.add(requireString(row, "sync_run_id"));
+    const totals: MetricTotals = {
+      spendMinorUnits: nullableNonNegativeInteger(row, "spend_minor_units"),
+      impressions: nullableNonNegativeInteger(row, "impressions"),
+      clicks: nullableNonNegativeInteger(row, "clicks"),
+      conversions: nullableNonNegativeInteger(row, "conversions")
+    };
+    items.push({
+      date: requireString(row, "date_start"),
+      totals,
+      derived: deriveMetrics(totals)
+    });
+  }
+
+  return {
+    kind: "ok",
+    trend: {
+      account,
+      requestedRange: { dateStart, dateStop },
+      items,
+      context: {
+        currency,
+        timezoneName,
+        clickMetricKind,
+        conversionEventRef,
+        attributionSpecHash,
+        apiVersion,
+        stabilityStatus: resolveStabilityStatus(
+          provisionalRows,
+          reconcilingRows,
+          stableRows,
+          rows.length
+        ),
+        fetchedAt,
+        syncRunIds: [...syncRunIds].sort()
+      }
+    }
+  };
+}
+
+export async function getFixtureAccountTrend(
+  db: D1Database,
+  workspaceId: string,
+  account: FixtureAdAccount,
+  dateStart: string,
+  dateStop: string
+): Promise<SubjectTrendResult> {
+  return getFixtureSubjectTrend(
+    db,
+    workspaceId,
+    account,
+    "ACCOUNT",
+    account.externalAccountRef,
+    dateStart,
+    dateStop
+  );
+}
+
+export async function getFixtureAdObjectTrend(
+  db: D1Database,
+  workspaceId: string,
+  account: FixtureAdAccount,
+  object: FixtureAdObject,
+  dateStart: string,
+  dateStop: string
+): Promise<AdObjectTrendResult> {
+  const result = await getFixtureSubjectTrend(
+    db,
+    workspaceId,
+    account,
+    object.objectLevel,
+    object.externalObjectRef,
+    dateStart,
+    dateStop
+  );
+  if (result.kind !== "ok") {
+    return result;
+  }
+  return {
+    kind: "ok",
+    trend: { ...result.trend, object }
   };
 }

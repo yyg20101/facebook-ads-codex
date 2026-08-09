@@ -3,7 +3,7 @@ doc_id: TECH-OFFLINE-READ-ONLY-ANALYSIS
 type: technical
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-08-05
+last_reviewed: 2026-08-07
 ---
 
 # 离线只读分析切片
@@ -20,7 +20,8 @@ last_reviewed: 2026-08-05
 - 对一个 fixture 广告账户按有界日期范围汇总日级指标。
 - 返回币种、时区、点击口径、转化事件、归因哈希、API 版本、同步批次、新鲜度和稳定
   状态。
-- 计算点击率、单次点击成本、千次展示成本和单次转化成本；零分母返回 `null`。
+- 计算点击率、转化率、单次点击成本、千次展示成本和单次转化成本；零分母返回 `null`。
+- 返回请求天数、实际日级行数和完整覆盖状态，避免将缺失日期误认为零。
 - 对非法输入、跨 Workspace、无数据、口径冲突、非本机 Host 和关闭 fixture 模式安全
   失败。
 
@@ -48,6 +49,14 @@ GET /offline/v1/workspaces/{workspace_id}/ad-accounts/{ad_account_id}/summary
 `conversion_event_ref`，不得把全部点击误称为链接点击，也不得在转化事件未知时猜测
 CPA。币种、时区、点击口径、转化事件、归因哈希或 API 版本不唯一时返回
 `INCOMPATIBLE_METRIC_CONTEXT`，不得聚合。
+
+周期比较和诊断是后续独立候选切片，见
+[离线周期对比与诊断](offline-period-comparison-and-diagnostics.md)。
+广告对象父级读取和 Web 导航是另一独立候选切片，见
+[离线广告对象层级](offline-ad-object-hierarchy.md)；它不扩大本页的账户级指标范围。
+负责人后续单独授权的 fixture 对象指标和范围绑定见
+[离线对象级分析](offline-object-level-analysis.md)，账户列表中的行数仍只表示账户级
+日粒度记录。
 
 离线派生比例只为 fixture 验证保留六位小数；金额继续以账户币种的最小单位表达。该
 舍入规则不是已接受的产品显示或财务精度决定。

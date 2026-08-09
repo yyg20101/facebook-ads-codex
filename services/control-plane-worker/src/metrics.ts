@@ -7,6 +7,7 @@ export interface MetricTotals {
 
 export interface DerivedMetrics {
   clickThroughRate: number | null;
+  conversionRate: number | null;
   costPerClickMinorUnits: number | null;
   costPerThousandImpressionsMinorUnits: number | null;
   costPerConversionMinorUnits: number | null;
@@ -27,6 +28,7 @@ function scaledRatio(
 export function deriveMetrics(totals: MetricTotals): DerivedMetrics {
   return {
     clickThroughRate: scaledRatio(totals.clicks, totals.impressions),
+    conversionRate: scaledRatio(totals.conversions, totals.clicks),
     costPerClickMinorUnits: scaledRatio(
       totals.spendMinorUnits,
       totals.clicks

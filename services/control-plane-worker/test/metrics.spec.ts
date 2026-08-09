@@ -13,6 +13,7 @@ describe("offline metric derivation", () => {
       })
     ).toEqual({
       clickThroughRate: 0.022519,
+      conversionRate: 0.026316,
       costPerClickMinorUnits: 54.84375,
       costPerThousandImpressionsMinorUnits: 1235,
       costPerConversionMinorUnits: 2084.0625
@@ -29,6 +30,7 @@ describe("offline metric derivation", () => {
       })
     ).toEqual({
       clickThroughRate: null,
+      conversionRate: null,
       costPerClickMinorUnits: null,
       costPerThousandImpressionsMinorUnits: null,
       costPerConversionMinorUnits: null

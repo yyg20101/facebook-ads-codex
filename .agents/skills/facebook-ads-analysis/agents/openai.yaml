@@ -1,0 +1,6 @@
+interface:
+  display_name: "Facebook Ads Analysis"
+  short_description: "验证 schema v2 fixture 证据并生成分层只读广告分析草稿"
+  default_prompt: "Use $facebook-ads-analysis to validate this schema v2 fixture context and produce a read-only FACT / INFERENCE / UNKNOWN analysis draft."
+policy:
+  allow_implicit_invocation: false

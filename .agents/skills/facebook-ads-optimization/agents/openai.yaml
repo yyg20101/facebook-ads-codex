@@ -1,0 +1,6 @@
+interface:
+  display_name: "Facebook Ads Optimization"
+  short_description: "校验离线测试证据并生成不可执行的优化诊断与复盘草稿"
+  default_prompt: "Use $facebook-ads-optimization to review this offline fixture test and draft evidence-linked, non-executable next steps."
+policy:
+  allow_implicit_invocation: false

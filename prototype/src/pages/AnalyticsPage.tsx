@@ -18,6 +18,7 @@ import {
 } from "lucide-react";
 import { useState } from "react";
 import { useNavigate } from "../router";
+import { OfflineComparisonPanel } from "../components/analytics/OfflineComparisonPanel";
 import { TrendChart } from "../components/charts/TrendChart";
 import { Button } from "../components/ui/Button";
 import { Dialog } from "../components/ui/Dialog";
@@ -94,6 +95,12 @@ export function AnalyticsPage() {
         }
         title="数据分析"
       />
+
+      <OfflineComparisonPanel />
+
+      <div className="analytics-static-divider" role="separator">
+        <span>以下为 Product Discovery 静态流程演示，不是 Worker 返回结果</span>
+      </div>
 
       <section className="analytics-filterbar" aria-label="分析范围">
         <label className="compact-select compact-select--wide">

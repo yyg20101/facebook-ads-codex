@@ -18,6 +18,13 @@ export default defineConfig({
   },
   server: {
     host: "127.0.0.1",
+    proxy: {
+      "/offline-api": {
+        target: "http://127.0.0.1:8791",
+        changeOrigin: true,
+        rewrite: (path) => path.replace(/^\/offline-api/, "/offline"),
+      },
+    },
   },
   test: {
     environment: "jsdom",

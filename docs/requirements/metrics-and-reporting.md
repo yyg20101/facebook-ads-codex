@@ -3,7 +3,7 @@ doc_id: REQ-METRICS
 type: requirements
 status: DRAFT
 owner: project_owner
-last_reviewed: 2026-07-30
+last_reviewed: 2026-08-08
 ---
 
 # 指标与报告需求
@@ -23,6 +23,7 @@ last_reviewed: 2026-07-30
 | `cpc_link` | `spend / link_clicks` |
 | `cpm` | `spend / impressions * 1000` |
 | `conversions` | 当前分析广告上下文所配置转化事件的归因数量 |
+| `conversion_rate` | `conversions /` 与当前点击口径一致的点击数 |
 | `conversion_value` | 当前分析广告上下文所配置转化事件的归因价值 |
 | `cpa` | `spend / conversions` |
 | `roas` | `conversion_value / spend` |
@@ -91,6 +92,47 @@ Meta 当前状态。
 4. 从账户逐级定位到 Campaign、Ad Set、Ad，必要时才增加 breakdown。
 5. 将结论标记为 `CONFIRMED`、`LIKELY` 或 `HYPOTHESIS`。
 6. 输出目标、事实、建议、影响方向、风险、反证条件、写操作需求和证据。
+
+当前仅使用 fixture 验证方向变化和非因果诊断模式，候选契约见
+[离线周期对比与诊断](../technical/offline-period-comparison-and-diagnostics.md)。该实现不
+接受本页候选指标或 `FR-005`。本地 Web 的账户来源和结果绑定另见
+[离线账户上下文](../technical/offline-web-account-context.md)；固定对象范围的汇总一致性与
+显式 comparison 见[离线对象级分析](../technical/offline-object-level-analysis.md)；直接
+子对象的两期可加指标父子对账见
+[离线直接子对象拆解](../technical/offline-direct-child-breakdown.md)。这些切片不证明
+真实账户授权、真实对象数据正确或 `FR-005` 已接受，也不提供对象排名或因果解释。
+固定对象的 3–31 日日值和单指标展示见
+[离线对象日趋势](../technical/offline-object-daily-trend.md)：该候选切片固定使用花费、
+展示、点击、报告转化、CTR、CVR、CPC、CPM、CPA，派生值保留六位小数且零分母为
+`null`。这些指标只用于 fixture 契约验证，默认花费视图不是主 KPI，页面不解释趋势。
+直接子级的同期展示见
+[离线直接子对象日趋势](../technical/offline-direct-child-daily-trend.md)：Campaign→Ad Set
+或 Ad Set→Ad 的每日日值按稳定 ID 并列，花费、展示、点击和报告转化逐日与父对象对账；
+派生指标不做加总，也不据此排名、判断赢家或解释原因。
+全账户 fixture 的分析前检查见
+[离线数据质量报告](../technical/offline-data-quality-report.md)：主体日粒度、连续覆盖、
+统一报告上下文、对象层级以及账户→Campaign→Ad Set→Ad 三层四项可加指标必须全部
+通过。该候选检查不使用业务效果阈值，也不接受 `FR-002`、`FR-003` 或 `FR-005`。
+本地 Web 的候选强制入口见
+[离线分析质量 Preflight](../technical/offline-analysis-quality-preflight.md)：只有账户、
+分析日期和对象被质量凭证覆盖时才请求指标，响应口径与快照还必须再次匹配。该内存凭证
+不是认证或真实账户授权，也不接受 `FR-004`、`FR-005` 或任何 NFR。
+当前可信 comparison 到 Codex 手动输入的候选交接见
+[离线 Codex 分析证据包](../technical/offline-codex-evidence-bundle.md)：只传递 fixture
+范围、新鲜度、事实、确定性模式、直接子对象输入和未知项，不生成分析结论、置信度或
+建议。该切片仍不接受 `FR-005` 或 `NFR-002`。
+对象与直接子对象日趋势的候选交接见
+[离线 Codex 趋势证据包](../technical/offline-codex-trend-evidence.md)：schema v2 传递完整
+固定 9 项日值和逐日父子对账，但不解释趋势、不使用当前图表指标推导主 KPI，也不排名
+或生成建议。
+当前 schema v2 到只读分析草稿的候选处理见
+[离线 Codex 分析 Skill](../technical/offline-codex-analysis-skill.md)：它先复核输入结构、
+公式和对账，再区分 `FACT`、有限非因果 `INFERENCE` 与 `UNKNOWN`；该切片不接受
+`FR-005` 或 `NFR-002`，也不生成优化动作。
+五种固定输入到最终草稿契约的候选回归见
+[离线 Codex 分析草稿评测](../technical/offline-codex-analysis-evals.md)：它逐项验证 evidence
+path 与原值、未知项、直接子对象覆盖和非因果安全边界，但不调用模型，不证明真实分析
+正确或接受任何需求。
 
 ## 候选报告上下文
 

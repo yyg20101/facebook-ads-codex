@@ -16,13 +16,22 @@
     "worker:test": "vitest run --config services/control-plane-worker/vitest.config.mts",
     "worker:check": "npm run worker:types:check && npm run worker:typecheck && npm run worker:test",
     "worker:dev": "wrangler dev --local --config services/control-plane-worker/wrangler.jsonc",
+    "worker:dev:web": "wrangler dev --local --config services/control-plane-worker/wrangler.jsonc --ip 127.0.0.1 --port 8791",
     "worker:db:migrate:local": "wrangler d1 migrations apply DB --local --config services/control-plane-worker/wrangler.jsonc",
     "worker:db:seed:local": "wrangler d1 execute DB --local --file services/control-plane-worker/fixtures/0001_seed.sql --config services/control-plane-worker/wrangler.jsonc",
     "prototype:dev": "vite --config prototype/vite.config.ts",
     "prototype:build": "tsc -p prototype/tsconfig.json --noEmit && vite build --config prototype/vite.config.ts",
     "prototype:test": "vitest run --config prototype/vite.config.ts",
     "prototype:check": "npm run prototype:test && npm run prototype:build",
-    "check": "npm run docs:check && npm run p0:test && npm run worker:check && npm run prototype:check"
+    "skill:eval": "node --check .agents/skills/facebook-ads-analysis/scripts/evaluate-draft.mjs && node --check evals/facebook-ads-workflow-skills/evaluate-drafts.mjs && vitest run tests/facebook-ads-analysis-evals.test.mjs tests/facebook-ads-workflow-skill-evals.test.mjs",
+    "skill:workflow:eval": "node --check evals/facebook-ads-workflow-skills/evaluate-drafts.mjs && vitest run tests/facebook-ads-workflow-skill-evals.test.mjs",
+    "skill:workflow:check": "node --check .agents/skills/facebook-ads-creative/scripts/validate-context.mjs && node --check .agents/skills/facebook-ads-campaign-builder/scripts/validate-context.mjs && node --check .agents/skills/facebook-ads-daily-brief/scripts/validate-context.mjs && node --check .agents/skills/facebook-ads-optimization/scripts/validate-context.mjs && node --check .agents/skills/facebook-ads-change-management/scripts/validate-context.mjs && node --check evals/facebook-ads-workflow-skills/fixture-contexts.mjs && node --check evals/facebook-ads-workflow-skills/golden-drafts.mjs && node --check evals/facebook-ads-workflow-skills/evaluate-drafts.mjs && vitest run tests/facebook-ads-workflow-skills.test.mjs tests/facebook-ads-workflow-skill-evals.test.mjs",
+    "skill:forward-test:list": "node scripts/prepare-facebook-ads-analysis-forward-test.mjs --list",
+    "skill:forward-test:prepare": "node scripts/prepare-facebook-ads-analysis-forward-test.mjs",
+    "skill:forward-test:score": "node scripts/score-facebook-ads-analysis-forward-test.mjs",
+    "skill:forward-test:check": "node --check scripts/prepare-facebook-ads-analysis-forward-test.mjs && node --check scripts/score-facebook-ads-analysis-forward-test.mjs && vitest run tests/facebook-ads-analysis-forward-test.test.mjs",
+    "skill:check": "node --check .agents/skills/facebook-ads-analysis/scripts/validate-context.mjs && node --check .agents/skills/facebook-ads-analysis/scripts/evaluate-draft.mjs && node --check .agents/skills/facebook-ads-creative/scripts/validate-context.mjs && node --check .agents/skills/facebook-ads-campaign-builder/scripts/validate-context.mjs && node --check .agents/skills/facebook-ads-daily-brief/scripts/validate-context.mjs && node --check .agents/skills/facebook-ads-optimization/scripts/validate-context.mjs && node --check .agents/skills/facebook-ads-change-management/scripts/validate-context.mjs && node --check evals/facebook-ads-workflow-skills/fixture-contexts.mjs && node --check evals/facebook-ads-workflow-skills/golden-drafts.mjs && node --check evals/facebook-ads-workflow-skills/evaluate-drafts.mjs && node --check scripts/prepare-facebook-ads-analysis-forward-test.mjs && node --check scripts/score-facebook-ads-analysis-forward-test.mjs && vitest run tests/facebook-ads-analysis-skill.test.mjs tests/facebook-ads-analysis-evals.test.mjs tests/facebook-ads-analysis-forward-test.test.mjs tests/facebook-ads-workflow-skills.test.mjs tests/facebook-ads-workflow-skill-evals.test.mjs",
+    "check": "npm run docs:check && npm run skill:check && npm run p0:test && npm run worker:check && npm run prototype:check"
   },
   "engines": {
     "node": ">=20.18.1"

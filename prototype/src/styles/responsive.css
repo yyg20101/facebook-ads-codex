@@ -28,6 +28,316 @@
   }
 }
 
+@media (max-width: 1100px) {
+  .offline-account-context {
+    grid-template-columns: minmax(0, 1fr) auto;
+  }
+
+  .offline-account-context dl {
+    grid-column: 1 / -1;
+    grid-row: 2;
+  }
+
+  .offline-object-hierarchy__layout {
+    grid-template-columns: minmax(0, 1.15fr) minmax(210px, 0.85fr);
+  }
+
+  .offline-comparison__form fieldset {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  }
+
+  .offline-comparison__actions {
+    grid-column: 1 / -1;
+    justify-self: end;
+  }
+
+  .offline-comparison__date-group {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .offline-comparison__date-group > strong {
+    grid-column: 1 / -1;
+  }
+
+  .offline-comparison__context {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .offline-comparison__context > div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .offline-comparison__context > div:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .offline-comparison__metrics {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .offline-object-trend__controls {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .offline-object-trend__controls > .button {
+    justify-self: start;
+  }
+
+  .offline-data-quality__checks {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 650px) {
+  .analytics-page {
+    max-width: 100%;
+    overflow-x: clip;
+  }
+
+  .offline-comparison__header {
+    flex-direction: column;
+    gap: 10px;
+    padding: 14px;
+  }
+
+  .offline-comparison__header h2 {
+    font-size: 18px;
+  }
+
+  .offline-comparison__trust {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 9px 14px;
+  }
+
+  .offline-comparison__trust span {
+    justify-content: center;
+    padding: 0 6px;
+    text-align: center;
+  }
+
+  .offline-comparison__account-step {
+    padding: 12px 14px;
+  }
+
+  .offline-object-hierarchy {
+    padding: 12px 14px;
+  }
+
+  .offline-comparison__account-step > header,
+  .offline-object-hierarchy > header {
+    align-items: stretch;
+    flex-direction: column;
+    gap: 9px;
+  }
+
+  .offline-comparison__account-step > header > .button,
+  .offline-object-hierarchy > header > .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .offline-account-context {
+    grid-template-columns: 1fr;
+    align-items: stretch;
+  }
+
+  .offline-account-context dl {
+    grid-column: auto;
+    grid-row: auto;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .offline-account-context dl > div:nth-child(2) {
+    border-right: 0;
+  }
+
+  .offline-account-context dl > div:nth-child(-n + 2) {
+    border-bottom: 1px solid var(--border);
+  }
+
+  .offline-account-context > .status {
+    justify-self: start;
+  }
+
+  .offline-object-hierarchy__summary {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .offline-object-hierarchy__layout {
+    grid-template-columns: 1fr;
+  }
+
+  .offline-object-hierarchy__layout nav {
+    max-height: 330px;
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .offline-object-tree ul {
+    margin-left: 10px;
+    padding-left: 7px;
+  }
+
+  .offline-object-detail {
+    padding: 12px;
+  }
+
+  .offline-comparison__form {
+    padding: 12px 14px;
+  }
+
+  .offline-comparison__form fieldset {
+    display: flex;
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .offline-comparison__date-group {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .offline-comparison__period-arrow {
+    align-self: center;
+    margin: -2px 0;
+    transform: rotate(90deg);
+  }
+
+  .offline-comparison__actions {
+    display: grid;
+    width: 100%;
+    grid-template-columns: 1fr;
+  }
+
+  .offline-comparison__actions > .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .offline-comparison__empty,
+  .offline-comparison__disabled {
+    min-height: 82px;
+    padding: 14px;
+  }
+
+  .offline-comparison__error {
+    margin: 10px 14px 14px;
+  }
+
+  .offline-comparison__result {
+    padding: 13px 14px 16px;
+  }
+
+  .offline-comparison__context {
+    grid-template-columns: 1fr;
+  }
+
+  .offline-comparison__context > div,
+  .offline-comparison__context > div:nth-child(2) {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .offline-comparison__context > div:last-child {
+    border-bottom: 0;
+  }
+
+  .offline-comparison__metrics {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .offline-diagnostic-list {
+    grid-template-columns: 1fr;
+  }
+
+  .offline-object-trend {
+    padding: 12px 14px 14px;
+  }
+
+  .offline-object-trend__header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .offline-object-trend__controls {
+    grid-template-columns: 1fr;
+  }
+
+  .offline-object-trend__controls > .button {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .offline-object-trend__context {
+    grid-template-columns: 1fr;
+  }
+
+  .offline-object-trend__context > div,
+  .offline-object-trend__context > div:nth-child(3n),
+  .offline-object-trend__context > div:nth-last-child(-n + 3) {
+    border-right: 0;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .offline-object-trend__context > div:last-child {
+    border-bottom: 0;
+  }
+
+  .offline-object-trend__chart-heading {
+    flex-direction: column;
+  }
+
+  .offline-data-quality__checks-heading {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .offline-data-quality__checks li {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
+
+  .offline-data-quality__checks li > span {
+    grid-column: 2;
+  }
+
+  .offline-codex-evidence {
+    padding: 12px 14px 14px;
+  }
+
+  .offline-codex-evidence > header {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .offline-codex-evidence > header > .status {
+    align-self: flex-start;
+  }
+
+  .offline-codex-evidence__facts {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .offline-codex-evidence__facts span {
+    justify-content: center;
+    text-align: center;
+  }
+
+  .offline-codex-evidence__preview textarea {
+    min-height: 230px;
+    font-size: 7.5px;
+  }
+
+  .offline-object-trend__chart svg {
+    min-height: 150px;
+  }
+
+  .analytics-static-divider {
+    text-align: center;
+  }
+}
+
 @media (max-width: 1260px) {
   .context-bar__secondary .context-item:first-child {
     display: none;
